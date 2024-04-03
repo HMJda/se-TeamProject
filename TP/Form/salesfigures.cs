@@ -7,23 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Oracle.ManagedDataAccess;
-using Oracle.ManagedDataAccess.Client;
-using System.IO;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace TP
 {
-
-    public partial class sale : Form
+    public partial class salesfigures : Form
     {
-        public sale()
+        public salesfigures()
         {
             InitializeComponent();
+            DateTime today = DateTime.Today;
+            comboBox1.SelectedIndex = today.Month-1;
         }
 
-        private void sale_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            
-        }
     }
 }

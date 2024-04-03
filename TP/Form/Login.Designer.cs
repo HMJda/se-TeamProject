@@ -43,7 +43,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "LOGIN";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            //this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // checkBox1
             // 
@@ -84,8 +84,8 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Login";
             this.Text = "Login";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Login_FormClosing);
-            this.Load += new System.EventHandler(this.Login_Load);
+            //this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Login_FormClosing);
+            //this.Load += new System.EventHandler(this.Login_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

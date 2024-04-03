@@ -14,6 +14,7 @@ namespace TP
 {
     public partial class Login : Form
     {
+        
         Main main;
         private string DB_Server_Info = "Data Source = localhost;" +
            "User ID = system; Password = 1234;";
@@ -151,5 +152,6 @@ namespace TP
             }
             
         }
+        
     }
 }

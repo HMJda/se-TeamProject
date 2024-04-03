@@ -7,23 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Oracle.ManagedDataAccess;
-using Oracle.ManagedDataAccess.Client;
-using System.IO;
 
 namespace TP
 {
-
-    public partial class sale : Form
+    public partial class productinformation : Form
     {
-        public sale()
+        public productinformation()
         {
             InitializeComponent();
-        }
-
-        private void sale_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            
         }
     }
 }
