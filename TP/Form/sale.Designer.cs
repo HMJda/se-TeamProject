@@ -102,6 +102,7 @@
             this.button5.TabIndex = 6;
             this.button5.Text = "신용카드";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.creditCard_Click);
             // 
             // button6
             // 
@@ -111,6 +112,7 @@
             this.button6.TabIndex = 7;
             this.button6.Text = "현금";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.cash_Click);
             // 
             // button7
             // 
@@ -120,6 +122,7 @@
             this.button7.TabIndex = 8;
             this.button7.Text = "결제선택";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this._Click);
             // 
             // button8
             // 
