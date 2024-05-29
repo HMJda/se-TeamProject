@@ -21,7 +21,24 @@ namespace TP
             InitializeComponent();
         }
 
+        private void creditCard_Click(object sender, EventArgs e)
+        {
 
+        }
 
+        private void button6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cash_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chupachups_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
