@@ -36,7 +36,7 @@ namespace TP
 
         }
 
-        private void _Click(object sender, EventArgs e)
+        private void chupachups_Click(object sender, EventArgs e)
         {
 
         }

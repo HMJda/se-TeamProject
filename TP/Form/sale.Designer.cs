@@ -122,7 +122,6 @@
             this.button7.TabIndex = 8;
             this.button7.Text = "결제선택";
             this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this._Click);
             // 
             // button8
             // 
@@ -142,6 +141,7 @@
             this.button10.TabIndex = 11;
             this.button10.Text = "츄파츕스 12g\r\n250\r\n";
             this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.chupachups_Click);
             // 
             // button11
             // 
