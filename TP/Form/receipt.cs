@@ -35,5 +35,10 @@ namespace TP
         {
             MessageBox.Show("영수증을 출력하시겠습니까?", "확인", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
         }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
