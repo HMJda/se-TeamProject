@@ -4,21 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using TP.Entitiy;
 
 namespace TP
 {
     public class StockController
     {
-        private StockEntity stockEntity;
+        private DBEntity dbEntity;
 
         public StockController()
         {
-            stockEntity = new StockEntity();
+            dbEntity = new DBEntity();
         }
 
         public DataTable GetStocks()
         {
-            return stockEntity.GetStocks();
+            return dbEntity.GetStocks("select * from 재고");
         }
     }
 }

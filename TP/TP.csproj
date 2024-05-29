@@ -154,7 +154,6 @@
       <DependentUpon>salesfigures.cs</DependentUpon>
     </Compile>
     <Compile Include="control\StockController.cs" />
-    <Compile Include="Entitiy\StockEntity.cs" />
     <Compile Include="Entitiy\UserEntity.cs" />
     <EmbeddedResource Include="Form\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
