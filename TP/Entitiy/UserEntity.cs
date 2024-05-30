@@ -7,11 +7,19 @@ namespace TP
 {
     public class UserEntity
     {
-        private string DB_Server_Info = "Data Source = localhost;" +
-           "User ID = system; Password = 1234;";
+        private string DB_Server_Info = "Data Source = 192.168.0.149;" +
+           "User ID = DEU; Password = 1234;";
 
         public OracleDataReader GetUsers()
         {
+            /*CREATE TABLE 회원 (
+               ID VARCHAR2(12) PRIMARY KEY,
+               PW VARCHAR2(12) NOT NULL,
+               Name VARCHAR2(17),
+               Address VARCHAR2(50),
+               Phone VARCHAR2(13),
+               Position VARCHAR2(13)
+            );*/
             string sqltxt = "select * from 회원";
             OracleConnection conn = new OracleConnection(DB_Server_Info); //db 연결
             conn.Open();
@@ -25,8 +33,8 @@ namespace TP
             OracleDataReader reader = GetUsers();
             while (reader.Read())
             {
-                string db_id = reader["회원아이디"].ToString().Trim(); //db상 아이디 비번뒤 공백 삭제
-                string db_pw = reader["회원비번"].ToString().Trim();
+                string db_id = reader["ID"].ToString().Trim(); //db상 아이디 비번뒤 공백 삭제
+                string db_pw = reader["PW"].ToString().Trim();
 
                 if (db_id == id && db_pw == pw)
                 {
@@ -42,21 +50,21 @@ namespace TP
             OracleDataReader reader = GetUsers();
             while (reader.Read())
             {
-                string db_id = reader["회원아이디"].ToString().Trim();
+                string db_id = reader["ID"].ToString().Trim();
                 if (db_id == id)
                 {
                     // 필드 데이터 읽기
-                    string name = reader["회원이름"] as string;
-                    string duty = reader["직책"] as string;
-                    string adress = reader["편의점주소"] as string;
+                    string name = reader["Name"] as string;
+                    string duty = reader["Position"] as string;
+                    string adress = reader["Address"] as string;
 
                     // 사용자 정보를 딕셔너리에 저장
                     Dictionary<string, string> userInfo = new Dictionary<string, string>
                 {
-                    { "회원아이디", id },
-                    { "회원이름", name },
-                    { "직책", duty },
-                    { "편의점주소", adress }
+                    { "ID", id },
+                    { "Name", name },
+                    { "Position", duty },
+                    { "Address", adress }
                 };
 
                     reader.Close();
