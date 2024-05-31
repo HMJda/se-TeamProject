@@ -10,7 +10,7 @@ namespace TP
     public partial class Return : Form
     {
         private string DB_Server_Info = "Data Source = localhost;" +
-           "User ID = system; Password = 1234;";
+           "User ID = DEU; Password = 1234;";
         private string categori = null;
         private string label = "제품명";
         private int index = 1; //datagridview 컬럼 위치가 바뀌어서 추가 발주량
@@ -41,7 +41,7 @@ namespace TP
                 dataGridView1.Columns.Clear();
                 if (!string.IsNullOrEmpty(categori)) // Check if categori is not empty or null
                 {
-                    dt.DefaultView.RowFilter = $"카테고리 ='{categori}'";
+                    dt.DefaultView.RowFilter = $"categoty ='{categori}'";
                 }
                 //dt.DefaultView.RowFilter = $"카테고리 ='{categori}'";
                 dataGridView1.AllowUserToAddRows = false; //빈레코드 표시x

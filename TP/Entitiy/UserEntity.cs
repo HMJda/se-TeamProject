@@ -7,7 +7,7 @@ namespace TP
 {
     public class UserEntity
     {
-        private string DB_Server_Info = "Data Source = 192.168.0.149;" +
+        private string DB_Server_Info = "Data Source = localhost;" +
            "User ID = DEU; Password = 1234;";
 
         public OracleDataReader GetUsers()

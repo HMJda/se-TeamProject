@@ -10,7 +10,8 @@ namespace TP.Entitiy
 {
     internal class DBEntity
     {
-        private string DB_Server_Info = "Data Source = 192.168.0.149; User ID = DEU; Password = 1234;"; //18c 버전 부터 localhost 대신 ip를 써야 동작함
+        private string DB_Server_Info = "Data Source = localhost; " +
+            "User ID = DEU; Password = 1234;"; 
 
         public DataTable GetStocks(string sqltxt)
         {

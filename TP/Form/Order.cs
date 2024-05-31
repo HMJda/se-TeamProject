@@ -27,7 +27,7 @@ namespace TP
 
         }
         private string DB_Server_Info = "Data Source = localhost;" +
-           "User ID = system; Password = 1234;";
+           "User ID = DEU; Password = 1234;";
         private string categori = null;
         private string label = "제품명";
         private int index = 1; //datagridview 컬럼 위치가 바뀌어서 추가 , 발주량
@@ -58,7 +58,7 @@ namespace TP
                 dataGridView1.Columns.Clear();
                 if (!string.IsNullOrEmpty(categori)) // Check if categori is not empty or null
                 {
-                    dt.DefaultView.RowFilter = $"카테고리 ='{categori}'";
+                    dt.DefaultView.RowFilter = $"categori ='{categori}'";
                 }
                 //dt.DefaultView.RowFilter = $"카테고리 ='{categori}'";
                 dataGridView1.AllowUserToAddRows = false; //빈레코드 표시x
@@ -133,10 +133,10 @@ namespace TP
                         string user_address = "";
                         while (reader.Read())
                         {
-                            string db_id = reader["회원아이디"].ToString().Trim();
+                            string db_id = reader["ID"].ToString().Trim();
                             if (db_id == Properties.Settings.Default.userID.ToString())
                             {
-                                user_address = reader["편의점주소"].ToString().Trim();
+                                user_address = reader["adress"].ToString().Trim();
                                 break;
                             }
                         }
