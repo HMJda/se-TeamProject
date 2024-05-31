@@ -61,10 +61,10 @@ namespace TP
                     // 사용자 정보를 딕셔너리에 저장
                     Dictionary<string, string> userInfo = new Dictionary<string, string>
                 {
-                    { "ID", id },
-                    { "Name", name },
-                    { "Position", duty },
-                    { "Address", adress }
+                    { "회원아이디", id },
+                    { "회원이름", name },
+                    { "직책", duty },
+                    { "편의점주소", adress }
                 };
 
                     reader.Close();

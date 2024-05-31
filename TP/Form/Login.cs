@@ -71,7 +71,7 @@ namespace TP
         {
             id = textBox1.Text;
             pw = textBox2.Text;
-
+            
             if (id == IdPlaceholder || pw == PwPlaceholder)
             {
                 MessageBox.Show("ID 또는 Password를 입력하세요.");
@@ -80,6 +80,16 @@ namespace TP
             {
                 if (loginController.checkUser(id, pw))
                 {
+                    if (checkBox1.Checked == true) //아이디 저장할지 여부 
+                    {
+                        Properties.Settings.Default.LoginIDSave = id; //저장시 세팅값에 저장됨
+                        Properties.Settings.Default.Save();
+                    }
+                    else
+                    {
+                        Properties.Settings.Default.LoginIDSave = IdPlaceholder;
+                        Properties.Settings.Default.Save();
+                    }
                     MessageBox.Show("로그인에 성공했습니다.", "로그인 성공");
                     this.Close();
                 }
