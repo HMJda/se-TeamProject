@@ -13,7 +13,7 @@ namespace TP.Entitiy
         private string DB_Server_Info = "Data Source = localhost; " +
             "User ID = DEU; Password = 1234;"; 
 
-        public DataTable GetStocks(string sqltxt)
+        public DataTable GetDB(string sqltxt)
         {
             OracleConnection conn = new OracleConnection(DB_Server_Info);
             conn.Open();
@@ -27,7 +27,7 @@ namespace TP.Entitiy
             conn.Close();
             return dt;
         }
-        public void SetStocks(string sqltxt)
+        public void SetDB(string sqltxt)
         {
             
         }

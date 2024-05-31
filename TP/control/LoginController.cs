@@ -12,7 +12,6 @@ namespace TP
             UserEntity userEntity = new UserEntity();
             if (userEntity.IsUserExists(id, pw))
             {
-                
                 loginsucces = true;      
             }
             else

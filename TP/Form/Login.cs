@@ -18,7 +18,7 @@ namespace TP
         private const string PwPlaceholder = "비밀번호";
         private string id;
         private string pw;
-        readonly LoginController loginController;
+        LoginController loginController;
 
         public Login(Main main)
         {
@@ -69,6 +69,7 @@ namespace TP
 
         private void Login_Click(object sender, EventArgs e)
         {
+           
             id = textBox1.Text;
             pw = textBox2.Text;
             

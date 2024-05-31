@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data;
 using TP.Entitiy;
 
-namespace TP
+namespace TP.control
 {
-    public class StockController
+    internal class salesfiguresController
     {
         private DBEntity dbEntity;
 
-        public StockController()
+        public salesfiguresController()
         {
             dbEntity = new DBEntity();
         }
 
-        public DataTable GetDB()
+        public DataTable getMargin()
         {
             return dbEntity.GetDB("select * from 재고");
         }

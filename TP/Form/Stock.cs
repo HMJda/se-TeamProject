@@ -32,7 +32,7 @@ namespace TP
 
         private void dataview()
         {
-            DataTable dt = stockController.GetStocks();
+            DataTable dt = stockController.GetDB();
             if (!string.IsNullOrEmpty(categori)) // Check if categori is not empty or null
             {
                 dt.DefaultView.RowFilter = $"카테고리 ='{categori}'";
