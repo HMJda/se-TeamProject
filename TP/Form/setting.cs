@@ -39,8 +39,8 @@ namespace TP
 
             if (userInfo != null)
             {
-                MessageBox.Show("회원 아이디 : " + userInfo["회원아이디"] +
-                 "\n회원 이름 : " + userInfo["회원이름"] +
+                MessageBox.Show("회원 아이디 : " + userInfo["아이디"] +
+                 "\n회원 이름 : " + userInfo["이름"] +
                  "\n회원 직책 : " + userInfo["직책"] +
                  "\n편의점주소 : " + userInfo["편의점주소"], "회원정보"); // 메시지박스에 출력
             }

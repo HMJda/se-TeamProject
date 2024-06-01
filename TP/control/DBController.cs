@@ -29,7 +29,33 @@ namespace TP.control
         }
         public void SetDB(string sqltxt)
         {
-            
+            using (OracleConnection conn = new OracleConnection(DB_Server_Info))
+            {
+                conn.Open();
+                using (OracleCommand cmd = new OracleCommand(sqltxt, conn))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public void ExecuteNonQuery(string sqltxt, OracleParameter[] parameters)
+        {
+            using (OracleConnection conn = new OracleConnection(DB_Server_Info))
+            {
+                conn.Open();
+                using (OracleCommand cmd = new OracleCommand(sqltxt, conn))
+                {
+                    cmd.BindByName = true;
+                    if (parameters != null)
+                    {
+                        foreach (var parameter in parameters)
+                        {
+                            cmd.Parameters.Add(parameter);
+                        }
+                    }
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
     }
 }

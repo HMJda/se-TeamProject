@@ -83,9 +83,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="control\OrderController.cs" />
+    <Compile Include="control\ProductInfoController.cs" />
     <Compile Include="control\salesfiguresController.cs" />
     <Compile Include="control\DBController.cs" />
-    <Compile Include="Entitiy\StockEntitiy.cs" />
+    <Compile Include="Entitiy\OrderEntity.cs" />
+    <Compile Include="Entitiy\ProductInfoEntity.cs" />
+    <Compile Include="Entitiy\StockEntity.cs" />
     <Compile Include="Form\Login.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -43,8 +43,8 @@ namespace TP
             userReader = ReadUsers();
             while (userReader.Read())
             {
-                string db_id = userReader["ID"].ToString().Trim(); //db상 아이디 비번뒤 공백 삭제
-                string db_pw = userReader["PW"].ToString().Trim();
+                string db_id = userReader["아이디"].ToString().Trim(); //db상 아이디 비번뒤 공백 삭제
+                string db_pw = userReader["비번"].ToString().Trim();
 
                 if (db_id == id && db_pw == pw)
                 {
@@ -60,19 +60,19 @@ namespace TP
             userReader = ReadUsers();
             while (userReader.Read())
             {
-                string db_id = userReader["ID"].ToString().Trim();
+                string db_id = userReader["아이디"].ToString().Trim();
                 if (db_id == id)
                 {
                     // 필드 데이터 읽기
-                    string name = userReader["Name"] as string;
-                    string duty = userReader["Position"] as string;
-                    string adress = userReader["Address"] as string;
+                    string name = userReader["이름"] as string;
+                    string duty = userReader["직책"] as string;
+                    string adress = userReader["편의점주소"] as string;
 
                     // 사용자 정보를 딕셔너리에 저장
                     userInfo = new Dictionary<string, string>
                 {
-                    { "회원아이디", id },
-                    { "회원이름", name },
+                    { "아이디", id },
+                    { "이름", name },
                     { "직책", duty },
                     { "편의점주소", adress }
                 };

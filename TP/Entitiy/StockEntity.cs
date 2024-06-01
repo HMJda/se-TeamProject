@@ -4,17 +4,19 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Oracle.ManagedDataAccess;
+using Oracle.ManagedDataAccess.Client;
 using TP.control;
 
 namespace TP.Entitiy
 {
-    internal class StockEntitiy
+    internal class StockEntity
     {
         private DBController dBcontroller;
         private DataTable stock;
         private string sqltxt = "select * from 재고";
 
-        public StockEntitiy()
+        public StockEntity()
         {
             dBcontroller = new DBController();
         }
@@ -24,10 +26,13 @@ namespace TP.Entitiy
             stock = dBcontroller.GetDB(sqltxt);
             return stock;
         }
-        public DataTable GetStock(string sqltxt)
+        public void SetStock(string sqltxt)
         {
-            stock = dBcontroller.GetDB(sqltxt);
-            return stock;
+            dBcontroller.SetDB(sqltxt);
+        }
+        public void SetStock(string sqltxt, OracleParameter[] parameters)
+        {
+            dBcontroller.ExecuteNonQuery(sqltxt,parameters);
         }
     }
 }

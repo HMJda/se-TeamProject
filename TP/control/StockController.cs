@@ -5,21 +5,31 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using TP.Entitiy;
+using Oracle.ManagedDataAccess;
+using Oracle.ManagedDataAccess.Client;
 
 namespace TP
 {
-    public class StockController
+    internal class StockController
     {
-        private StockEntitiy StockEntitiy;
+        private StockEntity StockEntitiy;
 
         public StockController()
         {
-            StockEntitiy = new StockEntitiy();
+            StockEntitiy = new StockEntity();
         }
 
         public DataTable GetStock()
         {
-            return StockEntitiy.GetStock("select * from 재고");
+            return StockEntitiy.GetStock();
+        }
+        public void SetStock(string sqltxt)
+        {
+            StockEntitiy.SetStock(sqltxt);
+        }
+        public void SetStock(string sqltxt, OracleParameter[] parameters)
+        {
+            StockEntitiy.SetStock(sqltxt,parameters);
         }
     }
 }

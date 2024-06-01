@@ -10,16 +10,16 @@ namespace TP.control
 {
     internal class salesfiguresController
     {
-        private DBController dbEntity;
+        private DBController dBController;
 
         public salesfiguresController()
         {
-            dbEntity = new DBController();
+            dBController = new DBController();
         }
 
         public DataTable getMargin()
         {
-            return dbEntity.GetDB("select * from 재고");
+            return dBController.GetDB("select * from 재고");
         }
     }
 }
