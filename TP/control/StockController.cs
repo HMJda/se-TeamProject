@@ -10,16 +10,16 @@ namespace TP
 {
     public class StockController
     {
-        private DBEntity dbEntity;
+        private StockEntitiy StockEntitiy;
 
         public StockController()
         {
-            dbEntity = new DBEntity();
+            StockEntitiy = new StockEntitiy();
         }
 
-        public DataTable GetDB()
+        public DataTable GetStock()
         {
-            return dbEntity.GetDB("select * from 재고");
+            return StockEntitiy.GetStock("select * from 재고");
         }
     }
 }

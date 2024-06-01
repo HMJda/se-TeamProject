@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Oracle.ManagedDataAccess.Client;
 
-namespace TP.Entitiy
+namespace TP.control
 {
-    internal class DBEntity
+    internal class DBController
     {
         private string DB_Server_Info = "Data Source = localhost; " +
             "User ID = DEU; Password = 1234;"; 

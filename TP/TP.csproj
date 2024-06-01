@@ -84,7 +84,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="control\salesfiguresController.cs" />
-    <Compile Include="Entitiy\DBEntity.cs" />
+    <Compile Include="control\DBController.cs" />
+    <Compile Include="Entitiy\StockEntitiy.cs" />
     <Compile Include="Form\Login.cs">
       <SubType>Form</SubType>
     </Compile>

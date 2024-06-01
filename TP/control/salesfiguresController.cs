@@ -10,11 +10,11 @@ namespace TP.control
 {
     internal class salesfiguresController
     {
-        private DBEntity dbEntity;
+        private DBController dbEntity;
 
         public salesfiguresController()
         {
-            dbEntity = new DBEntity();
+            dbEntity = new DBController();
         }
 
         public DataTable getMargin()
