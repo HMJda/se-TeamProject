@@ -171,9 +171,10 @@ namespace TP
                                 "USING dual " +
                                 "ON (제품번호 = :제품번호) " +
                                 "WHEN NOT MATCHED THEN " +
-                                "INSERT (카테고리, 제품번호, 제조업체, 제품명, 재고량, 단가, 규격) " +
-                                "VALUES (:카테고리, :제품번호, :제조업체, :제품명, :재고량, :단가, :규격) " +
-                                "WHEN MATCHED THEN UPDATE SET 재고량 = 재고량 + :재고량";
+                                "INSERT (제품번호, 제품명, 재고량, 가격) " +
+                                "VALUES (:제품번호, :제품명, :재고량, :가격) " +
+                                "WHEN MATCHED THEN " +
+                                "UPDATE SET 재고량 = 재고량 + :재고량";
                         }
                         else
                         {
@@ -181,21 +182,18 @@ namespace TP
                                 "USING dual " +
                                 "ON (제품번호 = :제품번호) " +
                                 "WHEN NOT MATCHED THEN " +
-                                "INSERT (카테고리, 제품번호, 제조업체, 제품명, 재고량, 단가, 규격) " +
-                                "VALUES (:카테고리, :제품번호, :제조업체, :제품명, :재고량, :단가, :규격) " +
+                                "INSERT (제품번호, 제품명, 재고량, 가격) " +
+                                "VALUES (:제품번호, :제품명, :재고량, :가격) " +
                                 "WHEN MATCHED THEN " +
                                 "UPDATE SET 재고량 = :재고량";
                         }
 
                         OracleParameter[] stock =
                         {
-                            new OracleParameter("카테고리", dataGridView1.Rows[i].Cells["카테고리"].Value.ToString()),
                             new OracleParameter("제품번호", dataGridView1.Rows[i].Cells["제품번호"].Value.ToString()),
-                            new OracleParameter("제조업체", dataGridView1.Rows[i].Cells["제조업체"].Value.ToString()),
                             new OracleParameter("제품명", dataGridView1.Rows[i].Cells["제품명"].Value.ToString()),
                             new OracleParameter("재고량", Convert.ToInt32(dataGridView1.Rows[i].Cells["발주량"].Value)),
-                            new OracleParameter("단가", dataGridView1.Rows[i].Cells["단가"].Value),
-                            new OracleParameter("규격", dataGridView1.Rows[i].Cells["규격"].Value.ToString())
+                            new OracleParameter("가격",  Convert.ToInt32(dataGridView1.Rows[i].Cells["단가"].Value)*1.1),
                         };
 
                         stckcontroller.SetStock(sqltxt, stock);
@@ -300,10 +298,7 @@ namespace TP
             if(selectsusses == false)
             {
                 MessageBox.Show("검색 결과가 없습니다.");
-            }
-           
-                
-            
+            }       
         }
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
