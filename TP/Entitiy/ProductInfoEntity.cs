@@ -11,7 +11,7 @@ namespace TP.Entitiy
     internal class ProductInfoEntity
     {
         private DBController dBcontroller;
-        private DataTable product;
+        private DataTable productTable;
         private string sqltxt = "select * from 제품";
 
         public ProductInfoEntity()
@@ -21,13 +21,13 @@ namespace TP.Entitiy
 
         public DataTable GetProduct()
         {
-            product = dBcontroller.GetDB(sqltxt);
-            return product;
+            productTable = dBcontroller.GetDB(sqltxt);
+            return productTable;
         }
         public DataTable GetProduct(string sqltxt)
         {
-            product = dBcontroller.GetDB(sqltxt);
-            return product;
+            productTable = dBcontroller.GetDB(sqltxt);
+            return productTable;
         }
     }
 }

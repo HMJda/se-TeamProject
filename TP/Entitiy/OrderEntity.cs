@@ -13,10 +13,12 @@ namespace TP.Entity
     public class OrderEntity
     {
         private readonly DBController dbController = new DBController();
+        private DataTable orderTable;
 
         public DataTable GetOrders(string sqltxt)
         {
-            return dbController.GetDB(sqltxt);
+            orderTable = dbController.GetDB(sqltxt);
+            return orderTable;
         }
 
         public void SetOrder(string sqltxt)

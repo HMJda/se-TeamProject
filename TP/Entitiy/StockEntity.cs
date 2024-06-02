@@ -13,7 +13,7 @@ namespace TP.Entitiy
     internal class StockEntity
     {
         private DBController dBcontroller;
-        private DataTable stock;
+        private DataTable stockTable;
         private string sqltxt = "select * from 재고";
 
         public StockEntity()
@@ -23,8 +23,8 @@ namespace TP.Entitiy
 
         public DataTable GetStock()
         {
-            stock = dBcontroller.GetDB(sqltxt);
-            return stock;
+            stockTable = dBcontroller.GetDB(sqltxt);
+            return stockTable;
         }
         public void SetStock(string sqltxt)
         {

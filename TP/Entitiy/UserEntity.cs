@@ -16,15 +16,7 @@ namespace TP
         private DataTable userTable;
 
         public OracleDataReader ReadUsers() //읽기만 하는 용도 
-        {
-            /*CREATE TABLE 회원 (
-               ID VARCHAR2(12) PRIMARY KEY,
-               PW VARCHAR2(12) NOT NULL,
-               Name VARCHAR2(17),
-               Address VARCHAR2(50),
-               Phone VARCHAR2(13),
-               Position VARCHAR2(13)
-            );*/          
+        {   
             OracleConnection conn = new OracleConnection(DB_Server_Info); //db 연결
             conn.Open();
             OracleCommand cmd = new OracleCommand(sqltxt, conn);
