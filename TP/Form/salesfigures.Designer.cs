@@ -40,9 +40,9 @@
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.button1 = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.monthcomboBox = new System.Windows.Forms.ComboBox();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.yearcomboBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -166,12 +166,12 @@
             // 
             // comboBox1
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(163, 4);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(44, 20);
-            this.comboBox1.TabIndex = 7;
-            this.comboBox1.Visible = false;
+            this.monthcomboBox.FormattingEnabled = true;
+            this.monthcomboBox.Location = new System.Drawing.Point(163, 4);
+            this.monthcomboBox.Name = "comboBox1";
+            this.monthcomboBox.Size = new System.Drawing.Size(44, 20);
+            this.monthcomboBox.TabIndex = 7;
+            this.monthcomboBox.Visible = false;
             // 
             // radioButton3
             // 
@@ -186,12 +186,12 @@
             // 
             // comboBox2
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(71, 4);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(63, 20);
-            this.comboBox2.TabIndex = 9;
-            this.comboBox2.Visible = false;
+            this.yearcomboBox.FormattingEnabled = true;
+            this.yearcomboBox.Location = new System.Drawing.Point(71, 4);
+            this.yearcomboBox.Name = "comboBox2";
+            this.yearcomboBox.Size = new System.Drawing.Size(63, 20);
+            this.yearcomboBox.TabIndex = 9;
+            this.yearcomboBox.Visible = false;
             // 
             // label2
             // 
@@ -312,9 +312,9 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.yearcomboBox);
             this.Controls.Add(this.radioButton3);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.monthcomboBox);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.radioButton2);
             this.Controls.Add(this.radioButton1);
@@ -340,9 +340,9 @@
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox monthcomboBox;
         private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox yearcomboBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox1;
