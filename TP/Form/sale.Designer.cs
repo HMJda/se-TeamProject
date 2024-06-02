@@ -33,9 +33,7 @@
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
-            this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
@@ -43,6 +41,8 @@
             this.button13 = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
             this.textBox7 = new System.Windows.Forms.TextBox();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBox2
@@ -94,34 +94,15 @@
             this.textBox6.Text = "NO                        상품명                                                    " +
     "              수량                 단가             금액               할인  ";
             // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(792, 24);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(191, 65);
-            this.button5.TabIndex = 6;
-            this.button5.Text = "신용카드";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.creditCard_Click);
-            // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(792, 95);
+            this.button6.Location = new System.Drawing.Point(791, 24);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(191, 65);
             this.button6.TabIndex = 7;
-            this.button6.Text = "현금";
+            this.button6.Text = "결제";
             this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.cash_Click);
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(792, 166);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(191, 65);
-            this.button7.TabIndex = 8;
-            this.button7.Text = "결제선택";
-            this.button7.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.pay_Click);
             // 
             // button8
             // 
@@ -131,6 +112,7 @@
             this.button8.TabIndex = 9;
             this.button8.Text = "전체취소";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.allCancel_Click);
             // 
             // button10
             // 
@@ -151,6 +133,7 @@
             this.button11.TabIndex = 12;
             this.button11.Text = "종이컵낱개\r\n50\r\n";
             this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.paperCup_Click);
             // 
             // button12
             // 
@@ -160,6 +143,7 @@
             this.button12.TabIndex = 13;
             this.button12.Text = "컵얼음180g\r\n600";
             this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.cupOfIce_Click);
             // 
             // button13
             // 
@@ -169,6 +153,7 @@
             this.button13.TabIndex = 14;
             this.button13.Text = "봉투(소)\r\n50\r\n";
             this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.plasticBackSmall_Click);
             // 
             // button14
             // 
@@ -178,6 +163,7 @@
             this.button14.TabIndex = 15;
             this.button14.Text = "봉투(중)\r\n100";
             this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.plasticBackMedium_Click);
             // 
             // textBox7
             // 
@@ -189,10 +175,32 @@
             this.textBox7.TabIndex = 16;
             this.textBox7.Text = "                        합계";
             // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(801, 240);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(181, 61);
+            this.button4.TabIndex = 17;
+            this.button4.Text = "선택취소";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.selectionCancel_Click);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(55, 321);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(308, 49);
+            this.button7.TabIndex = 18;
+            this.button7.Text = "상품목록";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.productList_Click);
+            // 
             // sale
             // 
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1024, 451);
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.textBox7);
             this.Controls.Add(this.button14);
             this.Controls.Add(this.button13);
@@ -200,9 +208,7 @@
             this.Controls.Add(this.button11);
             this.Controls.Add(this.button10);
             this.Controls.Add(this.button8);
-            this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
             this.Controls.Add(this.textBox6);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.textBox4);
@@ -236,9 +242,7 @@
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button11;
@@ -246,5 +250,7 @@
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.Button button14;
         private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button7;
     }
 }
