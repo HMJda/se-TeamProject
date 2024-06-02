@@ -31,13 +31,12 @@ namespace TP
            "User ID = DEU; Password = 1234;";
         private string categori = null;
         private string label = "제품명";
-        private int index = 1; //datagridview 컬럼 위치가 바뀌어서 추가 , 발주량
-        private int pindex = 4;  //datagridview 컬럼 위치가 바뀌어서 추가 , 제품번호
         private bool saveSuccess = false; //저장 성공
         private bool selectsusses = false; //검색 성공 
         private StockController stckcontroller;
         private ProductInfoController productInfoController;
-        private OrderController orderController;
+        private OrderReturnController orderController;
+        private LoginController loginController;
         private string sqltxt = "select * from 제품";
         private DataTable dt;
         public Order()
@@ -45,7 +44,8 @@ namespace TP
             InitializeComponent();
             stckcontroller = new StockController();
             productInfoController = new ProductInfoController();
-            orderController = new OrderController();
+            orderController = new OrderReturnController();
+            loginController = new LoginController();
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList; //콤보 박스 읽기 전용
             comboBox1.Text = label;
             dataview();
@@ -117,21 +117,7 @@ namespace TP
                         {
                             orderController.SetOrder("DELETE 발주");
                         }
-                        string sqlctxt = "select * from 회원";
-                        OracleConnection conn = new OracleConnection(DB_Server_Info);
-                        conn.Open();
-                        OracleCommand cmd = new OracleCommand(sqlctxt, conn);
-                        OracleDataReader reader = cmd.ExecuteReader();
-                        string user_address = "";
-                        while (reader.Read())
-                        {
-                            string db_id = reader["아이디"].ToString().Trim();
-                            if (db_id == Properties.Settings.Default.userID.ToString())
-                            {
-                                user_address = reader["편의점주소"].ToString().Trim();
-                                break;
-                            }
-                        }
+                        string user_address = loginController.GetUserDetail(Properties.Settings.Default.userID.ToString(), "편의점주소");
 
                         /*//추가~
                         olist.Orderindex = Properties.Settings.Default.Orderindex.ToString();

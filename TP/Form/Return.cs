@@ -4,6 +4,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using TP.control;
 
 namespace TP
 {
@@ -13,13 +14,18 @@ namespace TP
            "User ID = DEU; Password = 1234;";
         private string categori = null;
         private string label = "제품명";
-        private int index = 1; //datagridview 컬럼 위치가 바뀌어서 추가 발주량
-        private int pindex = 4;  //datagridview 컬럼 위치가 바뀌어서 추가 제품번호
-        private int ss = 0; //저장 성공
-        private int selectsusses = 0; // 검색 성공
+        private bool saveSuccess = false; //저장 성공
+        private bool selectsusses = false; // 검색 성공
+        private StockController stckcontroller;
+        private OrderReturnController returnController;
+        private LoginController loginController ;
+        private DataTable dt;
         public Return()
         {
             InitializeComponent();
+            stckcontroller = new StockController();
+            returnController = new OrderReturnController();
+            loginController = new LoginController();
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList; //콤보 박스 읽기 전용
             comboBox1.Text = label;
             dataview();
@@ -28,20 +34,12 @@ namespace TP
         {
             try
             {
-                string sqltxt = "select * from 재고";
-                OracleConnection conn = new OracleConnection(DB_Server_Info);
-                conn.Open();
-                OracleDataAdapter adapt = new OracleDataAdapter();
-                adapt.SelectCommand = new OracleCommand(sqltxt, conn);
-                DataSet ds = new DataSet();
-                DataTable dt = new DataTable();
-                adapt.Fill(ds);
-                dt.Reset();
-                dt = ds.Tables[0];
+
                 dataGridView1.Columns.Clear();
+                dt = stckcontroller.GetStock();
                 if (!string.IsNullOrEmpty(categori)) // Check if categori is not empty or null
                 {
-                    dt.DefaultView.RowFilter = $"categoty ='{categori}'";
+                    dt.DefaultView.RowFilter = $"카테고리 ='{categori}'";
                 }
                 //dt.DefaultView.RowFilter = $"카테고리 ='{categori}'";
                 dataGridView1.AllowUserToAddRows = false; //빈레코드 표시x
@@ -58,7 +56,6 @@ namespace TP
                 //크기 조절부분 
                 dataGridView1.Columns[0].Width = 40;
 
-
                 //dataGridView1.ReadOnly = true; //전부 읽기 전용           
                 dataGridView1.Columns[1].ReadOnly = true;
                 dataGridView1.Columns[2].ReadOnly = true;
@@ -68,11 +65,8 @@ namespace TP
                 dataGridView1.Columns[6].ReadOnly = true;
                 dataGridView1.Columns[7].ReadOnly = true;
                 dataGridView1.Columns[8].ReadOnly = true;
-                dataGridView1.Columns[9].ReadOnly = true;
                 dataGridView1.Columns["반품량"].ReadOnly = false;
                 dataGridView1.Columns["비고"].ReadOnly = false;
-                
-                conn.Close();
             }
             catch (OracleException ex)
             {
@@ -84,7 +78,7 @@ namespace TP
         private void button2_Click(object sender, EventArgs e)
         {
             //검색부분
-            selectsusses = 0;
+            selectsusses = false;
             label = comboBox1.Text;
             find();
         }
@@ -99,28 +93,12 @@ namespace TP
                     {
                         if (Properties.Settings.Default.Returnindex == 0)
                         {
-                            string sqltxt = "DELETE 반품";
-                            OracleConnection con = new OracleConnection(DB_Server_Info);
-                            con.Open();
-                            OracleCommand cmdc = new OracleCommand(sqltxt, con);
-                            cmdc.ExecuteNonQuery();
+                            returnController.SetReturn("DELETE 반품");
                         }
 
-                        string sqlctxt = "select * from 회원";
                         OracleConnection conn = new OracleConnection(DB_Server_Info);
-                        conn.Open();
-                        OracleCommand cmd = new OracleCommand(sqlctxt, conn);
-                        OracleDataReader reader = cmd.ExecuteReader();
-                        string user_address = "";
-                        while (reader.Read())
-                        {
-                            string db_id = reader["회원아이디"].ToString().Trim();
-                            if (db_id == Properties.Settings.Default.userID.ToString())
-                            {
-                                user_address = reader["편의점주소"].ToString().Trim();
-                                break;
-                            }
-                        }
+                        string user_address = loginController.GetUserDetail(Properties.Settings.Default.userID.ToString(), "편의점주소");
+
                         OracleCommand oc = new OracleCommand();
                         oc.Connection = conn;
                         oc.CommandText = "MERGE \n into 반품 \n USING dual \n ON (반품제품 = :반품제품) " + "\n WHEN NOT MATCHED THEN \n" +
@@ -129,8 +107,8 @@ namespace TP
                         oc.BindByName = true;
                         oc.Parameters.Add(new OracleParameter("반품번호", Properties.Settings.Default.Returnindex.ToString()));
                         oc.Parameters.Add(new OracleParameter("반품고객", Properties.Settings.Default.userID.ToString()));
-                        oc.Parameters.Add(new OracleParameter("반품제품", dataGridView1.Rows[i].Cells[pindex].Value.ToString()));
-                        oc.Parameters.Add(new OracleParameter("반품수량", Convert.ToInt32(dataGridView1.Rows[i].Cells[index].Value)));
+                        oc.Parameters.Add(new OracleParameter("반품제품", dataGridView1.Rows[i].Cells["제품번호"].Value.ToString()));
+                        oc.Parameters.Add(new OracleParameter("반품수량", Convert.ToInt32(dataGridView1.Rows[i].Cells["재고량"].Value)));
                         oc.Parameters.Add(new OracleParameter("반품지", user_address));
                         oc.Parameters.Add(new OracleParameter("반품일자", DateTime.Now.ToString("yyyy-MM-dd").ToString()));
                         //반품번호 //반품고객// 반품제품 // 반품수량 // 반품지 // 반품일자// 
@@ -152,10 +130,10 @@ namespace TP
 
                         occ.BindByName = true;
                         //occ.Parameters.Add(new OracleParameter("카테고리", dataGridView1.Rows[i].Cells[pindex - 1].Value.ToString()));
-                        occ.Parameters.Add(new OracleParameter("제품번호", dataGridView1.Rows[i].Cells[pindex].Value.ToString()));
+                        occ.Parameters.Add(new OracleParameter("제품번호", dataGridView1.Rows[i].Cells["제품번호"].Value.ToString()));
                         //occ.Parameters.Add(new OracleParameter("제조업체", dataGridView1.Rows[i].Cells[pindex + 1].Value.ToString()));
                         //occ.Parameters.Add(new OracleParameter("제품명", dataGridView1.Rows[i].Cells[pindex + 2].Value.ToString()));
-                        occ.Parameters.Add(new OracleParameter("재고량", Convert.ToInt32(dataGridView1.Rows[i].Cells[index].Value)));
+                        occ.Parameters.Add(new OracleParameter("재고량", Convert.ToInt32(dataGridView1.Rows[i].Cells["재고량"].Value)));
                         //occ.Parameters.Add(new OracleParameter("단가", dataGridView1.Rows[i].Cells[pindex + 4].Value));
                         //occ.Parameters.Add(new OracleParameter("규격", dataGridView1.Rows[i].Cells[pindex + 5].Value.ToString()));
                         //카테고리,제품번호,제조업체,제품명,재고량,단가,규격
@@ -164,11 +142,11 @@ namespace TP
                         conn.Open();
                         occ.ExecuteNonQuery();
                         Properties.Settings.Default.Returnindex += 1; //반품번호 값증가시키기
-                        ss = 1;
+                        saveSuccess = true;
                     }
                     catch (OracleException ex)
                     {
-                        ss=0;
+                        saveSuccess = false;
                         MessageBox.Show(ex.Message);
                     }                   
                     dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
@@ -180,11 +158,9 @@ namespace TP
 
             }
             
-            if (ss == 1)
+            if (saveSuccess == true)
             {               
                 MessageBox.Show("저장되었습니다.");
-                pindex = 2;
-                index = 8;
                 dataview();
             }
             //save 부분
@@ -193,31 +169,23 @@ namespace TP
         {
             if (radioButton4.Checked == true)
             {
-                pindex = 2;
-                index = 8;
                 categori = null;
                 dataview();
 
             }
             if (radioButton1.Checked == true)
             {
-                pindex = 2;
-                index = 8;
                 categori = radioButton1.Text;
                 dataview();
 
             }
             else if (radioButton2.Checked == true)
             {
-                pindex = 2;
-                index = 8;
                 categori = radioButton2.Text;
                 dataview();
             }
             else if (radioButton3.Checked == true)
             {
-                pindex = 2;
-                index = 8;
                 categori = radioButton3.Text;
                 dataview();
             }
@@ -233,14 +201,14 @@ namespace TP
                 if (dataGridView1.Rows[i].Cells[$"{label}"].Value.ToString().Trim() == keyword.Trim())
                 {
                     dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;  //색칠
-                    selectsusses = 1;
+                    selectsusses = true;
                 }
                 else
                 {
                     dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.White;
                 }
             }
-            if (selectsusses == 0)
+            if (selectsusses == false)
             {
                 MessageBox.Show("검색 결과가 없습니다.");
             }
@@ -261,7 +229,7 @@ namespace TP
         private void Return_FormClosing(object sender, FormClosingEventArgs e)
         {
             //닫혔을때 save 하는지 물어보는 부분 
-            if (ss == 0)
+            if (saveSuccess == false)
             {
                 DialogResult dialog = MessageBox.Show("저장하시겠습니까?", "경고", MessageBoxButtons.YesNoCancel);
                 if (dialog == DialogResult.Yes)

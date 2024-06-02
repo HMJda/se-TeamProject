@@ -10,12 +10,7 @@ namespace TP.control
 {
     internal class ProductInfoController
     {
-        private ProductInfoEntity productInfoEntity;
-
-        public ProductInfoController()
-        {
-            productInfoEntity = new ProductInfoEntity();
-        }
+        private ProductInfoEntity productInfoEntity = new ProductInfoEntity();
 
         public DataTable GetProduct()
         {

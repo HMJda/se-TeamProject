@@ -10,36 +10,36 @@ namespace TP.control
 {
     internal class salesfiguresController
     {
-        private DBController dBController;
+        private ReceiptList receiptList;
 
         public salesfiguresController()
         {
-            dBController = new DBController();
+            receiptList = new ReceiptList();
         }
 
         public DataTable getMargin()
         {
-            return dBController.GetDB("select * from 재고");
+            return receiptList.GetReceipt("select * from 영수증");
         }
         public DataTable salesCalc(int type,string date)
         {
-            string sqltxt ="";
+            string sqltxt;
             if (type == 1)
             { //일일판매실적
                 sqltxt = string.Format("SELECT * from 대분류별판매실적  where  TO_CHAR(거래시간, 'yyyy-MM-dd') = '{0}'", date);
-                return dBController.GetDB(sqltxt);
+                return receiptList.GetReceipt(sqltxt);
             }
             else if(type == 2)
             {
                 //월별판매실적
                 sqltxt = string.Format("SELECT * from 대분류별판매실적  where  TO_CHAR(거래시간, 'yyyy-MM') = '{0}'", date);
-                return dBController.GetDB(sqltxt);
+                return receiptList.GetReceipt(sqltxt);
             }
             else if(type==3)
             {
                 //대분류별판매실적 
                 sqltxt = string.Format("SELECT * from 대분류별판매실적  where  TO_CHAR(거래시간, 'yyyy-MM') = '{0}'", date);
-                return dBController.GetDB(sqltxt);
+                return receiptList.GetReceipt(sqltxt);
             }
             else
             {

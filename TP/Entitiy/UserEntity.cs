@@ -59,13 +59,16 @@ namespace TP
                     string name = userReader["이름"] as string;
                     string duty = userReader["직책"] as string;
                     string adress = userReader["편의점주소"] as string;
-
+                    string store = userReader["편의점"] as string;
+                    string callnumber = userReader["전화번호"] as string;
                     // 사용자 정보를 딕셔너리에 저장
                     userInfo = new Dictionary<string, string>
                 {
                     { "아이디", id },
                     { "이름", name },
                     { "직책", duty },
+                    { "전화번호" , callnumber},
+                    { "편의점", store },
                     { "편의점주소", adress }
                 };
 
