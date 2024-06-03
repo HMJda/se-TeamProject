@@ -10,20 +10,14 @@ using System.Windows.Forms;
 using Oracle.ManagedDataAccess;
 using Oracle.ManagedDataAccess.Client;
 using System.IO;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
-using TP.control;
 
 namespace TP
 {
 
     public partial class sale : Form
     {
-        private string cord;
-        SaleController saleController;
-
         public sale()
         {
-
             InitializeComponent();
         }
 
@@ -65,25 +59,22 @@ namespace TP
 
         }
 
+        private void productList_Click(object sender, EventArgs e)
+        {
+            // 판매 폼을 생성하고 표시합니다
+            using (Form form = new Stock())
+            {
+                // ShowDialog()를 사용해 판매 폼을 모달로 표시합니다.
+                form.ShowDialog();
+
+                // 판매 폼이 닫히면 메인 폼을 다시 표시합니다.
+                this.Show();
+            }
+        }
 
         private void pay_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void cordButton_Click(object sender, EventArgs e)
-        {
-            cord = productCordTextBox.Text;
-
-            if (saleController.checkProductCord(cord))
-            {
-                MessageBox.Show("로그인에 성공했습니다.", "로그인 성공");
-
-            }
-            else
-            {
-                MessageBox.Show("잘못된 아이디 또는 비밀번호 입니다.", "로그인 실패");
-            }
         }
     }
 }

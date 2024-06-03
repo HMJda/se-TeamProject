@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.productCordTextBox = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
@@ -42,16 +42,16 @@
             this.button14 = new System.Windows.Forms.Button();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // productCordTextBox
+            // textBox2
             // 
-            this.productCordTextBox.Font = new System.Drawing.Font("굴림", 12F);
-            this.productCordTextBox.Location = new System.Drawing.Point(53, 275);
-            this.productCordTextBox.Name = "productCordTextBox";
-            this.productCordTextBox.Size = new System.Drawing.Size(311, 30);
-            this.productCordTextBox.TabIndex = 0;
+            this.textBox2.Font = new System.Drawing.Font("굴림", 12F);
+            this.textBox2.Location = new System.Drawing.Point(53, 275);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(311, 26);
+            this.textBox2.TabIndex = 0;
             // 
             // textBox3
             // 
@@ -59,7 +59,7 @@
             this.textBox3.Location = new System.Drawing.Point(475, 272);
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(311, 36);
+            this.textBox3.Size = new System.Drawing.Size(311, 30);
             this.textBox3.TabIndex = 1;
             this.textBox3.Text = "받을 금액                           0원";
             // 
@@ -69,7 +69,7 @@
             this.textBox4.Location = new System.Drawing.Point(475, 308);
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(311, 30);
+            this.textBox4.Size = new System.Drawing.Size(311, 26);
             this.textBox4.TabIndex = 2;
             this.textBox4.Text = "결제한 금액                                       0원";
             // 
@@ -79,7 +79,7 @@
             this.textBox5.Location = new System.Drawing.Point(475, 340);
             this.textBox5.Name = "textBox5";
             this.textBox5.ReadOnly = true;
-            this.textBox5.Size = new System.Drawing.Size(311, 30);
+            this.textBox5.Size = new System.Drawing.Size(311, 26);
             this.textBox5.TabIndex = 3;
             this.textBox5.Text = "거스름돈                                           0원";
             // 
@@ -171,7 +171,7 @@
             this.textBox7.Location = new System.Drawing.Point(53, 228);
             this.textBox7.Name = "textBox7";
             this.textBox7.ReadOnly = true;
-            this.textBox7.Size = new System.Drawing.Size(733, 32);
+            this.textBox7.Size = new System.Drawing.Size(733, 27);
             this.textBox7.TabIndex = 16;
             this.textBox7.Text = "                        합계";
             // 
@@ -185,21 +185,21 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.selectionCancel_Click);
             // 
-            // button5
+            // button7
             // 
-            this.button5.Location = new System.Drawing.Point(384, 275);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(74, 29);
-            this.button5.TabIndex = 18;
-            this.button5.Text = "입력";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.cordButton_Click);
+            this.button7.Location = new System.Drawing.Point(55, 321);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(308, 49);
+            this.button7.TabIndex = 18;
+            this.button7.Text = "상품목록";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.productList_Click);
             // 
             // sale
             // 
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1024, 451);
-            this.Controls.Add(this.button5);
+            this.Controls.Add(this.button7);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.textBox7);
             this.Controls.Add(this.button14);
@@ -213,7 +213,7 @@
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.productCordTextBox);
+            this.Controls.Add(this.textBox2);
             this.Name = "sale";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "판매";
@@ -237,7 +237,7 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox productCordTextBox;
+        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.TextBox textBox5;
@@ -251,6 +251,6 @@
         private System.Windows.Forms.Button button14;
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button7;
     }
 }
