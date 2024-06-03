@@ -19,7 +19,7 @@ namespace TP
     public partial class sale : Form
     {
         private string cord;
-        SaleController saleController;
+        SaleController saleController = new SaleController();
 
         public sale()
         {
