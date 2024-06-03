@@ -17,16 +17,6 @@ namespace TP
 
     public partial class Order : Form
     {
-        /*public class OrderList
-        {
-            public string Orderindex;
-            public string userID;
-            public string product;
-            public int quantity;
-            public string user_address;
-            public string date;
-
-        } */
         private string DB_Server_Info = "Data Source = localhost;" +
            "User ID = DEU; Password = 1234;";
         private string categori = null;
@@ -101,12 +91,6 @@ namespace TP
 
         private void button1_Click(object sender, EventArgs e) //save 부분
         {
-            /*//추가~
-            List<OrderList> list = new List<OrderList>();
-            OrderList olist = new OrderList();
-            FileStream fs = new FileStream("oredrlist.csv", FileMode.Append);
-            StreamWriter sw = new StreamWriter(fs, System.Text.Encoding.Default);
-            //~추가 */
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
                 if (Convert.ToBoolean(dataGridView1.Rows[i].Cells["chk"].Value)) //체크된 데이터 선택 부분
@@ -117,21 +101,8 @@ namespace TP
                         {
                             orderController.SetOrder("DELETE 발주");
                         }
-                        string user_address = loginController.GetUserDetail(Properties.Settings.Default.userID.ToString(), "편의점주소");
-
-                        /*//추가~
-                        olist.Orderindex = Properties.Settings.Default.Orderindex.ToString();
-                        olist.userID = Properties.Settings.Default.userID.ToString();
-                        olist.product = dataGridView1.Rows[i].Cells[pindex].Value.ToString();
-                        olist.quantity = Convert.ToInt32(dataGridView1.Rows[i].Cells[index].Value);
-                        olist.user_address = user_address;
-                        olist.date = DateTime.Now.ToString("yyyy-MM-dd").ToString();
-                        //sw.WriteLine($"{olist.Orderindex},{olist.userID},{olist.product},{olist.quantity},{olist.user_address},{olist.date}\r\n");
-                        list.Add(olist);
-                        //~추가 */
-
-
-                        //DateTime.Now.ToString("yyyy-MM-dd"); 현재 시각
+                        string user_address = loginController.GetUserDetail(Properties.Settings.Default.LoginIDSave.ToString(), "편의점주소");
+                        //발주 테이블 추가 
                         string sqltxt = "MERGE INTO 발주 " +
                                         "USING dual " +
                                         "ON (발주제품 = :발주제품) " +
@@ -142,7 +113,7 @@ namespace TP
                         OracleParameter[] order =
                         {
                             new OracleParameter("발주번호", Properties.Settings.Default.Orderindex.ToString()),
-                            new OracleParameter("주문고객", Properties.Settings.Default.userID.ToString()),
+                            new OracleParameter("주문고객", Properties.Settings.Default.LoginIDSave.ToString()),
                             new OracleParameter("발주제품", dataGridView1.Rows[i].Cells["제품번호"].Value.ToString()),
                             new OracleParameter("수량", Convert.ToInt32(dataGridView1.Rows[i].Cells["발주량"].Value)),
                             new OracleParameter("배송지", user_address),
@@ -150,7 +121,7 @@ namespace TP
                         };  
                         orderController.SetOrder(sqltxt, order);
 
-
+                        //재고 테이블에 수량 추가
                         if (DateTime.Now.ToString("yyyy-MM-dd") != Properties.Settings.Default.date)
                         {
                             sqltxt = "MERGE INTO 재고 " +

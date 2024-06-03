@@ -97,7 +97,7 @@ namespace TP
                         }
 
                         OracleConnection conn = new OracleConnection(DB_Server_Info);
-                        string user_address = loginController.GetUserDetail(Properties.Settings.Default.userID.ToString(), "편의점주소");
+                        string user_address = loginController.GetUserDetail(Properties.Settings.Default.LoginIDSave.ToString(), "편의점주소");
 
                         OracleCommand oc = new OracleCommand();
                         oc.Connection = conn;
@@ -106,7 +106,7 @@ namespace TP
                             + "WHEN MATCHED THEN UPDATE SET 반품수량 = :반품수량 ";
                         oc.BindByName = true;
                         oc.Parameters.Add(new OracleParameter("반품번호", Properties.Settings.Default.Returnindex.ToString()));
-                        oc.Parameters.Add(new OracleParameter("반품고객", Properties.Settings.Default.userID.ToString()));
+                        oc.Parameters.Add(new OracleParameter("반품고객", Properties.Settings.Default.LoginIDSave.ToString()));
                         oc.Parameters.Add(new OracleParameter("반품제품", dataGridView1.Rows[i].Cells["제품번호"].Value.ToString()));
                         oc.Parameters.Add(new OracleParameter("반품수량", Convert.ToInt32(dataGridView1.Rows[i].Cells["재고량"].Value)));
                         oc.Parameters.Add(new OracleParameter("반품지", user_address));

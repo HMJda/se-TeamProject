@@ -34,7 +34,7 @@ namespace TP
         private void button2_Click(object sender, EventArgs e)
         {
             //회원정보 버튼
-            string id = Properties.Settings.Default.userID.ToString();
+            string id = Properties.Settings.Default.LoginIDSave.ToString();
             Dictionary<string, string> userInfo = userEntity.GetUserInfo(id);
 
             if (userInfo != null)

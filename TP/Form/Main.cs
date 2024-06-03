@@ -26,16 +26,25 @@ namespace TP
         private void Order_Click(object sender, EventArgs e)
         {
             // 메인 폼을 숨깁니다.
-            this.Hide();
-
-            // 판매 폼을 생성하고 표시합니다
-            using (Form form = new Order())
+            
+            LoginController loginController = new LoginController();
+            string position =loginController.GetUserDetail(Properties.Settings.Default.LoginIDSave.ToString(), "직책").Trim();
+            if(position == "점장")
             {
-                // ShowDialog()를 사용해 판매 폼을 모달로 표시합니다.
-                form.ShowDialog();
+                this.Hide();
+                // 판매 폼을 생성하고 표시합니다
+                using (Form form = new Order())
+                {
+                    // ShowDialog()를 사용해 판매 폼을 모달로 표시합니다.
+                    form.ShowDialog();
 
-                // 판매 폼이 닫히면 메인 폼을 다시 표시합니다.
-                this.Show();
+                    // 판매 폼이 닫히면 메인 폼을 다시 표시합니다.
+                    this.Show();
+                }
+            }
+            else
+            {
+                MessageBox.Show("점장이 아닙니다.", "경고");
             }
         }
 
