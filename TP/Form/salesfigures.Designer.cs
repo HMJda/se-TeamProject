@@ -31,12 +31,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.button1 = new System.Windows.Forms.Button();
@@ -55,6 +49,11 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
@@ -63,17 +62,18 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(14, 11);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 12);
+            this.label1.Size = new System.Drawing.Size(67, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "영업일자";
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(71, 3);
+            this.dateTimePicker1.Location = new System.Drawing.Point(81, 4);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(170, 21);
+            this.dateTimePicker1.Size = new System.Drawing.Size(194, 25);
             this.dateTimePicker1.TabIndex = 2;
             // 
             // dataGridView1
@@ -85,58 +85,25 @@
             this.Column2,
             this.Column3,
             this.Column4,
-            this.Column5,
             this.Column6});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 30);
+            this.dataGridView1.Location = new System.Drawing.Point(14, 38);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(776, 381);
+            this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dataGridView1.Size = new System.Drawing.Size(887, 476);
             this.dataGridView1.TabIndex = 3;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "거래시간";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "상품명";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "단가";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "수량";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "금액";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "결제금액";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
             // 
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
             this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(466, 7);
+            this.radioButton1.Location = new System.Drawing.Point(533, 9);
+            this.radioButton1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(99, 16);
+            this.radioButton1.Size = new System.Drawing.Size(123, 19);
             this.radioButton1.TabIndex = 4;
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "일별 판매실적";
@@ -146,9 +113,10 @@
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(571, 7);
+            this.radioButton2.Location = new System.Drawing.Point(653, 9);
+            this.radioButton2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(99, 16);
+            this.radioButton2.Size = new System.Drawing.Size(123, 19);
             this.radioButton2.TabIndex = 5;
             this.radioButton2.Text = "월별 판매실적";
             this.radioButton2.UseVisualStyleBackColor = true;
@@ -156,49 +124,53 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(248, 3);
+            this.button1.Location = new System.Drawing.Point(283, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(54, 21);
+            this.button1.Size = new System.Drawing.Size(62, 26);
             this.button1.TabIndex = 6;
             this.button1.Text = "조회";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // comboBox1
+            // monthcomboBox
             // 
             this.monthcomboBox.FormattingEnabled = true;
-            this.monthcomboBox.Location = new System.Drawing.Point(163, 4);
-            this.monthcomboBox.Name = "comboBox1";
-            this.monthcomboBox.Size = new System.Drawing.Size(44, 20);
+            this.monthcomboBox.Location = new System.Drawing.Point(186, 5);
+            this.monthcomboBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.monthcomboBox.Name = "monthcomboBox";
+            this.monthcomboBox.Size = new System.Drawing.Size(50, 23);
             this.monthcomboBox.TabIndex = 7;
             this.monthcomboBox.Visible = false;
             // 
             // radioButton3
             // 
             this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(677, 7);
+            this.radioButton3.Location = new System.Drawing.Point(774, 9);
+            this.radioButton3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(111, 16);
+            this.radioButton3.Size = new System.Drawing.Size(138, 19);
             this.radioButton3.TabIndex = 8;
             this.radioButton3.Text = "대분류 판매실적";
             this.radioButton3.UseVisualStyleBackColor = true;
             this.radioButton3.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
-            // comboBox2
+            // yearcomboBox
             // 
             this.yearcomboBox.FormattingEnabled = true;
-            this.yearcomboBox.Location = new System.Drawing.Point(71, 4);
-            this.yearcomboBox.Name = "comboBox2";
-            this.yearcomboBox.Size = new System.Drawing.Size(63, 20);
+            this.yearcomboBox.Location = new System.Drawing.Point(81, 5);
+            this.yearcomboBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.yearcomboBox.Name = "yearcomboBox";
+            this.yearcomboBox.Size = new System.Drawing.Size(71, 23);
             this.yearcomboBox.TabIndex = 9;
             this.yearcomboBox.Visible = false;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(140, 7);
+            this.label2.Location = new System.Drawing.Point(160, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(17, 12);
+            this.label2.Size = new System.Drawing.Size(22, 15);
             this.label2.TabIndex = 10;
             this.label2.Text = "년";
             this.label2.Visible = false;
@@ -206,18 +178,19 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(213, 7);
+            this.label3.Location = new System.Drawing.Point(243, 9);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(17, 12);
+            this.label3.Size = new System.Drawing.Size(22, 15);
             this.label3.TabIndex = 11;
             this.label3.Text = "월";
             this.label3.Visible = false;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(677, 417);
+            this.textBox1.Location = new System.Drawing.Point(774, 521);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 21);
+            this.textBox1.Size = new System.Drawing.Size(114, 25);
             this.textBox1.TabIndex = 12;
             this.textBox1.Text = "원";
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -225,11 +198,11 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(605, 420);
+            this.label4.Location = new System.Drawing.Point(691, 525);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(65, 12);
+            this.label4.Size = new System.Drawing.Size(82, 15);
             this.label4.TabIndex = 13;
-            this.label4.Text = "총결제금액";
+            this.label4.Text = "총판매금액";
             // 
             // dataGridView2
             // 
@@ -239,30 +212,35 @@
             this.Column7,
             this.Column8,
             this.Column9});
-            this.dataGridView2.Location = new System.Drawing.Point(12, 30);
+            this.dataGridView2.Location = new System.Drawing.Point(14, 38);
+            this.dataGridView2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.RowHeadersVisible = false;
+            this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.RowTemplate.Height = 23;
-            this.dataGridView2.Size = new System.Drawing.Size(389, 381);
+            this.dataGridView2.Size = new System.Drawing.Size(445, 476);
             this.dataGridView2.TabIndex = 14;
             this.dataGridView2.Visible = false;
             // 
             // Column7
             // 
             this.Column7.HeaderText = "대분류 ";
+            this.Column7.MinimumWidth = 6;
             this.Column7.Name = "Column7";
             this.Column7.ReadOnly = true;
             // 
             // Column8
             // 
             this.Column8.HeaderText = "수량";
+            this.Column8.MinimumWidth = 6;
             this.Column8.Name = "Column8";
             this.Column8.ReadOnly = true;
             // 
             // Column9
             // 
             this.Column9.HeaderText = "결제금액";
+            this.Column9.MinimumWidth = 6;
             this.Column9.Name = "Column9";
             this.Column9.ReadOnly = true;
             // 
@@ -274,38 +252,78 @@
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3});
-            this.dataGridView3.Location = new System.Drawing.Point(400, 30);
+            this.dataGridView3.Location = new System.Drawing.Point(457, 38);
+            this.dataGridView3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.ReadOnly = true;
             this.dataGridView3.RowHeadersVisible = false;
+            this.dataGridView3.RowHeadersWidth = 51;
             this.dataGridView3.RowTemplate.Height = 23;
-            this.dataGridView3.Size = new System.Drawing.Size(388, 381);
+            this.dataGridView3.Size = new System.Drawing.Size(443, 476);
             this.dataGridView3.TabIndex = 15;
             this.dataGridView3.Visible = false;
             // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.HeaderText = "대분류 ";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.HeaderText = "수량";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn3
             // 
             this.dataGridViewTextBoxColumn3.HeaderText = "결제금액";
+            this.dataGridViewTextBoxColumn3.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
             // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "시간";
+            this.Column1.MinimumWidth = 6;
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "결제금액";
+            this.Column2.MinimumWidth = 6;
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "반품금액";
+            this.Column3.MinimumWidth = 6;
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "객수";
+            this.Column4.MinimumWidth = 6;
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "판매금액";
+            this.Column6.MinimumWidth = 6;
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            // 
             // salesfigures
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(914, 562);
             this.Controls.Add(this.dataGridView3);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.label4);
@@ -321,6 +339,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "salesfigures";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "판매실적";
@@ -347,12 +366,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
@@ -361,5 +374,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
     }
 }

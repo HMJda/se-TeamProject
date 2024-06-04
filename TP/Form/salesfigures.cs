@@ -38,7 +38,7 @@ namespace TP
         private void button1_Click(object sender, EventArgs e)
         {
             int type;
-            //일일 판매실적, 월별 판매실적, 대분류별 판매실적
+            //일별 판매실적, 월별 판매실적, 대분류별 판매실적
             if (radioButton1.Checked == true)
             {
                 type = 1;
