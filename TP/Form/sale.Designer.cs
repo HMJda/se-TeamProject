@@ -40,9 +40,9 @@
             this.button12 = new System.Windows.Forms.Button();
             this.button13 = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
-            this.textBox7 = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // productCordTextBox
@@ -89,10 +89,10 @@
             this.textBox6.Multiline = true;
             this.textBox6.Name = "textBox6";
             this.textBox6.ReadOnly = true;
-            this.textBox6.Size = new System.Drawing.Size(702, 231);
+            this.textBox6.Size = new System.Drawing.Size(702, 24);
             this.textBox6.TabIndex = 4;
             this.textBox6.Text = "NO                        상품명                                                    " +
-    "              수량                 단가             금액               할인  ";
+    "       수량                       단가                    금액  ";
             this.textBox6.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
             // 
             // button6
@@ -166,16 +166,6 @@
             this.button14.UseVisualStyleBackColor = true;
             this.button14.Click += new System.EventHandler(this.plasticBackMedium_Click);
             // 
-            // textBox7
-            // 
-            this.textBox7.Font = new System.Drawing.Font("굴림", 13F);
-            this.textBox7.Location = new System.Drawing.Point(53, 228);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.ReadOnly = true;
-            this.textBox7.Size = new System.Drawing.Size(702, 27);
-            this.textBox7.TabIndex = 16;
-            this.textBox7.Text = "                        합계";
-            // 
             // button4
             // 
             this.button4.Location = new System.Drawing.Point(801, 240);
@@ -196,13 +186,22 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.cordButton_Click);
             // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(53, 47);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(702, 206);
+            this.textBox2.TabIndex = 19;
+            // 
             // sale
             // 
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1024, 451);
+            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
-            this.Controls.Add(this.textBox7);
             this.Controls.Add(this.button14);
             this.Controls.Add(this.button13);
             this.Controls.Add(this.button12);
@@ -250,8 +249,8 @@
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.Button button14;
-        private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }
