@@ -58,5 +58,26 @@ namespace TP.Entitiy
             productReader.Close();
             return false;
         }
+
+        public Tuple<string, string, int> GetProductInfo(string cord)
+        {
+            string productName = string.Empty;
+            int productPrice = 0;
+
+            productReader = ReadProduct();
+            while (productReader.Read())
+            {
+                string db_productCord = productReader["제품번호"].ToString().Trim();
+                if (db_productCord == cord)
+                {
+                    productName = productReader["제품명"].ToString().Trim();
+                    productPrice = int.Parse(productReader["단가"].ToString().Trim());
+                    break;
+                }
+            }
+            productReader.Close();
+
+            return new Tuple<string, string, int>(cord, productName, productPrice);
+        }
     }
 }

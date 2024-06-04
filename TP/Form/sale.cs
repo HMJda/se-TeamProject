@@ -12,6 +12,7 @@ using Oracle.ManagedDataAccess.Client;
 using System.IO;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 using TP.control;
+using TP.Entitiy;
 
 namespace TP
 {
@@ -20,6 +21,8 @@ namespace TP
     {
         private string cord;
         SaleController saleController = new SaleController();
+        ProductInfoEntity productInfoEntity = new ProductInfoEntity();
+        private List<ProductInfo> productInfos = new List<ProductInfo>();
 
         public sale()
         {
@@ -77,13 +80,56 @@ namespace TP
 
             if (saleController.checkProductCord(cord))
             {
-                MessageBox.Show("로그인에 성공했습니다.", "로그인 성공");
+                var productInfo = productInfoEntity.GetProductInfo(cord);
+                MessageBox.Show("제품이 등록되었습니다.", "제품 등록");
 
+                // 제품을 추가하거나 업데이트하는 메서드 호출
+                AddOrUpdateProduct(productInfo.Item1, productInfo.Item2, productInfo.Item3);
+
+                // 제품 목록과 총 가격을 업데이트하는 메서드 호출
+                UpdateProductListAndTotal();
             }
             else
             {
-                MessageBox.Show("잘못된 아이디 또는 비밀번호 입니다.", "로그인 실패");
+                MessageBox.Show("잘못된 제품 번호입니다.", "제품 등록 실패");
             }
+        }
+        private void AddOrUpdateProduct(string cord, string name, decimal price)
+        {
+            var existingProduct = productInfos.Find(p => p.Cord == cord);
+            if (existingProduct != null)
+            {
+                existingProduct.Quantity += 1;
+            }
+            else
+            {
+                productInfos.Add(new ProductInfo { Cord = cord, Name = name, Price = price, Quantity = 1 });
+            }
+        }
+        private void UpdateProductListAndTotal()
+        {
+            textBox6.Clear();
+            decimal total = 0;
+            foreach (var product in productInfos)
+            {
+                decimal productTotalPrice = product.Price * product.Quantity;
+                textBox6.Text += $"{product.Name}\t{product.Price}\t\t{product.Quantity}\t{productTotalPrice}\r\n";
+                total += productTotalPrice;
+            }
+            // 총 가격을 표시하는 Label이 있다고 가정하고 호출
+            totalAmountLabel.Text = $"총 가격: {total}";
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        public class ProductInfo
+        {
+            public string Cord { get; set; }
+            public string Name { get; set; }
+            public decimal Price { get; set; }
+            public int Quantity { get; set; }
         }
     }
 }

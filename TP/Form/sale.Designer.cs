@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.productCordTextBox = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.totalAmountLabel = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
@@ -50,36 +50,36 @@
             this.productCordTextBox.Font = new System.Drawing.Font("굴림", 12F);
             this.productCordTextBox.Location = new System.Drawing.Point(53, 275);
             this.productCordTextBox.Name = "productCordTextBox";
-            this.productCordTextBox.Size = new System.Drawing.Size(311, 30);
+            this.productCordTextBox.Size = new System.Drawing.Size(311, 26);
             this.productCordTextBox.TabIndex = 0;
             // 
-            // textBox3
+            // totalAmountLabel
             // 
-            this.textBox3.Font = new System.Drawing.Font("굴림", 15F);
-            this.textBox3.Location = new System.Drawing.Point(475, 272);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(311, 36);
-            this.textBox3.TabIndex = 1;
-            this.textBox3.Text = "받을 금액                           0원";
+            this.totalAmountLabel.Font = new System.Drawing.Font("굴림", 15F);
+            this.totalAmountLabel.Location = new System.Drawing.Point(450, 271);
+            this.totalAmountLabel.Name = "totalAmountLabel";
+            this.totalAmountLabel.ReadOnly = true;
+            this.totalAmountLabel.Size = new System.Drawing.Size(311, 30);
+            this.totalAmountLabel.TabIndex = 1;
+            this.totalAmountLabel.Text = "받을 금액                           0원";
             // 
             // textBox4
             // 
             this.textBox4.Font = new System.Drawing.Font("굴림", 12F);
-            this.textBox4.Location = new System.Drawing.Point(475, 308);
+            this.textBox4.Location = new System.Drawing.Point(450, 307);
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(311, 30);
+            this.textBox4.Size = new System.Drawing.Size(311, 26);
             this.textBox4.TabIndex = 2;
             this.textBox4.Text = "결제한 금액                                       0원";
             // 
             // textBox5
             // 
             this.textBox5.Font = new System.Drawing.Font("굴림", 12F);
-            this.textBox5.Location = new System.Drawing.Point(475, 340);
+            this.textBox5.Location = new System.Drawing.Point(450, 339);
             this.textBox5.Name = "textBox5";
             this.textBox5.ReadOnly = true;
-            this.textBox5.Size = new System.Drawing.Size(311, 30);
+            this.textBox5.Size = new System.Drawing.Size(311, 26);
             this.textBox5.TabIndex = 3;
             this.textBox5.Text = "거스름돈                                           0원";
             // 
@@ -89,10 +89,11 @@
             this.textBox6.Multiline = true;
             this.textBox6.Name = "textBox6";
             this.textBox6.ReadOnly = true;
-            this.textBox6.Size = new System.Drawing.Size(733, 231);
+            this.textBox6.Size = new System.Drawing.Size(702, 231);
             this.textBox6.TabIndex = 4;
             this.textBox6.Text = "NO                        상품명                                                    " +
     "              수량                 단가             금액               할인  ";
+            this.textBox6.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
             // 
             // button6
             // 
@@ -171,7 +172,7 @@
             this.textBox7.Location = new System.Drawing.Point(53, 228);
             this.textBox7.Name = "textBox7";
             this.textBox7.ReadOnly = true;
-            this.textBox7.Size = new System.Drawing.Size(733, 32);
+            this.textBox7.Size = new System.Drawing.Size(702, 27);
             this.textBox7.TabIndex = 16;
             this.textBox7.Text = "                        합계";
             // 
@@ -187,7 +188,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(384, 275);
+            this.button5.Location = new System.Drawing.Point(370, 275);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(74, 29);
             this.button5.TabIndex = 18;
@@ -212,7 +213,7 @@
             this.Controls.Add(this.textBox6);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.totalAmountLabel);
             this.Controls.Add(this.productCordTextBox);
             this.Name = "sale";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -238,7 +239,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TextBox productCordTextBox;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox totalAmountLabel;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.TextBox textBox6;
