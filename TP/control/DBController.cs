@@ -15,45 +15,70 @@ namespace TP.control
 
         public DataTable GetDB(string sqltxt)
         {
-            OracleConnection conn = new OracleConnection(DB_Server_Info);
-            conn.Open();
-            OracleDataAdapter adapt = new OracleDataAdapter();
-            adapt.SelectCommand = new OracleCommand(sqltxt, conn);
-            DataSet ds = new DataSet();
-            DataTable dt = new DataTable();
-            adapt.Fill(ds);
-            dt.Reset();
-            dt = ds.Tables[0];
-            conn.Close();
-            return dt;
+            using (OracleConnection conn = new OracleConnection(DB_Server_Info))
+            {
+                try
+                {
+                    conn.Open();
+                    OracleDataAdapter adapt = new OracleDataAdapter();
+                    adapt.SelectCommand = new OracleCommand(sqltxt, conn);
+                    DataSet ds = new DataSet();
+                    DataTable dt = new DataTable();
+                    adapt.Fill(ds);
+                    dt.Reset();
+                    dt = ds.Tables[0];
+                    conn.Close();
+                    return dt;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                    return null;
+                }
+            }        
         }
         public void SetDB(string sqltxt)
         {
             using (OracleConnection conn = new OracleConnection(DB_Server_Info))
             {
-                conn.Open();
-                using (OracleCommand cmd = new OracleCommand(sqltxt, conn))
+                try
                 {
-                    cmd.ExecuteNonQuery();
+                    conn.Open();
+                    using (OracleCommand cmd = new OracleCommand(sqltxt, conn))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
                 }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
+
             }
         }
         public void ExecuteNonQuery(string sqltxt, OracleParameter[] parameters)
         {
             using (OracleConnection conn = new OracleConnection(DB_Server_Info))
             {
-                conn.Open();
-                using (OracleCommand cmd = new OracleCommand(sqltxt, conn))
+                try
                 {
-                    cmd.BindByName = true;
-                    if (parameters != null)
+                    conn.Open();
+                    using (OracleCommand cmd = new OracleCommand(sqltxt, conn))
                     {
-                        foreach (var parameter in parameters)
+                        cmd.BindByName = true;
+                        if (parameters != null)
                         {
-                            cmd.Parameters.Add(parameter);
+                            foreach (var parameter in parameters)
+                            {
+                                cmd.Parameters.Add(parameter);
+                            }
                         }
+                        cmd.ExecuteNonQuery();
                     }
-                    cmd.ExecuteNonQuery();
+                } 
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
                 }
             }
         }

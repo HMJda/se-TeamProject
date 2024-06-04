@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
 using System.Threading.Tasks;
 using TP.Entitiy;
@@ -17,9 +18,25 @@ namespace TP.control
             receiptList = new ReceiptList();
         }
 
-        public DataTable getMargin()
+        public DataTable getMargin(int year)
         {
-            return receiptList.GetReceipt("select * from 영수증");
+            string sqltxt = $@"
+            SELECT 
+                EXTRACT(MONTH FROM r.거래시간) AS 월,
+                SUM(rs.수량 * rs.상품가격) AS 총판매액,
+                SUM(rs.수량 * p.단가) AS 총원가
+            FROM 
+                영수증 r
+            JOIN 
+                영수증상세 rs ON r.영수증번호 = rs.영수증번호
+            JOIN 
+                제품 p ON rs.제품번호 = p.제품번호
+            WHERE 
+                EXTRACT(YEAR FROM r.거래시간) = {year}
+            GROUP BY 
+                EXTRACT(MONTH FROM r.거래시간)";
+
+            return receiptList.GetReceipt(sqltxt);
         }
         public DataTable salesCalc(int type,string date)
         {
