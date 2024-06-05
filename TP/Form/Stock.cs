@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Oracle.ManagedDataAccess;
 using Oracle.ManagedDataAccess.Client;
+using static System.Windows.Forms.AxHost;
+using TP.control;
 
 
 namespace TP
@@ -20,7 +22,6 @@ namespace TP
         private string label = "제품명";
         private int selectsusses = 0; //검색 성공 
         private StockController stockController;
-
         public Stock()
         {
             InitializeComponent();

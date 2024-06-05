@@ -29,20 +29,22 @@
         private void InitializeComponent()
         {
             this.label4 = new System.Windows.Forms.Label();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.receiptDetailGridView = new System.Windows.Forms.DataGridView();
+            this.receiptDataGridView = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dateTime = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.searchTextbox = new System.Windows.Forms.TextBox();
+            this.searchButton = new System.Windows.Forms.Button();
+            this.refundButton = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+            this.cash = new System.Windows.Forms.CheckBox();
+            this.card = new System.Windows.Forms.CheckBox();
+            ((System.ComponentModel.ISupportInitialize)(this.receiptDetailGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.receiptDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // label4
@@ -55,30 +57,30 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "영수증 조회";
             // 
-            // dataGridView2
+            // receiptDetailGridView
             // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(12, 51);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.RowTemplate.Height = 23;
-            this.dataGridView2.Size = new System.Drawing.Size(377, 399);
-            this.dataGridView2.TabIndex = 1;
+            this.receiptDetailGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.receiptDetailGridView.Location = new System.Drawing.Point(12, 71);
+            this.receiptDetailGridView.Name = "receiptDetailGridView";
+            this.receiptDetailGridView.RowTemplate.Height = 23;
+            this.receiptDetailGridView.Size = new System.Drawing.Size(377, 399);
+            this.receiptDetailGridView.TabIndex = 1;
             // 
-            // dataGridView3
+            // receiptDataGridView
             // 
-            this.dataGridView3.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.receiptDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.receiptDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.receiptDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2,
             this.Column3,
             this.Column4});
-            this.dataGridView3.Location = new System.Drawing.Point(426, 51);
-            this.dataGridView3.Name = "dataGridView3";
-            this.dataGridView3.RowHeadersVisible = false;
-            this.dataGridView3.RowTemplate.Height = 23;
-            this.dataGridView3.Size = new System.Drawing.Size(420, 477);
-            this.dataGridView3.TabIndex = 2;
+            this.receiptDataGridView.Location = new System.Drawing.Point(426, 51);
+            this.receiptDataGridView.Name = "receiptDataGridView";
+            this.receiptDataGridView.RowHeadersVisible = false;
+            this.receiptDataGridView.RowTemplate.Height = 23;
+            this.receiptDataGridView.Size = new System.Drawing.Size(420, 477);
+            this.receiptDataGridView.TabIndex = 2;
             // 
             // Column1
             // 
@@ -100,12 +102,12 @@
             this.Column4.HeaderText = "금 액";
             this.Column4.Name = "Column4";
             // 
-            // dateTimePicker1
+            // dateTime
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(426, 15);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(169, 21);
-            this.dateTimePicker1.TabIndex = 3;
+            this.dateTime.Location = new System.Drawing.Point(426, 15);
+            this.dateTime.Name = "dateTime";
+            this.dateTime.Size = new System.Drawing.Size(169, 21);
+            this.dateTime.TabIndex = 3;
             // 
             // label5
             // 
@@ -116,32 +118,31 @@
             this.label5.TabIndex = 4;
             this.label5.Text = "영수증 번호";
             // 
-            // textBox2
+            // searchTextbox
             // 
-            this.textBox2.Location = new System.Drawing.Point(676, 15);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(89, 21);
-            this.textBox2.TabIndex = 5;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.searchTextbox.Location = new System.Drawing.Point(676, 15);
+            this.searchTextbox.Name = "searchTextbox";
+            this.searchTextbox.Size = new System.Drawing.Size(89, 21);
+            this.searchTextbox.TabIndex = 5;
             // 
-            // button4
+            // searchButton
             // 
-            this.button4.Location = new System.Drawing.Point(771, 13);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 6;
-            this.button4.Text = "검색";
-            this.button4.UseVisualStyleBackColor = true;
+            this.searchButton.Location = new System.Drawing.Point(771, 13);
+            this.searchButton.Name = "searchButton";
+            this.searchButton.Size = new System.Drawing.Size(75, 23);
+            this.searchButton.TabIndex = 6;
+            this.searchButton.Text = "검색";
+            this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
-            // button5
+            // refundButton
             // 
-            this.button5.Location = new System.Drawing.Point(17, 487);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(84, 41);
-            this.button5.TabIndex = 7;
-            this.button5.Text = "환불";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.refundButton.Location = new System.Drawing.Point(17, 487);
+            this.refundButton.Name = "refundButton";
+            this.refundButton.Size = new System.Drawing.Size(84, 41);
+            this.refundButton.TabIndex = 7;
+            this.refundButton.Text = "환불";
+            this.refundButton.UseVisualStyleBackColor = true;
             // 
             // button6
             // 
@@ -151,25 +152,46 @@
             this.button6.TabIndex = 8;
             this.button6.Text = "영수증 출력";
             this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // cash
+            // 
+            this.cash.AutoSize = true;
+            this.cash.Location = new System.Drawing.Point(199, 13);
+            this.cash.Name = "cash";
+            this.cash.Size = new System.Drawing.Size(48, 16);
+            this.cash.TabIndex = 9;
+            this.cash.Text = "현금";
+            this.cash.UseVisualStyleBackColor = true;
+            // 
+            // card
+            // 
+            this.card.AutoSize = true;
+            this.card.Location = new System.Drawing.Point(199, 36);
+            this.card.Name = "card";
+            this.card.Size = new System.Drawing.Size(48, 16);
+            this.card.TabIndex = 10;
+            this.card.Text = "카드";
+            this.card.UseVisualStyleBackColor = true;
             // 
             // receipt
             // 
             this.ClientSize = new System.Drawing.Size(860, 540);
+            this.Controls.Add(this.card);
+            this.Controls.Add(this.cash);
             this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.refundButton);
+            this.Controls.Add(this.searchButton);
+            this.Controls.Add(this.searchTextbox);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.dataGridView3);
-            this.Controls.Add(this.dataGridView2);
+            this.Controls.Add(this.dateTime);
+            this.Controls.Add(this.receiptDataGridView);
+            this.Controls.Add(this.receiptDetailGridView);
             this.Controls.Add(this.label4);
             this.Name = "receipt";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "영수증";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.receiptDetailGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.receiptDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -191,17 +213,19 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.DataGridView dataGridView3;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DataGridView receiptDetailGridView;
+        private System.Windows.Forms.DataGridView receiptDataGridView;
+        private System.Windows.Forms.DateTimePicker dateTime;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.TextBox searchTextbox;
+        private System.Windows.Forms.Button searchButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button refundButton;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.CheckBox cash;
+        private System.Windows.Forms.CheckBox card;
     }
 }

@@ -30,8 +30,6 @@
         {
             this.productCordTextBox = new System.Windows.Forms.TextBox();
             this.totalAmountLabel = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.button6 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
@@ -41,6 +39,7 @@
             this.button14 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.priceTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // productCordTextBox
@@ -53,33 +52,13 @@
             // 
             // totalAmountLabel
             // 
-            this.totalAmountLabel.Font = new System.Drawing.Font("굴림", 15F);
+            this.totalAmountLabel.Font = new System.Drawing.Font("굴림", 12F);
             this.totalAmountLabel.Location = new System.Drawing.Point(416, 104);
             this.totalAmountLabel.Name = "totalAmountLabel";
             this.totalAmountLabel.ReadOnly = true;
-            this.totalAmountLabel.Size = new System.Drawing.Size(144, 30);
+            this.totalAmountLabel.Size = new System.Drawing.Size(99, 26);
             this.totalAmountLabel.TabIndex = 1;
             this.totalAmountLabel.Text = "받을 금액";
-            // 
-            // textBox4
-            // 
-            this.textBox4.Font = new System.Drawing.Font("굴림", 12F);
-            this.textBox4.Location = new System.Drawing.Point(416, 159);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(144, 26);
-            this.textBox4.TabIndex = 2;
-            this.textBox4.Text = "결제한 금액";
-            // 
-            // textBox5
-            // 
-            this.textBox5.Font = new System.Drawing.Font("굴림", 12F);
-            this.textBox5.Location = new System.Drawing.Point(416, 213);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.ReadOnly = true;
-            this.textBox5.Size = new System.Drawing.Size(144, 26);
-            this.textBox5.TabIndex = 3;
-            this.textBox5.Text = "거스름돈";
             // 
             // textBox6
             // 
@@ -90,7 +69,6 @@
             this.textBox6.Size = new System.Drawing.Size(337, 20);
             this.textBox6.TabIndex = 4;
             this.textBox6.Text = "NO           상품명            수량           단가           금액";
-            this.textBox6.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
             // 
             // button6
             // 
@@ -172,10 +150,20 @@
             this.textBox2.Size = new System.Drawing.Size(337, 210);
             this.textBox2.TabIndex = 19;
             // 
+            // priceTextBox
+            // 
+            this.priceTextBox.Location = new System.Drawing.Point(521, 104);
+            this.priceTextBox.Multiline = true;
+            this.priceTextBox.Name = "priceTextBox";
+            this.priceTextBox.ReadOnly = true;
+            this.priceTextBox.Size = new System.Drawing.Size(86, 26);
+            this.priceTextBox.TabIndex = 20;
+            // 
             // sale
             // 
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(638, 451);
+            this.Controls.Add(this.priceTextBox);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button14);
             this.Controls.Add(this.button13);
@@ -184,8 +172,6 @@
             this.Controls.Add(this.button10);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.textBox6);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
             this.Controls.Add(this.totalAmountLabel);
             this.Controls.Add(this.productCordTextBox);
             this.Controls.Add(this.textBox2);
@@ -214,8 +200,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TextBox productCordTextBox;
         private System.Windows.Forms.TextBox totalAmountLabel;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button10;
@@ -225,5 +209,6 @@
         private System.Windows.Forms.Button button14;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox priceTextBox;
     }
 }

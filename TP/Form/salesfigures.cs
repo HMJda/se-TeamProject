@@ -16,6 +16,8 @@ namespace TP
     {
         private salesfiguresController sfcontroller;
         private string setdate;
+        private int type;
+
         public salesfigures()
         {
             InitializeComponent();
@@ -34,28 +36,33 @@ namespace TP
                 monthcomboBox.Items.Add(i.ToString());
             }
             monthcomboBox.Text = today.Month.ToString();
+            type = 1;
+            setdate = dateTimePicker1.Value.ToString("yyyy-MM-dd");
+            dataview(type, setdate);
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            int type;
             //일별 판매실적, 월별 판매실적, 대분류별 판매실적
             if (radioButton1.Checked == true)
             {
                 type = 1;
                 setdate = dateTimePicker1.Value.ToString("yyyy-MM-dd");
-                sfcontroller.salesCalc(type, setdate);
+                dataview(type, setdate);
+                //MessageBox.Show(setdate);
             }
             else if (radioButton2.Checked == true)
             {
                 type = 2;
                 setdate = string.Format("{0:D4}-{1:D2}", Int32.Parse(yearcomboBox.Text.ToString()), Int32.Parse(monthcomboBox.Text.ToString()));
-                sfcontroller.salesCalc(type, setdate);
+                dataview(type, setdate);
+                //MessageBox.Show(setdate);
             }
             else if (radioButton3.Checked == true)
             {
                 type = 3;
                 setdate = string.Format("{0:D4}-{1:D2}", Int32.Parse(yearcomboBox.Text.ToString()), Int32.Parse(monthcomboBox.Text.ToString()));
-                sfcontroller.salesCalc(type,setdate);             
+                dataview(type,setdate);
+                //MessageBox.Show(setdate);
             }
         }
 
@@ -76,6 +83,20 @@ namespace TP
                 label2.Visible = false;
                 label3.Visible = false;
                 dateTimePicker1.Visible = true;
+                type = 1;
+                setdate = dateTimePicker1.Value.ToString("yyyy-MM-dd");
+                dataview(type, setdate);
+            }
+            else if (radioButton2.Checked == true)
+            {
+                dataGridView1.Visible = true;
+                label4.Visible = true;
+                textBox1.Visible = true;
+                dataGridView2.Visible = false;
+                dataGridView3.Visible = false;
+                type = 2;
+                setdate = string.Format("{0:D4}-{1:D2}", Int32.Parse(yearcomboBox.Text.ToString()), Int32.Parse(monthcomboBox.Text.ToString()));
+                dataview(type, setdate);
             }
             if (radioButton3.Checked == true) //대분류별판매실적 
             { 
@@ -84,6 +105,9 @@ namespace TP
                 textBox1.Visible = false;
                 dataGridView2.Visible = true;
                 dataGridView3.Visible = true;
+                type = 3;
+                setdate = string.Format("{0:D4}-{1:D2}", Int32.Parse(yearcomboBox.Text.ToString()), Int32.Parse(monthcomboBox.Text.ToString()));
+                dataview(type, setdate);
             }
             else //대분류가 아닌경우
             {
@@ -93,6 +117,21 @@ namespace TP
                 dataGridView2.Visible = false;
                 dataGridView3.Visible = false;
             }
+        }
+        private void dataview(int type,string setdate)
+        {
+            dataGridView1.Columns.Clear();
+            DataTable dt = sfcontroller.salesCalc(type, setdate);
+            //dataGridView1.AllowUserToAddRows = false; //빈레코드 표시x
+            if (type == 1 || type == 2)
+            {
+                dataGridView1.DataSource = dt;
+            }
+            else
+            {
+                dataGridView2.DataSource = dt;
+                dataGridView3.DataSource = dt;
+            }            
         }
     }
 }
