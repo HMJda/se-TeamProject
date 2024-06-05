@@ -48,6 +48,7 @@ namespace TP.control
                     {
                         cmd.ExecuteNonQuery();
                     }
+                    conn.Close();
                 }
                 catch (Exception ex)
                 {
@@ -74,7 +75,9 @@ namespace TP.control
                             }
                         }
                         cmd.ExecuteNonQuery();
+                        
                     }
+                    conn.Close();
                 } 
                 catch (Exception ex)
                 {

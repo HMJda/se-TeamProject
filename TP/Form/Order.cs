@@ -206,6 +206,7 @@ namespace TP
         }
 
 
+
         private void radioButton1_CheckedChanged(object sender, EventArgs e) //카테고리 선택
         {
             if (radioButton4.Checked == true)

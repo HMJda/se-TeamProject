@@ -108,7 +108,7 @@ namespace TP
                         oc.Parameters.Add(new OracleParameter("반품번호", Properties.Settings.Default.Returnindex.ToString()));
                         oc.Parameters.Add(new OracleParameter("반품고객", Properties.Settings.Default.LoginIDSave.ToString()));
                         oc.Parameters.Add(new OracleParameter("반품제품", dataGridView1.Rows[i].Cells["제품번호"].Value.ToString()));
-                        oc.Parameters.Add(new OracleParameter("반품수량", Convert.ToInt32(dataGridView1.Rows[i].Cells["재고량"].Value)));
+                        oc.Parameters.Add(new OracleParameter("반품수량", Convert.ToInt32(dataGridView1.Rows[i].Cells["반품량"].Value)));
                         oc.Parameters.Add(new OracleParameter("반품지", user_address));
                         oc.Parameters.Add(new OracleParameter("반품일자", DateTime.Now.ToString("yyyy-MM-dd").ToString()));
                         //반품번호 //반품고객// 반품제품 // 반품수량 // 반품지 // 반품일자// 
@@ -119,21 +119,20 @@ namespace TP
                         occ.Connection = conn;
                         if (DateTime.Now.ToString("yyyy-MM-dd").ToString() != Properties.Settings.Default.date)
                         {
-                            occ.CommandText = "MERGE \n into 재고 \n USING dual \n ON (제품번호 = :제품번호) "  +
+                            occ.CommandText = "MERGE \n into 재고 \n USING dual \n ON (제품번호 = :제품번호) " +
                              "WHEN MATCHED THEN UPDATE SET 재고량 = 재고량 -:재고량 ";
                         }
                         else
                         {
-                            occ.CommandText = "MERGE \n into 재고 \n USING dual \n ON (제품번호 = :제품번호) "  +
-                            "WHEN MATCHED THEN UPDATE SET 재고량 = 재고량 -:재고량";
+                            occ.CommandText = "MERGE \n into 재고 \n USING dual \n ON (제품번호 = :제품번호) " +
+                             "WHEN MATCHED THEN UPDATE SET 재고량 = 재고량 -:재고량 ";
                         }
-
                         occ.BindByName = true;
                         //occ.Parameters.Add(new OracleParameter("카테고리", dataGridView1.Rows[i].Cells[pindex - 1].Value.ToString()));
                         occ.Parameters.Add(new OracleParameter("제품번호", dataGridView1.Rows[i].Cells["제품번호"].Value.ToString()));
                         //occ.Parameters.Add(new OracleParameter("제조업체", dataGridView1.Rows[i].Cells[pindex + 1].Value.ToString()));
                         //occ.Parameters.Add(new OracleParameter("제품명", dataGridView1.Rows[i].Cells[pindex + 2].Value.ToString()));
-                        occ.Parameters.Add(new OracleParameter("재고량", Convert.ToInt32(dataGridView1.Rows[i].Cells["재고량"].Value)));
+                        occ.Parameters.Add(new OracleParameter("재고량", Convert.ToInt32(dataGridView1.Rows[i].Cells["반품량"].Value)));
                         //occ.Parameters.Add(new OracleParameter("단가", dataGridView1.Rows[i].Cells[pindex + 4].Value));
                         //occ.Parameters.Add(new OracleParameter("규격", dataGridView1.Rows[i].Cells[pindex + 5].Value.ToString()));
                         //카테고리,제품번호,제조업체,제품명,재고량,단가,규격

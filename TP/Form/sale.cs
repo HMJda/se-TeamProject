@@ -15,6 +15,8 @@ using TP.control;
 using TP.Entitiy;
 using System.Collections.Specialized;
 using static System.TimeZoneInfo;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Diagnostics;
 
 namespace TP
 {
@@ -361,32 +363,65 @@ namespace TP
             DateTime now = DateTime.Now;
             string receiptNumber = now.ToString("yyyyMMddHHmmss");
             string transactionType = "결제";
-            string[] lines = priceTextBox.Lines;
+            string[] lines = textBox2.Lines;
 
-            foreach (var line in lines)
+            int receiptIndex = Properties.Settings.Default.Receiptindex;
+
+            OracleParameter[] parameters =
             {
-                if (!string.IsNullOrWhiteSpace(line))
-                {
-                    string[] parts = line.Split('\t');
-                    int receiptIndex = Properties.Settings.Default.Receiptindex;
-
-                    OracleParameter[] parameters =
-                    {
                     new OracleParameter("영수증번호", receiptNumber),
                     new OracleParameter("거래시간", now),
                     new OracleParameter("거래형태", transactionType),
                     new OracleParameter("총가격", UpdateTotalPrice()),
                     };
-                    string sqltxt = "MERGE INTO 영수증" +
-                        " USING dual" +
-                        " ON(영수증번호 = :영수증번호)" +
-                        " WHEN NOT MATCHED THEN" +
-                        " INSERT (영수증번호, 거래시간, 거래형태, 총가격)" +
-                        " VALUES (:영수증번호, :거래시간, :거래형태, :총가격)";
-                    // 영수증 테이블에 각 제품 정보 저장
-                    saleController.SetReceipt(sqltxt, parameters);          
-                    MessageBox.Show("영수증 정보가 성공적으로 저장되었습니다.", "저장 성공");
-                    Properties.Settings.Default.Receiptindex += 1; //영수증번호 값증가시키기
+            string sqltxt = "MERGE INTO 영수증" +
+                " USING dual" +
+                " ON(영수증번호 = :영수증번호)" +
+                " WHEN NOT MATCHED THEN" +
+                " INSERT (영수증번호, 거래시간, 거래형태, 총가격)" +
+                " VALUES (:영수증번호, :거래시간, :거래형태, :총가격)";
+            // 영수증 테이블에 각 제품 정보 저장
+            saleController.SetReceipt(sqltxt, parameters);
+            MessageBox.Show("영수증 정보가 성공적으로 저장되었습니다.", "저장 성공");
+            Properties.Settings.Default.Receiptindex += 1; //영수증번호 값증가시키기
+            foreach (var line in lines)
+            {
+                if (!string.IsNullOrWhiteSpace(line))
+                {
+                    string[] values = line.Split('\t');
+
+                    if (values.Length != 5)
+                    {
+                        // 각 줄이 예상한 형식과 일치하지 않는 경우
+                        MessageBox.Show("Invalid line format: " + line);
+                        continue;
+                    }
+                    sqltxt = " INSERT INTO 영수증상세 (영수증번호, 제품번호, 상품명, 수량, 상품가격)" +
+                             " VALUES (:영수증번호, :제품번호, :상품명, :수량, :상품가격)";
+                    string productCode = values[0].Trim();
+                    string productName = values[1].Trim();
+                    string quantity = values[2].Trim();
+                    string price = values[3].Trim();
+                    string total = values[4].Trim();
+                    //MessageBox.Show(productCode + productName + quantity + price + total);
+                    OracleParameter[] ReceiptDetail =
+                    {
+                        new OracleParameter("영수증번호", receiptNumber),
+                        new OracleParameter("제품번호", productCode),
+                        new OracleParameter("상품명", productName),
+                        new OracleParameter("수량", Convert.ToInt32(quantity)),
+                        new OracleParameter("상품가격", Convert.ToInt32(total))
+                    };
+                    saleController.SetReceipt(sqltxt, ReceiptDetail);
+
+                    sqltxt = "MERGE \\n into 재고 \\n USING dual \\n ON (제품번호 = :제품번호) " +
+                        "WHEN MATCHED THEN UPDATE SET 재고량 = 재고량 -:재고량 ";
+                    OracleParameter[] stock =
+                    {
+                        new OracleParameter(":제품번호", productCode),
+                        new OracleParameter(":재고량", Convert.ToInt32(quantity)),
+                    };
+                    stockController.SetStock(sqltxt, stock);
                 }
             }
         }
@@ -407,6 +442,6 @@ namespace TP
             priceTextBox.Text = totalPrice.ToString("C"); // 숫자를 통화 형식으로 변환하여 표시
             return totalPrice;
         }
-
     }
+
 }
