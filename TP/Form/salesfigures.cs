@@ -68,20 +68,13 @@ namespace TP
 
         private void radioButton_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButton1.Checked == false) //월별판매실적 or 대분류별판매실적
-            {
-                monthcomboBox.Visible = true;
-                yearcomboBox.Visible = true;
-                label2.Visible = true;
-                label3.Visible = true;
-                dateTimePicker1.Visible = false;
-            }
-            else if (radioButton1.Checked == true) //일일판매실적 
+             if (radioButton1.Checked == true) //일일판매실적 
             {
                 monthcomboBox.Visible = false;
                 yearcomboBox.Visible = false;
                 label2.Visible = false;
                 label3.Visible = false;
+                label4.Visible = true;
                 dateTimePicker1.Visible = true;
                 type = 1;
                 setdate = dateTimePicker1.Value.ToString("yyyy-MM-dd");
@@ -89,49 +82,49 @@ namespace TP
             }
             else if (radioButton2.Checked == true)
             {
+                monthcomboBox.Visible = true;
+                yearcomboBox.Visible = true;
+                label2.Visible = true;
+                label3.Visible = true;
+                dateTimePicker1.Visible = false;
                 dataGridView1.Visible = true;
                 label4.Visible = true;
                 textBox1.Visible = true;
-                dataGridView2.Visible = false;
-                dataGridView3.Visible = false;
                 type = 2;
                 setdate = string.Format("{0:D4}-{1:D2}", Int32.Parse(yearcomboBox.Text.ToString()), Int32.Parse(monthcomboBox.Text.ToString()));
                 dataview(type, setdate);
             }
-            if (radioButton3.Checked == true) //대분류별판매실적 
-            { 
-                dataGridView1.Visible = false;
+            else if (radioButton3.Checked == true) //대분류별판매실적 
+            {
+                monthcomboBox.Visible = true;
+                yearcomboBox.Visible = true;
+                label2.Visible = true;
+                label3.Visible = true;
+                dateTimePicker1.Visible = false;
                 label4.Visible = false;
                 textBox1.Visible = false;
-                dataGridView2.Visible = true;
-                dataGridView3.Visible = true;
                 type = 3;
                 setdate = string.Format("{0:D4}-{1:D2}", Int32.Parse(yearcomboBox.Text.ToString()), Int32.Parse(monthcomboBox.Text.ToString()));
                 dataview(type, setdate);
-            }
-            else //대분류가 아닌경우
-            {
-                dataGridView1.Visible = true;
-                label4.Visible = true;
-                textBox1.Visible = true;
-                dataGridView2.Visible = false;
-                dataGridView3.Visible = false;
             }
         }
         private void dataview(int type,string setdate)
         {
             dataGridView1.Columns.Clear();
             DataTable dt = sfcontroller.salesCalc(type, setdate);
-            //dataGridView1.AllowUserToAddRows = false; //빈레코드 표시x
+            dataGridView1.AllowUserToAddRows = false; //빈레코드 표시x
+            dataGridView1.DataSource = dt;
             if (type == 1 || type == 2)
             {
-                dataGridView1.DataSource = dt;
+                decimal totalSales = 0;
+                foreach (DataRow row in dt.Rows)
+                {
+                    totalSales += Convert.ToDecimal(row["판매금액"]);
+                }
+
+                // label4에 총합 표시
+                textBox1.Text = $" {totalSales} 원";
             }
-            else
-            {
-                dataGridView2.DataSource = dt;
-                dataGridView3.DataSource = dt;
-            }            
         }
     }
 }
