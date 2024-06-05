@@ -14,6 +14,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 using TP.control;
 using TP.Entitiy;
 using System.Collections.Specialized;
+using static System.TimeZoneInfo;
 
 namespace TP
 {
@@ -21,11 +22,15 @@ namespace TP
     public partial class sale : Form
     {
         private StockController stockController;
+        private SaleController saleController;
+        private ReceiptList receiptList;
         private DataTable dt;
         public sale()
         {
             InitializeComponent();
             stockController = new StockController();
+            receiptList = new ReceiptList();
+            saleController = new SaleController();
         }
         private void cordButton_Click(object sender, EventArgs e)
         {
@@ -63,6 +68,7 @@ namespace TP
                     }
                     lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
                     textBox2.Lines = lines;
+                    UpdateTotalPrice();
                     break;
                 }
             }
@@ -74,6 +80,7 @@ namespace TP
                     return;
                 }
                 textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
+                UpdateTotalPrice();
             }
         }
         private void cash_Click(object sender, EventArgs e)
@@ -121,6 +128,7 @@ namespace TP
                     }
                     lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
                     textBox2.Lines = lines;
+                    UpdateTotalPrice();
                     break;
                 }
             }
@@ -133,9 +141,9 @@ namespace TP
                     return;
                 }
                 textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
+                UpdateTotalPrice();
             }
         }
-
         private void paperCup_Click(object sender, EventArgs e)
         {
             string productCode = "502";
@@ -173,6 +181,7 @@ namespace TP
                     }
                     lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
                     textBox2.Lines = lines;
+                    UpdateTotalPrice();
                     break;
                 }
             }
@@ -185,6 +194,7 @@ namespace TP
                     return;
                 }
                 textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
+                UpdateTotalPrice();
             }
         }
         private void cupOfIce_Click(object sender, EventArgs e)
@@ -224,6 +234,7 @@ namespace TP
                     }
                     lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
                     textBox2.Lines = lines;
+                    UpdateTotalPrice();
                     break;
                 }
             }
@@ -236,12 +247,10 @@ namespace TP
                     return;
                 }
                 textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
+                UpdateTotalPrice();
             }
         }
-        private void selectionCancel_Click(object sender, EventArgs e)
-        {
 
-        }
         private void plasticBackSmall_Click(object sender, EventArgs e)
         {
             string productCode = "504";
@@ -279,6 +288,7 @@ namespace TP
                     }
                     lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
                     textBox2.Lines = lines;
+                    UpdateTotalPrice();
                     break;
                 }
             }
@@ -291,6 +301,7 @@ namespace TP
                     return;
                 }
                 textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
+                UpdateTotalPrice();
             }
         }
         private void plasticBackMedium_Click(object sender, EventArgs e)
@@ -330,6 +341,7 @@ namespace TP
                     }
                     lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
                     textBox2.Lines = lines;
+                    UpdateTotalPrice();
                     break;
                 }
             }
@@ -342,17 +354,52 @@ namespace TP
                     return;
                 }
                 textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
+                UpdateTotalPrice();
             }
         }
         private void pay_Click(object sender, EventArgs e)
         {
-
+            // 영수증 번호 생성
+            string receiptNumber = Guid.NewGuid().ToString(); // 예시로 GUID를 사용; 실제로는 다른 방법을 사용할 수 있습니다.
+            DateTime transactionTime = DateTime.Now;
+            string transactionType = "현금";
+            string[] lines = priceTextBox.Lines;
+            foreach (var line in lines)
+            {
+                if (!string.IsNullOrWhiteSpace(line))
+                {
+                    string[] parts = line.Split('\t');
+                    OracleParameter[] parameters = new OracleParameter[]
+                    {
+                        new OracleParameter("영수증번호", receiptNumber),
+                        new OracleParameter("거래시간", transactionTime.ToString("yyyy-MM-dd HH:mm:ss")),
+                        new OracleParameter("거래형태", transactionType),
+                        new OracleParameter("총가격", UpdateTotalPrice()),
+                    };
+                    string sqltxt = "INSERT INTO ReceiptTable (영수증번호, 거래시간, 거래형태, 총가격) VALUES (:영수증번호, :거래시간, :거래형태, :총가격)";
+                    // 영수증 테이블에 각 제품 정보 저장
+                    saleController.SetReceipt(sqltxt, parameters);          
+                    MessageBox.Show("영수증 정보가 성공적으로 저장되었습니다.", "저장 성공");
+                }
+            }
         }
 
-        private void textBox6_TextChanged(object sender, EventArgs e)
+        private int UpdateTotalPrice()
         {
-
+            int totalPrice = 0;
+            foreach (string line in textBox2.Lines)
+            {
+                if (!string.IsNullOrWhiteSpace(line))
+                {
+                    var parts = line.Split('\t');
+                    if (parts.Length == 5)
+                    {
+                        totalPrice += int.Parse(parts[4]); // decimal.Parse 대신 int.Parse를 사용
+                    }
+                }
+            }
+            priceTextBox.Text = totalPrice.ToString("C"); // 숫자를 통화 형식으로 변환하여 표시
+            return totalPrice;
         }
-
     }
 }

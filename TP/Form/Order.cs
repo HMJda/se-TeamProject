@@ -80,8 +80,6 @@ namespace TP
                 MessageBox.Show(ex.Message);
             }
         }
-
-
         private void button2_Click(object sender, EventArgs e) //검색 부분
         {
             selectsusses = false;
