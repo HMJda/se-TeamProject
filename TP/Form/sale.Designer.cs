@@ -34,13 +34,11 @@
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.button6 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
             this.button13 = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
@@ -59,9 +57,9 @@
             this.totalAmountLabel.Location = new System.Drawing.Point(450, 271);
             this.totalAmountLabel.Name = "totalAmountLabel";
             this.totalAmountLabel.ReadOnly = true;
-            this.totalAmountLabel.Size = new System.Drawing.Size(311, 30);
+            this.totalAmountLabel.Size = new System.Drawing.Size(144, 30);
             this.totalAmountLabel.TabIndex = 1;
-            this.totalAmountLabel.Text = "받을 금액                           0원";
+            this.totalAmountLabel.Text = "받을 금액";
             // 
             // textBox4
             // 
@@ -69,9 +67,9 @@
             this.textBox4.Location = new System.Drawing.Point(450, 307);
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(311, 26);
+            this.textBox4.Size = new System.Drawing.Size(144, 26);
             this.textBox4.TabIndex = 2;
-            this.textBox4.Text = "결제한 금액                                       0원";
+            this.textBox4.Text = "결제한 금액";
             // 
             // textBox5
             // 
@@ -79,9 +77,9 @@
             this.textBox5.Location = new System.Drawing.Point(450, 339);
             this.textBox5.Name = "textBox5";
             this.textBox5.ReadOnly = true;
-            this.textBox5.Size = new System.Drawing.Size(311, 26);
+            this.textBox5.Size = new System.Drawing.Size(144, 26);
             this.textBox5.TabIndex = 3;
-            this.textBox5.Text = "거스름돈                                           0원";
+            this.textBox5.Text = "거스름돈";
             // 
             // textBox6
             // 
@@ -89,31 +87,20 @@
             this.textBox6.Multiline = true;
             this.textBox6.Name = "textBox6";
             this.textBox6.ReadOnly = true;
-            this.textBox6.Size = new System.Drawing.Size(702, 20);
+            this.textBox6.Size = new System.Drawing.Size(337, 20);
             this.textBox6.TabIndex = 4;
-            this.textBox6.Text = "NO                             상품명                                       수량      " +
-    "                           단가                              금액";
+            this.textBox6.Text = "NO           상품명            수량           단가           금액";
             this.textBox6.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(791, 24);
+            this.button6.Location = new System.Drawing.Point(416, 24);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(191, 65);
             this.button6.TabIndex = 7;
             this.button6.Text = "결제";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.pay_Click);
-            // 
-            // button8
-            // 
-            this.button8.Location = new System.Drawing.Point(801, 308);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(182, 63);
-            this.button8.TabIndex = 9;
-            this.button8.Text = "전체취소";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.allCancel_Click);
             // 
             // button10
             // 
@@ -148,7 +135,7 @@
             // 
             // button13
             // 
-            this.button13.Location = new System.Drawing.Point(613, 381);
+            this.button13.Location = new System.Drawing.Point(49, 333);
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(182, 42);
             this.button13.TabIndex = 14;
@@ -158,23 +145,13 @@
             // 
             // button14
             // 
-            this.button14.Location = new System.Drawing.Point(801, 381);
+            this.button14.Location = new System.Drawing.Point(237, 333);
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(182, 42);
             this.button14.TabIndex = 15;
             this.button14.Text = "봉투(중)\r\n100";
             this.button14.UseVisualStyleBackColor = true;
             this.button14.Click += new System.EventHandler(this.plasticBackMedium_Click);
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(801, 240);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(181, 61);
-            this.button4.TabIndex = 17;
-            this.button4.Text = "선택취소";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.selectionCancel_Click);
             // 
             // button5
             // 
@@ -188,25 +165,23 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(53, 36);
+            this.textBox2.Location = new System.Drawing.Point(53, 43);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(702, 217);
+            this.textBox2.Size = new System.Drawing.Size(337, 210);
             this.textBox2.TabIndex = 19;
             // 
             // sale
             // 
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1024, 451);
+            this.ClientSize = new System.Drawing.Size(638, 451);
             this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
             this.Controls.Add(this.button14);
             this.Controls.Add(this.button13);
             this.Controls.Add(this.button12);
             this.Controls.Add(this.button11);
             this.Controls.Add(this.button10);
-            this.Controls.Add(this.button8);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.textBox6);
             this.Controls.Add(this.textBox5);
@@ -243,13 +218,11 @@
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.Button button14;
-        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.TextBox textBox2;
     }

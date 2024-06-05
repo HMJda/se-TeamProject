@@ -43,36 +43,37 @@ namespace TP
             string productName = productRow["제품명"].ToString();
             int price = Convert.ToInt32(productRow["가격"]);
             int stockQuantity = Convert.ToInt32(productRow["재고량"]);
+            int quantity = 1;
             bool productExists = false;
 
             // 제품 코드의 유효성을 확인한 후, 해당 제품 코드가 textBox2에 존재하는지 확인
-
-            if (!productExists)
+            string[] lines = textBox2.Lines;
+            for (int i = 0; i < lines.Length; i++)
             {
-                int newquantity = 1;
-                if (newquantity > stockQuantity)
-                {
-                    MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
-                    return;
-                }
-                textBox2.Text += $"\r\n{productCode}\t\t{productName}\t\t\t\t{newquantity}\t\t{price}\t\t{newquantity * price}";
-            }
-            int quantity = 1;
-            foreach (var line in textBox2.Lines)
-            {
-                if (line.Contains(productCode))
+                if (lines[i].Contains(productCode))
                 {
                     productExists = true;
-                    quantity = Convert.ToInt32($"{quantity}")+1;
+                    var parts = lines[i].Split('\t');
+                    int existingQuantity = int.Parse(parts[2]);
+                    quantity = existingQuantity + 1;
                     if (quantity > stockQuantity)
                     {
                         MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
                         return;
                     }
-                    string newLine = $"{productCode}\t\t{productName}\t\t\t\t{quantity}\t\t{price}\t\t{quantity * price}";
-                    textBox2.Text = textBox2.Text.Replace(line, newLine);
+                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
+                    textBox2.Lines = lines;
                     break;
                 }
+            }
+            if (!productExists)
+            {
+                if (quantity > stockQuantity)
+                {
+                    MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                    return;
+                }
+                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
             }
         }
         private void cash_Click(object sender, EventArgs e)
@@ -100,37 +101,38 @@ namespace TP
             string productName = productRow["제품명"].ToString();
             int price = Convert.ToInt32(productRow["가격"]);
             int stockQuantity = Convert.ToInt32(productRow["재고량"]);
+            int quantity = 1;
             bool productExists = false;
 
-            if (!productExists)
+            string[] lines = textBox2.Lines;
+            for (int i = 0; i < lines.Length; i++)
             {
-                int newquantity = 1;
-                // 재고 확인
-                if (newquantity > stockQuantity)
-                {
-                    MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
-                    return;
-                }
-
-                textBox2.Text += $"\r\n{productCode}\t\t{productName}\t\t\t\t{newquantity}\t\t{price}\t\t{newquantity * price}";
-            }
-
-            int quantity = 1;
-            foreach (var line in textBox2.Lines)
-            {
-                if (line.Contains(productCode))
+                if (lines[i].Contains(productCode))
                 {
                     productExists = true;
-                    quantity = Convert.ToInt32($"{quantity}") + 1;
+                    var parts = lines[i].Split('\t');
+                    int existingQuantity = int.Parse(parts[2]);
+                    quantity = existingQuantity + 1;
+                    // 재고 확인
                     if (quantity > stockQuantity)
                     {
                         MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
                         return;
                     }
-                    string newLine = $"{productCode}\t\t{productName}\t\t\t\t{quantity}\t\t{price}\t\t{quantity * price}";
-                    textBox2.Text = textBox2.Text.Replace(line, newLine);
+                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
+                    textBox2.Lines = lines;
                     break;
                 }
+            }
+            if (!productExists)
+            {
+                // 재고 확인
+                if (quantity > stockQuantity)
+                {
+                    MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                    return;
+                }
+                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
             }
         }
 
@@ -151,37 +153,38 @@ namespace TP
             string productName = productRow["제품명"].ToString();
             int price = Convert.ToInt32(productRow["가격"]);
             int stockQuantity = Convert.ToInt32(productRow["재고량"]);
+            int quantity = 1;
             bool productExists = false;
 
-            if (!productExists)
+            string[] lines = textBox2.Lines;
+            for (int i = 0; i < lines.Length; i++)
             {
-                int newquantity = 1;
-                // 재고 확인
-                if (newquantity > stockQuantity)
-                {
-                    MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
-                    return;
-                }
-
-                textBox2.Text += $"\r\n{productCode}\t\t{productName}\t\t\t\t{newquantity}\t\t{price}\t\t{newquantity * price}";
-            }
-
-            int quantity = 1;
-            foreach (var line in textBox2.Lines)
-            {
-                if (line.Contains(productCode))
+                if (lines[i].Contains(productCode))
                 {
                     productExists = true;
-                    quantity = Convert.ToInt32($"{quantity}") + 1;
+                    var parts = lines[i].Split('\t');
+                    int existingQuantity = int.Parse(parts[2]);
+                    quantity = existingQuantity + 1;
+                    // 재고 확인
                     if (quantity > stockQuantity)
                     {
                         MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
                         return;
                     }
-                    string newLine = $"{productCode}\t\t{productName}\t\t\t\t{quantity}\t\t{price}\t\t{quantity * price}";
-                    textBox2.Text = textBox2.Text.Replace(line, newLine);
+                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
+                    textBox2.Lines = lines;
                     break;
                 }
+            }
+            if (!productExists)
+            {
+                // 재고 확인
+                if (quantity > stockQuantity)
+                {
+                    MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                    return;
+                }
+                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
             }
         }
         private void cupOfIce_Click(object sender, EventArgs e)
@@ -201,37 +204,38 @@ namespace TP
             string productName = productRow["제품명"].ToString();
             int price = Convert.ToInt32(productRow["가격"]);
             int stockQuantity = Convert.ToInt32(productRow["재고량"]);
+            int quantity = 1;
             bool productExists = false;
 
-            if (!productExists)
+            string[] lines = textBox2.Lines;
+            for (int i = 0; i < lines.Length; i++)
             {
-                int newquantity = 1;
-                // 재고 확인
-                if (newquantity > stockQuantity)
-                {
-                    MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
-                    return;
-                }
-
-                textBox2.Text += $"\r\n{productCode}\t\t{productName}\t\t\t\t{newquantity}\t\t{price}\t\t{newquantity * price}";
-            }
-
-            int quantity = 1;
-            foreach (var line in textBox2.Lines)
-            {
-                if (line.Contains(productCode))
+                if (lines[i].Contains(productCode))
                 {
                     productExists = true;
-                    quantity = Convert.ToInt32($"{quantity}") + 1;
+                    var parts = lines[i].Split('\t');
+                    int existingQuantity = int.Parse(parts[2]);
+                    quantity = existingQuantity + 1;
+                    // 재고 확인
                     if (quantity > stockQuantity)
                     {
                         MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
                         return;
                     }
-                    string newLine = $"{productCode}\t\t{productName}\t\t\t\t{quantity}\t\t{price}\t\t{quantity * price}";
-                    textBox2.Text = textBox2.Text.Replace(line, newLine);
+                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
+                    textBox2.Lines = lines;
                     break;
                 }
+            }
+            if (!productExists)
+            {
+                // 재고 확인
+                if (quantity > stockQuantity)
+                {
+                    MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                    return;
+                }
+                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
             }
         }
         private void selectionCancel_Click(object sender, EventArgs e)
@@ -255,37 +259,38 @@ namespace TP
             string productName = productRow["제품명"].ToString();
             int price = Convert.ToInt32(productRow["가격"]);
             int stockQuantity = Convert.ToInt32(productRow["재고량"]);
+            int quantity = 1;
             bool productExists = false;
 
-            if (!productExists)
+            string[] lines = textBox2.Lines;
+            for (int i = 0; i < lines.Length; i++)
             {
-                int newquantity = 1;
-                // 재고 확인
-                if (newquantity > stockQuantity)
-                {
-                    MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
-                    return;
-                }
-
-                textBox2.Text += $"\r\n{productCode}\t\t{productName}\t\t\t\t{newquantity}\t\t{price}\t\t{newquantity * price}";
-            }
-
-            int quantity = 1;
-            foreach (var line in textBox2.Lines)
-            {
-                if (line.Contains(productCode))
+                if (lines[i].Contains(productCode))
                 {
                     productExists = true;
-                    quantity = Convert.ToInt32($"{quantity}") + 1;
+                    var parts = lines[i].Split('\t');
+                    int existingQuantity = int.Parse(parts[2]);
+                    quantity = existingQuantity + 1;
+                    // 재고 확인
                     if (quantity > stockQuantity)
                     {
                         MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
                         return;
                     }
-                    string newLine = $"{productCode}\t\t{productName}\t\t\t\t{quantity}\t\t{price}\t\t{quantity * price}";
-                    textBox2.Text = textBox2.Text.Replace(line, newLine);
+                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
+                    textBox2.Lines = lines;
                     break;
                 }
+            }
+            if (!productExists)
+            {
+                // 재고 확인
+                if (quantity > stockQuantity)
+                {
+                    MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                    return;
+                }
+                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
             }
         }
         private void plasticBackMedium_Click(object sender, EventArgs e)
@@ -305,37 +310,38 @@ namespace TP
             string productName = productRow["제품명"].ToString();
             int price = Convert.ToInt32(productRow["가격"]);
             int stockQuantity = Convert.ToInt32(productRow["재고량"]);
+            int quantity = 1;
             bool productExists = false;
 
-            if (!productExists)
+            string[] lines = textBox2.Lines;
+            for (int i = 0; i < lines.Length; i++)
             {
-                int newquantity = 1;
-                // 재고 확인
-                if (newquantity > stockQuantity)
-                {
-                    MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
-                    return;
-                }
-
-                textBox2.Text += $"\r\n{productCode}\t\t{productName}\t\t\t\t{newquantity}\t\t{price}\t\t{newquantity * price}";
-            }
-
-            int quantity = 1;
-            foreach (var line in textBox2.Lines)
-            {
-                if (line.Contains(productCode))
+                if (lines[i].Contains(productCode))
                 {
                     productExists = true;
-                    quantity = Convert.ToInt32($"{quantity}") + 1;
+                    var parts = lines[i].Split('\t');
+                    int existingQuantity = int.Parse(parts[2]);
+                    quantity = existingQuantity + 1;
+                    // 재고 확인
                     if (quantity > stockQuantity)
                     {
                         MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
                         return;
                     }
-                    string newLine = $"{productCode}\t\t{productName}\t\t\t\t{quantity}\t\t{price}\t\t{quantity * price}";
-                    textBox2.Text = textBox2.Text.Replace(line, newLine);
+                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
+                    textBox2.Lines = lines;
                     break;
                 }
+            }
+            if (!productExists)
+            {
+                // 재고 확인
+                if (quantity > stockQuantity)
+                {
+                    MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                    return;
+                }
+                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
             }
         }
         private void pay_Click(object sender, EventArgs e)
