@@ -68,7 +68,7 @@ namespace TP
                         MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
                         return;
                     }
-                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
+                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}";
                     textBox2.Lines = lines;
                     UpdateTotalPrice();
                     break;
@@ -81,7 +81,7 @@ namespace TP
                     MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
                     return;
                 }
-                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
+                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}\r\n";
                 UpdateTotalPrice();
             }
         }
@@ -128,7 +128,7 @@ namespace TP
                         MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
                         return;
                     }
-                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
+                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}";
                     textBox2.Lines = lines;
                     UpdateTotalPrice();
                     break;
@@ -142,7 +142,7 @@ namespace TP
                     MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
                     return;
                 }
-                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
+                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}\r\n";
                 UpdateTotalPrice();
             }
         }
@@ -181,7 +181,7 @@ namespace TP
                         MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
                         return;
                     }
-                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
+                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}";
                     textBox2.Lines = lines;
                     UpdateTotalPrice();
                     break;
@@ -195,7 +195,7 @@ namespace TP
                     MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
                     return;
                 }
-                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
+                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}\r\n";
                 UpdateTotalPrice();
             }
         }
@@ -234,7 +234,7 @@ namespace TP
                         MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
                         return;
                     }
-                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
+                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}";
                     textBox2.Lines = lines;
                     UpdateTotalPrice();
                     break;
@@ -248,7 +248,7 @@ namespace TP
                     MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
                     return;
                 }
-                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
+                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}\r\n";
                 UpdateTotalPrice();
             }
         }
@@ -287,7 +287,7 @@ namespace TP
                         MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
                         return;
                     }
-                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
+                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}";
                     textBox2.Lines = lines;
                     UpdateTotalPrice();
                     break;
@@ -301,7 +301,7 @@ namespace TP
                     MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
                     return;
                 }
-                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
+                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}\r\n";
                 UpdateTotalPrice();
             }
         }
@@ -340,7 +340,7 @@ namespace TP
                         MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
                         return;
                     }
-                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
+                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}";
                     textBox2.Lines = lines;
                     UpdateTotalPrice();
                     break;
@@ -354,7 +354,7 @@ namespace TP
                     MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
                     return;
                 }
-                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
+                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price/1.1}\t{quantity * price}\r\n";
                 UpdateTotalPrice();
             }
         }
@@ -390,38 +390,34 @@ namespace TP
                 {
                     string[] values = line.Split('\t');
 
-                    if (values.Length != 5)
+                    try
                     {
-                        // 각 줄이 예상한 형식과 일치하지 않는 경우
-                        MessageBox.Show("Invalid line format: " + line);
-                        continue;
-                    }
-                    sqltxt = " INSERT INTO 영수증상세 (영수증번호, 제품번호, 상품명, 수량, 상품가격)" +
+                        sqltxt = " INSERT INTO 영수증상세 (영수증번호, 제품번호, 상품명, 수량, 상품가격)" +
                              " VALUES (:영수증번호, :제품번호, :상품명, :수량, :상품가격)";
-                    string productCode = values[0].Trim();
-                    string productName = values[1].Trim();
-                    string quantity = values[2].Trim();
-                    string price = values[3].Trim();
-                    string total = values[4].Trim();
-                    //MessageBox.Show(productCode + productName + quantity + price + total);
-                    OracleParameter[] ReceiptDetail =
+                        string productCode = values[0].Trim();
+                        string productName = values[1].Trim();
+                        string quantity = values[2].Trim();
+                        string price = values[3].Trim();
+                        string total = values[4].Trim();
+                        //MessageBox.Show(productCode + productName + quantity + price + total);
+                        OracleParameter[] ReceiptDetail =
+                        {
+                            new OracleParameter("영수증번호", receiptNumber),
+                            new OracleParameter("제품번호", productCode),
+                            new OracleParameter("상품명", productName),
+                            new OracleParameter("수량", Convert.ToInt32(quantity)),
+                            new OracleParameter("상품가격", Convert.ToInt32(total))
+                        };
+                        saleController.SetReceipt(sqltxt, ReceiptDetail);
+                        int i = Convert.ToInt32(quantity);
+                        sqltxt = $@"MERGE into 재고 USING dual ON (제품번호 = '{productCode}')
+                                 WHEN MATCHED THEN UPDATE SET 재고량 = 재고량 - {i}";
+                        stockController.SetStock(sqltxt);
+                    }
+                    catch (OracleException ex)
                     {
-                        new OracleParameter("영수증번호", receiptNumber),
-                        new OracleParameter("제품번호", productCode),
-                        new OracleParameter("상품명", productName),
-                        new OracleParameter("수량", Convert.ToInt32(quantity)),
-                        new OracleParameter("상품가격", Convert.ToInt32(total))
-                    };
-                    saleController.SetReceipt(sqltxt, ReceiptDetail);
-
-                    sqltxt = "MERGE \\n into 재고 \\n USING dual \\n ON (제품번호 = :제품번호) " +
-                        "WHEN MATCHED THEN UPDATE SET 재고량 = 재고량 -:재고량 ";
-                    OracleParameter[] stock =
-                    {
-                        new OracleParameter(":제품번호", productCode),
-                        new OracleParameter(":재고량", Convert.ToInt32(quantity)),
-                    };
-                    stockController.SetStock(sqltxt, stock);
+                        MessageBox.Show(ex.Message);
+                    }
                 }
             }
             textBox2.Text = "";
