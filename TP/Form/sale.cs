@@ -389,6 +389,7 @@ namespace TP
                     Properties.Settings.Default.Receiptindex += 1; //영수증번호 값증가시키기
                 }
             }
+            this.Close();
         }
         private int UpdateTotalPrice()
         {
@@ -408,5 +409,13 @@ namespace TP
             return totalPrice;
         }
 
+        private void sale_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox2.Text))
+            {
+                MessageBox.Show("판매목록에 물품이 있어 닫을 수 없습니다.", "경고");
+                e.Cancel = true;
+            }
+        }
     }
 }

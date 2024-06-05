@@ -178,6 +178,7 @@
             this.Name = "sale";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "판매";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.sale_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
