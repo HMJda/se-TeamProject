@@ -135,7 +135,6 @@ namespace TP
                 textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
             }
         }
-
         private void paperCup_Click(object sender, EventArgs e)
         {
             string productCode = "502";

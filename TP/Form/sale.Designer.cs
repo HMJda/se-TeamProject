@@ -54,7 +54,7 @@
             // totalAmountLabel
             // 
             this.totalAmountLabel.Font = new System.Drawing.Font("굴림", 15F);
-            this.totalAmountLabel.Location = new System.Drawing.Point(450, 271);
+            this.totalAmountLabel.Location = new System.Drawing.Point(416, 104);
             this.totalAmountLabel.Name = "totalAmountLabel";
             this.totalAmountLabel.ReadOnly = true;
             this.totalAmountLabel.Size = new System.Drawing.Size(144, 30);
@@ -64,7 +64,7 @@
             // textBox4
             // 
             this.textBox4.Font = new System.Drawing.Font("굴림", 12F);
-            this.textBox4.Location = new System.Drawing.Point(450, 307);
+            this.textBox4.Location = new System.Drawing.Point(416, 159);
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
             this.textBox4.Size = new System.Drawing.Size(144, 26);
@@ -74,7 +74,7 @@
             // textBox5
             // 
             this.textBox5.Font = new System.Drawing.Font("굴림", 12F);
-            this.textBox5.Location = new System.Drawing.Point(450, 339);
+            this.textBox5.Location = new System.Drawing.Point(416, 213);
             this.textBox5.Name = "textBox5";
             this.textBox5.ReadOnly = true;
             this.textBox5.Size = new System.Drawing.Size(144, 26);
