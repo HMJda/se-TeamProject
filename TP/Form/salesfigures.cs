@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TP.control;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace TP
 {
@@ -61,14 +54,14 @@ namespace TP
             {
                 type = 3;
                 setdate = string.Format("{0:D4}-{1:D2}", Int32.Parse(yearcomboBox.Text.ToString()), Int32.Parse(monthcomboBox.Text.ToString()));
-                dataview(type,setdate);
+                dataview(type, setdate);
                 //MessageBox.Show(setdate);
             }
         }
 
         private void radioButton_CheckedChanged(object sender, EventArgs e)
         {
-             if (radioButton1.Checked == true) //일일판매실적 
+            if (radioButton1.Checked == true) //일일판매실적 
             {
                 monthcomboBox.Visible = false;
                 yearcomboBox.Visible = false;
@@ -108,7 +101,7 @@ namespace TP
                 dataview(type, setdate);
             }
         }
-        private void dataview(int type,string setdate)
+        private void dataview(int type, string setdate)
         {
             dataGridView1.Columns.Clear();
             DataTable dt = sfcontroller.salesCalc(type, setdate);

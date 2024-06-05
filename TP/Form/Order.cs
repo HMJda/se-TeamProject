@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using Oracle.ManagedDataAccess.Client;
+using System;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Oracle.ManagedDataAccess;
-using Oracle.ManagedDataAccess.Client;
-using System.IO;
 using TP.control;
 
 namespace TP
@@ -41,11 +34,11 @@ namespace TP
             dataview();
         }
         private void dataview()
-        {          
+        {
             try
             {
                 dataGridView1.Columns.Clear();
-                dt = productInfoController.GetProduct();             
+                dt = productInfoController.GetProduct();
                 if (!string.IsNullOrEmpty(categori)) // Check if categori is not empty or null
                 {
                     dt.DefaultView.RowFilter = $"카테고리 ='{categori}'";
@@ -116,7 +109,7 @@ namespace TP
                             new OracleParameter("수량", Convert.ToInt32(dataGridView1.Rows[i].Cells["발주량"].Value)),
                             new OracleParameter("배송지", user_address),
                             new OracleParameter("주문일자", DateTime.Now.ToString("yyyy-MM-dd"))
-                        };  
+                        };
                         orderController.SetOrder(sqltxt, order);
 
                         //재고 테이블에 수량 추가
@@ -169,7 +162,7 @@ namespace TP
                 {
                     dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.White;
                 }
-                
+
             }
             if (saveSuccess == true)
             {
@@ -197,7 +190,7 @@ namespace TP
                 {
                     e.Cancel = true;
                 }
-                else if(dialog == DialogResult.No)
+                else if (dialog == DialogResult.No)
                 {
                     e.Cancel = false;
                 }
@@ -240,7 +233,7 @@ namespace TP
 
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
-               
+
                 if (dataGridView1.Rows[i].Cells[$"{label}"].Value.ToString().Trim() == keyword.Trim())
                 {
                     dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;  //색칠
@@ -251,10 +244,10 @@ namespace TP
                     dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.White;
                 }
             }
-            if(selectsusses == false)
+            if (selectsusses == false)
             {
                 MessageBox.Show("검색 결과가 없습니다.");
-            }       
+            }
         }
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -270,6 +263,6 @@ namespace TP
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             saveSuccess = false;
-        }    
+        }
     }
 }

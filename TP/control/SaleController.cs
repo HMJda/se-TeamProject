@@ -1,10 +1,7 @@
-﻿using System;
+﻿using Oracle.ManagedDataAccess.Client;
 using System.Data;
-using TP;
 using TP.control;
 using TP.Entitiy;
-using Oracle.ManagedDataAccess;
-using Oracle.ManagedDataAccess.Client;
 
 public class SaleController
 {

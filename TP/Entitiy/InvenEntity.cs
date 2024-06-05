@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using TP.control;
 
 namespace TP.Entitiy
 {
@@ -18,7 +12,7 @@ namespace TP.Entitiy
         }
         int ProductCode;
         string ProductName;
-        DateTime ProductExDate ;
+        DateTime ProductExDate;
         int ProductQuantity;
         string ProductManufactuer;
         string ProductBarcode;

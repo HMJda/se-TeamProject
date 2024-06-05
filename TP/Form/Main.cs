@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TP
@@ -19,17 +12,17 @@ namespace TP
 
         private void Main_Load(object sender, EventArgs e)
         {
-            Form form = new Login(this); 
+            Form form = new Login(this);
             form.ShowDialog();
         }
 
         private void Order_Click(object sender, EventArgs e)
         {
             // 메인 폼을 숨깁니다.
-            
+
             LoginController loginController = new LoginController();
-            string position =loginController.GetUserDetail(Properties.Settings.Default.LoginIDSave.ToString(), "직책").Trim();
-            if(position == "점장")
+            string position = loginController.GetUserDetail(Properties.Settings.Default.LoginIDSave.ToString(), "직책").Trim();
+            if (position == "점장")
             {
                 this.Hide();
                 // 판매 폼을 생성하고 표시합니다

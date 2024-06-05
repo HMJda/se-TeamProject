@@ -1,8 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
-using Oracle.ManagedDataAccess.Client;
-
-namespace TP
+﻿namespace TP
 {
     public class LoginController
     {
@@ -13,10 +9,10 @@ namespace TP
         }
         private bool loginsucces = false; //로그인 성공 여부 
         public bool checkUser(string id, string pw)
-        { 
+        {
             if (userEntity.IsUserExists(id, pw))
             {
-                loginsucces = true;      
+                loginsucces = true;
             }
             else
             {

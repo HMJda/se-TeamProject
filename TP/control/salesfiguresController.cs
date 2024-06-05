@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Data;
 using TP.Entitiy;
 
 namespace TP.control
@@ -35,10 +28,10 @@ namespace TP.control
                         EXTRACT(YEAR FROM r.거래시간) = {year}
                         GROUP BY 
                         EXTRACT(MONTH FROM r.거래시간);";
-            
+
             return receiptList.GetReceipt(sqltxt);
         }
-        public DataTable salesCalc(int type,string date)
+        public DataTable salesCalc(int type, string date)
         {
             string sqltxt;
             if (type == 1)
@@ -48,7 +41,7 @@ namespace TP.control
                 //MessageBox.Show(sqltxt);
                 return receiptList.GetReceipt(sqltxt);
             }
-            else if(type == 2)
+            else if (type == 2)
             {
                 //월별판매실적    
                 sqltxt = $@"select 일자,결제금액,반품금액,객수,판매금액 
@@ -56,7 +49,7 @@ namespace TP.control
                             where TO_CHAR(TO_DATE(거래일자, 'YYYY-MM-DD'), 'YYYY-MM') ='{date}'";
                 return receiptList.GetReceipt(sqltxt);
             }
-            else if(type==3)
+            else if (type == 3)
             {
                 //대분류별판매실적 
                 sqltxt = $@"select 대분류,수량,결제금액

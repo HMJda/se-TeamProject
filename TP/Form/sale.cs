@@ -1,22 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using Oracle.ManagedDataAccess.Client;
+using System;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Oracle.ManagedDataAccess;
-using Oracle.ManagedDataAccess.Client;
-using System.IO;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
-using TP.control;
-using TP.Entitiy;
-using System.Collections.Specialized;
-using static System.TimeZoneInfo;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Diagnostics;
 
 namespace TP
 {
@@ -25,13 +10,11 @@ namespace TP
     {
         private StockController stockController;
         private SaleController saleController;
-        private ReceiptList receiptList;
         private DataTable dt;
         public sale()
         {
             InitializeComponent();
             stockController = new StockController();
-            receiptList = new ReceiptList();
             saleController = new SaleController();
         }
         private void cordButton_Click(object sender, EventArgs e)
@@ -42,7 +25,7 @@ namespace TP
 
             if (foundRows.Length == 0)
             {
-                MessageBox.Show("재고가 존재하지 않습니다.", "제품 등록 실패");
+                MessageBox.Show("제품이 존재하지 않습니다.", "제품 등록 실패");
                 return;
             }
 
@@ -65,7 +48,7 @@ namespace TP
                     quantity = existingQuantity + 1;
                     if (quantity > stockQuantity)
                     {
-                        MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                        MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                         return;
                     }
                     lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}";
@@ -78,7 +61,7 @@ namespace TP
             {
                 if (quantity > stockQuantity)
                 {
-                    MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                    MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                     return;
                 }
                 textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}\r\n";
@@ -102,7 +85,7 @@ namespace TP
             if (foundRows.Length == 0)
             {
                 // 제품 번호가 유효하지 않은 경우
-                MessageBox.Show("재고가 존재하지 않습니다.", "제품 등록 실패");
+                MessageBox.Show("제품이 존재하지 않습니다.", "제품 등록 실패");
                 return;
             }
 
@@ -125,7 +108,7 @@ namespace TP
                     // 재고 확인
                     if (quantity > stockQuantity)
                     {
-                        MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                        MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                         return;
                     }
                     lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}";
@@ -139,7 +122,7 @@ namespace TP
                 // 재고 확인
                 if (quantity > stockQuantity)
                 {
-                    MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                    MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                     return;
                 }
                 textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}\r\n";
@@ -155,7 +138,7 @@ namespace TP
             if (foundRows.Length == 0)
             {
                 // 제품 번호가 유효하지 않은 경우
-                MessageBox.Show("재고가 존재하지 않습니다.", "제품 등록 실패");
+                MessageBox.Show("재품이 존재하지 않습니다.", "제품 등록 실패");
                 return;
             }
 
@@ -178,7 +161,7 @@ namespace TP
                     // 재고 확인
                     if (quantity > stockQuantity)
                     {
-                        MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                        MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                         return;
                     }
                     lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}";
@@ -192,7 +175,7 @@ namespace TP
                 // 재고 확인
                 if (quantity > stockQuantity)
                 {
-                    MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                    MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                     return;
                 }
                 textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}\r\n";
@@ -208,7 +191,7 @@ namespace TP
             if (foundRows.Length == 0)
             {
                 // 제품 번호가 유효하지 않은 경우
-                MessageBox.Show("재고가 존재하지 않습니다.", "제품 등록 실패");
+                MessageBox.Show("재품이 존재하지 않습니다.", "제품 등록 실패");
                 return;
             }
 
@@ -231,7 +214,7 @@ namespace TP
                     // 재고 확인
                     if (quantity > stockQuantity)
                     {
-                        MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                        MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                         return;
                     }
                     lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}";
@@ -245,7 +228,7 @@ namespace TP
                 // 재고 확인
                 if (quantity > stockQuantity)
                 {
-                    MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                    MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                     return;
                 }
                 textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}\r\n";
@@ -261,7 +244,7 @@ namespace TP
             if (foundRows.Length == 0)
             {
                 // 제품 번호가 유효하지 않은 경우
-                MessageBox.Show("재고가 존재하지 않습니다.", "제품 등록 실패");
+                MessageBox.Show("제품이 존재하지 않습니다.", "제품 등록 실패");
                 return;
             }
 
@@ -284,7 +267,7 @@ namespace TP
                     // 재고 확인
                     if (quantity > stockQuantity)
                     {
-                        MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                        MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                         return;
                     }
                     lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}";
@@ -298,7 +281,7 @@ namespace TP
                 // 재고 확인
                 if (quantity > stockQuantity)
                 {
-                    MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                    MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                     return;
                 }
                 textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}\r\n";
@@ -314,7 +297,7 @@ namespace TP
             if (foundRows.Length == 0)
             {
                 // 제품 번호가 유효하지 않은 경우
-                MessageBox.Show("재고가 존재하지 않습니다.", "제품 등록 실패");
+                MessageBox.Show("제품이 존재하지 않습니다.", "제품 등록 실패");
                 return;
             }
 
@@ -337,7 +320,7 @@ namespace TP
                     // 재고 확인
                     if (quantity > stockQuantity)
                     {
-                        MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                        MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                         return;
                     }
                     lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}";
@@ -351,10 +334,10 @@ namespace TP
                 // 재고 확인
                 if (quantity > stockQuantity)
                 {
-                    MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                    MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                     return;
                 }
-                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price/1.1}\t{quantity * price}\r\n";
+                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}\r\n";
                 UpdateTotalPrice();
             }
         }

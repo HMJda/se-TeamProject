@@ -2,7 +2,6 @@
 using System;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 using TP.control;
 
@@ -18,7 +17,7 @@ namespace TP
         private bool selectsusses = false; // 검색 성공
         private StockController stckcontroller;
         private OrderReturnController returnController;
-        private LoginController loginController ;
+        private LoginController loginController;
         private DataTable dt;
         public Return()
         {
@@ -147,7 +146,7 @@ namespace TP
                     {
                         saveSuccess = false;
                         MessageBox.Show(ex.Message);
-                    }                   
+                    }
                     dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
                 }
                 else
@@ -156,9 +155,9 @@ namespace TP
                 }
 
             }
-            
+
             if (saveSuccess == true)
-            {               
+            {
                 MessageBox.Show("저장되었습니다.");
                 dataview();
             }
