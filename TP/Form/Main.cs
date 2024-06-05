@@ -180,5 +180,21 @@ namespace TP
                 this.Show();
             }
         }
+
+        private void addInven_Click(object sender, EventArgs e)
+        {
+            // 메인 폼을 숨깁니다.
+            this.Hide();
+
+            // 판매 폼을 생성하고 표시합니다
+            using (Form form = new AddInvenUI())
+            {
+                // ShowDialog()를 사용해 판매 폼을 모달로 표시합니다.
+                form.ShowDialog();
+
+                // 판매 폼이 닫히면 메인 폼을 다시 표시합니다.
+                this.Show();
+            }
+        }
     }
 }
