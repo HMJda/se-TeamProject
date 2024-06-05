@@ -424,6 +424,7 @@ namespace TP
                     stockController.SetStock(sqltxt, stock);
                 }
             }
+            this.Close();
         }
         private int UpdateTotalPrice()
         {
@@ -444,4 +445,5 @@ namespace TP
         }
     }
 
+    }
 }
