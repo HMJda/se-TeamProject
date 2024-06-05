@@ -34,7 +34,6 @@
             // 
             this.ClientSize = new System.Drawing.Size(531, 378);
             this.Name = "receipt";
-            this.Text = "영수증";
             this.ResumeLayout(false);
 
         }
