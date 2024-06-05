@@ -47,7 +47,7 @@
             this.productCordTextBox.Font = new System.Drawing.Font("굴림", 12F);
             this.productCordTextBox.Location = new System.Drawing.Point(53, 275);
             this.productCordTextBox.Name = "productCordTextBox";
-            this.productCordTextBox.Size = new System.Drawing.Size(311, 26);
+            this.productCordTextBox.Size = new System.Drawing.Size(311, 30);
             this.productCordTextBox.TabIndex = 0;
             // 
             // totalAmountLabel
@@ -56,7 +56,7 @@
             this.totalAmountLabel.Location = new System.Drawing.Point(416, 104);
             this.totalAmountLabel.Name = "totalAmountLabel";
             this.totalAmountLabel.ReadOnly = true;
-            this.totalAmountLabel.Size = new System.Drawing.Size(99, 26);
+            this.totalAmountLabel.Size = new System.Drawing.Size(99, 30);
             this.totalAmountLabel.TabIndex = 1;
             this.totalAmountLabel.Text = "받을 금액";
             // 

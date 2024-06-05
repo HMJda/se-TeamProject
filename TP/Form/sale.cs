@@ -424,6 +424,7 @@ namespace TP
                     stockController.SetStock(sqltxt, stock);
                 }
             }
+            textBox2.Text = "";
             this.Close();
         }
         private int UpdateTotalPrice()
@@ -443,7 +444,13 @@ namespace TP
             priceTextBox.Text = totalPrice.ToString("C"); // 숫자를 통화 형식으로 변환하여 표시
             return totalPrice;
         }
-    }
-
+        private void sale_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox2.Text))
+            {
+                MessageBox.Show("판매목록에 물품이 있어 닫을 수 없습니다.", "경고");
+                e.Cancel = true;
+            }
+        }
     }
 }
