@@ -10,33 +10,32 @@ using System.Windows.Forms;
 using Oracle.ManagedDataAccess;
 using Oracle.ManagedDataAccess.Client;
 using System.IO;
+using TP.control;
 
 namespace TP
 {
 
     public partial class Order : Form
     {
-        public class OrderList
-        {
-            public string Orderindex;
-            public string userID;
-            public string product;
-            public int quantity;
-            public string user_address;
-            public string date;
-
-        }
         private string DB_Server_Info = "Data Source = localhost;" +
-           "User ID = system; Password = 1234;";
-        private string categori = "음료";
+           "User ID = DEU; Password = 1234;";
+        private string categori = null;
         private string label = "제품명";
-        private int index = 1; //datagridview 컬럼 위치가 바뀌어서 추가 , 발주량
-        private int pindex = 4;  //datagridview 컬럼 위치가 바뀌어서 추가 , 제품번호
-        private int ss = 0; //저장 성공
-        private int selectsusses = 0; //검색 성공 
+        private bool saveSuccess = false; //저장 성공
+        private bool selectsusses = false; //검색 성공 
+        private StockController stckcontroller;
+        private ProductInfoController productInfoController;
+        private OrderReturnController orderController;
+        private LoginController loginController;
+        private string sqltxt = "select * from 제품";
+        private DataTable dt;
         public Order()
         {
             InitializeComponent();
+            stckcontroller = new StockController();
+            productInfoController = new ProductInfoController();
+            orderController = new OrderReturnController();
+            loginController = new LoginController();
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList; //콤보 박스 읽기 전용
             comboBox1.Text = label;
             dataview();
@@ -45,19 +44,13 @@ namespace TP
         {          
             try
             {
-                string sqltxt = "select * from 제품";
-                OracleConnection conn = new OracleConnection(DB_Server_Info);
-                conn.Open();
-                OracleDataAdapter adapt = new OracleDataAdapter();
-                adapt.SelectCommand = new OracleCommand(sqltxt, conn);
-                DataSet ds = new DataSet();
-                DataTable dt = new DataTable();
-                adapt.Fill(ds);
-                dt.Reset();
-                dt = ds.Tables[0];
                 dataGridView1.Columns.Clear();
-
-                dt.DefaultView.RowFilter = $"카테고리 ='{categori}'";
+                dt = productInfoController.GetProduct();             
+                if (!string.IsNullOrEmpty(categori)) // Check if categori is not empty or null
+                {
+                    dt.DefaultView.RowFilter = $"카테고리 ='{categori}'";
+                }
+                //dt.DefaultView.RowFilter = $"카테고리 ='{categori}'";
                 dataGridView1.AllowUserToAddRows = false; //빈레코드 표시x
                 var chkCol = new DataGridViewCheckBoxColumn
                 {
@@ -73,18 +66,14 @@ namespace TP
                 dataGridView1.Columns[0].Width = 40;
 
                 // dataGridView1.ReadOnly = true; //전부 읽기 전용
-                dataGridView1.Columns[1].ReadOnly = true;   
-                dataGridView1.Columns[2].ReadOnly = true;
-                dataGridView1.Columns[3].ReadOnly = true;
-                dataGridView1.Columns[4].ReadOnly = true;
-                dataGridView1.Columns[5].ReadOnly = true;
-                dataGridView1.Columns[6].ReadOnly = true;
-                dataGridView1.Columns[7].ReadOnly = true;
-                dataGridView1.Columns[8].ReadOnly = true;
-                dataGridView1.Columns[9].ReadOnly = true;
+                for (int i = 1; i < dataGridView1.Columns.Count; i++)
+                {
+                    dataGridView1.Columns[i].ReadOnly = true;
+                }
+
+                // 발주량과 비고 열은 읽기 전용 해제
                 dataGridView1.Columns["발주량"].ReadOnly = false;
                 dataGridView1.Columns["비고"].ReadOnly = false;
-                conn.Close();
             }
             catch (OracleException ex)
             {
@@ -95,19 +84,13 @@ namespace TP
 
         private void button2_Click(object sender, EventArgs e) //검색 부분
         {
-            selectsusses = 0;
+            selectsusses = false;
             label = comboBox1.Text;
             find();
         }
 
         private void button1_Click(object sender, EventArgs e) //save 부분
         {
-            //~추가
-            List<OrderList> list = new List<OrderList>();
-            OrderList olist = new OrderList();
-            FileStream fs = new FileStream("oredrlist.csv", FileMode.Append);
-            StreamWriter sw = new StreamWriter(fs, System.Text.Encoding.Default);
-            //~추가
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
                 if (Convert.ToBoolean(dataGridView1.Rows[i].Cells["chk"].Value)) //체크된 데이터 선택 부분
@@ -116,92 +99,69 @@ namespace TP
                     {
                         if (Properties.Settings.Default.Orderindex == 0)
                         {
-                            string sqltxt = "DELETE 주문";
-                            OracleConnection con = new OracleConnection(DB_Server_Info);
-                            con.Open();
-                            OracleCommand cmdc = new OracleCommand(sqltxt, con);
-                            cmdc.ExecuteNonQuery();
+                            orderController.SetOrder("DELETE 발주");
                         }
-                        string sqlctxt = "select * from 회원";
-                        OracleConnection conn = new OracleConnection(DB_Server_Info);
-                        conn.Open();
-                        OracleCommand cmd = new OracleCommand(sqlctxt, conn);
-                        OracleDataReader reader = cmd.ExecuteReader();
-                        string user_address = "";
-                        while (reader.Read())
+                        string user_address = loginController.GetUserDetail(Properties.Settings.Default.LoginIDSave.ToString(), "편의점주소");
+                        //발주 테이블 추가 
+                        string sqltxt = "MERGE INTO 발주 " +
+                                        "USING dual " +
+                                        "ON (발주제품 = :발주제품) " +
+                                        "WHEN NOT MATCHED THEN " +
+                                        "INSERT (발주번호, 주문고객, 발주제품, 수량, 배송지, 주문일자) " +
+                                        "VALUES (:발주번호, :주문고객, :발주제품, :수량, :배송지, :주문일자) " +
+                                        "WHEN MATCHED THEN UPDATE SET 수량 = :수량";
+                        OracleParameter[] order =
                         {
-                            string db_id = reader["회원아이디"].ToString().Trim();
-                            if (db_id == Properties.Settings.Default.userID.ToString())
-                            {
-                                user_address = reader["편의점주소"].ToString().Trim();
-                                break;
-                            }
-                        }
+                            new OracleParameter("발주번호", Properties.Settings.Default.Orderindex.ToString()),
+                            new OracleParameter("주문고객", Properties.Settings.Default.LoginIDSave.ToString()),
+                            new OracleParameter("발주제품", dataGridView1.Rows[i].Cells["제품번호"].Value.ToString()),
+                            new OracleParameter("수량", Convert.ToInt32(dataGridView1.Rows[i].Cells["발주량"].Value)),
+                            new OracleParameter("배송지", user_address),
+                            new OracleParameter("주문일자", DateTime.Now.ToString("yyyy-MM-dd"))
+                        };  
+                        orderController.SetOrder(sqltxt, order);
 
-                        //추가~
-                        olist.Orderindex = Properties.Settings.Default.Orderindex.ToString();
-                        olist.userID = Properties.Settings.Default.userID.ToString();
-                        olist.product = dataGridView1.Rows[i].Cells[pindex].Value.ToString();
-                        olist.quantity = Convert.ToInt32(dataGridView1.Rows[i].Cells[index].Value);
-                        olist.user_address = user_address;
-                        olist.date = DateTime.Now.ToString("yyyy-MM-dd").ToString();
-                        //sw.WriteLine($"{olist.Orderindex},{olist.userID},{olist.product},{olist.quantity},{olist.user_address},{olist.date}\r\n");
-                        list.Add(olist);
-                        //~추가
-
-
-                        //DateTime.Now.ToString("yyyy-MM-dd"); 현재 시각
-                        OracleCommand oc = new OracleCommand(); 
-                        oc.Connection = conn;
-                        oc.CommandText = "MERGE \n into 주문 \n USING dual \n ON (발주제품 = :발주제품) " + "\n WHEN NOT MATCHED THEN \n"+
-                            "insert (발주번호,주문고객,발주제품,수량,배송지,주문일자) values(:발주번호, :주문고객, :발주제품,:수량,:배송지,:주문일자)"
-                            + "WHEN MATCHED THEN UPDATE SET 수량 = :수량 ";
-                        oc.BindByName = true;
-                        oc.Parameters.Add(new OracleParameter("발주번호", Properties.Settings.Default.Orderindex.ToString()));
-                        oc.Parameters.Add(new OracleParameter("주문고객", Properties.Settings.Default.userID.ToString()));
-                        oc.Parameters.Add(new OracleParameter("발주제품", dataGridView1.Rows[i].Cells[pindex].Value.ToString()));
-                        oc.Parameters.Add(new OracleParameter("수량", Convert.ToInt32(dataGridView1.Rows[i].Cells[index].Value)));
-                        oc.Parameters.Add(new OracleParameter("배송지", user_address));
-                        oc.Parameters.Add(new OracleParameter("주문일자", DateTime.Now.ToString("yyyy-MM-dd").ToString()));
-                        //발주 번호 //주문고객// 제품번호 // 수량 // 배송지 // 주문일자// 
-                        if (conn.State == ConnectionState.Open) conn.Close();
-                        conn.Open();
-                        oc.ExecuteNonQuery();
-
-                        OracleCommand occ = new OracleCommand(); //재고 추가 부분
-                        occ.Connection = conn;
-                        if (DateTime.Now.ToString("yyyy-MM-dd").ToString()!= Properties.Settings.Default.date)
+                        //재고 테이블에 수량 추가
+                        if (DateTime.Now.ToString("yyyy-MM-dd") != Properties.Settings.Default.date)
                         {
-                            occ.CommandText = "MERGE \n into 재고 \n USING dual \n ON (제품번호 = :제품번호) " + "\n WHEN NOT MATCHED THEN \n" +
-                            "insert (카테고리,제품번호,제조업체,제품명,재고량,단가,규격) values(:카테고리,:제품번호,:제조업체,:제품명,:재고량,:단가,:규격)"
-                            + "WHEN MATCHED THEN UPDATE SET 재고량 = 재고량 + :재고량 ";
+                            sqltxt = "MERGE INTO 재고 " +
+                                "USING dual " +
+                                "ON (제품번호 = :제품번호) " +
+                                "WHEN NOT MATCHED THEN " +
+                                "INSERT (제품번호, 제품명, 재고량, 가격) " +
+                                "VALUES (:제품번호, :제품명, :재고량, :가격) " +
+                                "WHEN MATCHED THEN " +
+                                "UPDATE SET 재고량 = 재고량 + :재고량";
                         }
                         else
                         {
-                            occ.CommandText = "MERGE \n into 재고 \n USING dual \n ON (제품번호 = :제품번호) " + "\n WHEN NOT MATCHED THEN \n" +
-                            "insert (카테고리,제품번호,제조업체,제품명,재고량,단가,규격) values(:카테고리,:제품번호,:제조업체,:제품명,:재고량,:단가,:규격)"
-                            + "WHEN MATCHED THEN \n UPDATE \n SET 재고량 = :재고량 ";
+                            sqltxt = "MERGE INTO 재고 " +
+                                "USING dual " +
+                                "ON (제품번호 = :제품번호) " +
+                                "WHEN NOT MATCHED THEN " +
+                                "INSERT (제품번호, 제품명, 재고량, 가격) " +
+                                "VALUES (:제품번호, :제품명, :재고량, :가격) " +
+                                "WHEN MATCHED THEN " +
+                                "UPDATE SET 재고량 = :재고량";
                         }
 
-                        occ.BindByName = true;
-                        occ.Parameters.Add(new OracleParameter("카테고리", dataGridView1.Rows[i].Cells[pindex-1].Value.ToString()));
-                        occ.Parameters.Add(new OracleParameter("제품번호", dataGridView1.Rows[i].Cells[pindex].Value.ToString()));
-                        occ.Parameters.Add(new OracleParameter("제조업체", dataGridView1.Rows[i].Cells[pindex+1].Value.ToString()));
-                        occ.Parameters.Add(new OracleParameter("제품명", dataGridView1.Rows[i].Cells[pindex+2].Value.ToString()));
-                        occ.Parameters.Add(new OracleParameter("재고량", Convert.ToInt32(dataGridView1.Rows[i].Cells[index].Value)));
-                        occ.Parameters.Add(new OracleParameter("단가", dataGridView1.Rows[i].Cells[pindex+4].Value));
-                        occ.Parameters.Add(new OracleParameter("규격", dataGridView1.Rows[i].Cells[pindex+5].Value.ToString()));
-                        //카테고리,제품번호,제조업체,제품명,재고량,단가,규격
-                        Properties.Settings.Default.date = DateTime.Now.ToString("yyyy-MM-dd").ToString();
-                        if (conn.State == ConnectionState.Open) conn.Close();
-                        conn.Open();
-                        occ.ExecuteNonQuery();
-                       
-                        ss = 1;
+                        OracleParameter[] stock =
+                        {
+                            new OracleParameter("제품번호", dataGridView1.Rows[i].Cells["제품번호"].Value.ToString()),
+                            new OracleParameter("제품명", dataGridView1.Rows[i].Cells["제품명"].Value.ToString()),
+                            new OracleParameter("재고량", Convert.ToInt32(dataGridView1.Rows[i].Cells["발주량"].Value)),
+                            new OracleParameter("가격",  Convert.ToInt32(dataGridView1.Rows[i].Cells["단가"].Value)*1.1),
+                        };
+
+                        stckcontroller.SetStock(sqltxt, stock);
+
+                        Properties.Settings.Default.date = DateTime.Now.ToString("yyyy-MM-dd");
+
+                        saveSuccess = true;
                     }
                     catch (OracleException ex)
                     {
-                        ss = 0;
+                        saveSuccess = false;
                         MessageBox.Show(ex.Message);
                     }
                     Properties.Settings.Default.Orderindex += 1; //발주번호 값증가시키기
@@ -213,22 +173,22 @@ namespace TP
                 }
                 
             }
-            if (ss == 1)
+            if (saveSuccess == true)
             {
                 MessageBox.Show("저장되었습니다.");
             }
 
-            for (int j = 0; j < list.Count; j++)
+            /*for (int j = 0; j < list.Count; j++)
             {
                 sw.WriteLine($"{list[j].Orderindex},{list[j].userID},{list[j].product},{list[j].quantity},{list[j].user_address},{list[j].date}");
             }
             sw.Close();
-            fs.Close();
+            fs.Close();*/
         }
         private void Order_FormClosing(object sender, FormClosingEventArgs e)
         {
             //닫혔을때 save 하는지 물어보는 부분 
-            if (ss == 0)
+            if (saveSuccess == false)
             {
                 DialogResult dialog = MessageBox.Show("저장하시겠습니까?", "경고", MessageBoxButtons.YesNoCancel);
                 if (dialog == DialogResult.Yes)
@@ -250,6 +210,12 @@ namespace TP
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e) //카테고리 선택
         {
+            if (radioButton4.Checked == true)
+            {
+                categori = null;
+                dataview();
+
+            }
             if (radioButton1.Checked == true)
             {
                 categori = radioButton1.Text;
@@ -258,15 +224,11 @@ namespace TP
             }
             else if (radioButton2.Checked == true)
             {
-                pindex = 2;
-                index = 8;
                 categori = radioButton2.Text;
                 dataview();
             }
-            else
+            else if (radioButton3.Checked == true)
             {
-                pindex = 2;
-                index = 8;
                 categori = radioButton3.Text;
                 dataview();
             }
@@ -283,20 +245,17 @@ namespace TP
                 if (dataGridView1.Rows[i].Cells[$"{label}"].Value.ToString().Trim() == keyword.Trim())
                 {
                     dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;  //색칠
-                    selectsusses = 1;
+                    selectsusses = true;
                 }
                 else
                 {
                     dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.White;
                 }
             }
-            if(selectsusses == 0)
+            if(selectsusses == false)
             {
                 MessageBox.Show("검색 결과가 없습니다.");
-            }
-           
-                
-            
+            }       
         }
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -305,17 +264,13 @@ namespace TP
                 button2.PerformClick();
             }
         }
-
         private void button3_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            ss = 0;
-        }
-
-       
+            saveSuccess = false;
+        }    
     }
 }
