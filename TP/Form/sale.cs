@@ -250,7 +250,6 @@ namespace TP
                 UpdateTotalPrice();
             }
         }
-
         private void plasticBackSmall_Click(object sender, EventArgs e)
         {
             string productCode = "504";
@@ -359,31 +358,38 @@ namespace TP
         }
         private void pay_Click(object sender, EventArgs e)
         {
-            // 영수증 번호 생성
-            string receiptNumber = Guid.NewGuid().ToString(); // 예시로 GUID를 사용; 실제로는 다른 방법을 사용할 수 있습니다.
-            DateTime transactionTime = DateTime.Now;
-            string transactionType = "현금";
+            DateTime now = DateTime.Now;
+            string receiptNumber = now.ToString("yyyyMMddHHmmss");
+            string transactionType = "결제";
             string[] lines = priceTextBox.Lines;
+
             foreach (var line in lines)
             {
                 if (!string.IsNullOrWhiteSpace(line))
                 {
                     string[] parts = line.Split('\t');
-                    OracleParameter[] parameters = new OracleParameter[]
+                    int receiptIndex = Properties.Settings.Default.Receiptindex;
+
+                    OracleParameter[] parameters =
                     {
-                        new OracleParameter("영수증번호", receiptNumber),
-                        new OracleParameter("거래시간", transactionTime.ToString("yyyy-MM-dd HH:mm:ss")),
-                        new OracleParameter("거래형태", transactionType),
-                        new OracleParameter("총가격", UpdateTotalPrice()),
+                    new OracleParameter("영수증번호", receiptNumber),
+                    new OracleParameter("거래시간", now),
+                    new OracleParameter("거래형태", transactionType),
+                    new OracleParameter("총가격", UpdateTotalPrice()),
                     };
-                    string sqltxt = "INSERT INTO ReceiptTable (영수증번호, 거래시간, 거래형태, 총가격) VALUES (:영수증번호, :거래시간, :거래형태, :총가격)";
+                    string sqltxt = "MERGE INTO 영수증" +
+                        " USING dual" +
+                        " ON(영수증번호 = :영수증번호)" +
+                        " WHEN NOT MATCHED THEN" +
+                        " INSERT (영수증번호, 거래시간, 거래형태, 총가격)" +
+                        " VALUES (:영수증번호, :거래시간, :거래형태, :총가격)";
                     // 영수증 테이블에 각 제품 정보 저장
                     saleController.SetReceipt(sqltxt, parameters);          
                     MessageBox.Show("영수증 정보가 성공적으로 저장되었습니다.", "저장 성공");
+                    Properties.Settings.Default.Receiptindex += 1; //영수증번호 값증가시키기
                 }
             }
         }
-
         private int UpdateTotalPrice()
         {
             int totalPrice = 0;
@@ -401,5 +407,6 @@ namespace TP
             priceTextBox.Text = totalPrice.ToString("C"); // 숫자를 통화 형식으로 변환하여 표시
             return totalPrice;
         }
+
     }
 }

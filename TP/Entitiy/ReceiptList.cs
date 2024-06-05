@@ -19,8 +19,8 @@ namespace TP.Entitiy
         public ReceiptList()
         {
             dbController = new DBController();
+            ReceiptTable = new DataTable();
         }
-
         public DataTable GetReceipt()
         {
             ReceiptTable = dbController.GetDB(sqltxt);
