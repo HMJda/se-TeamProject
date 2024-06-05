@@ -21,9 +21,7 @@ namespace TP
             InitializeComponent();
         }
 
-        private void sale_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            
-        }
+
+
     }
 }

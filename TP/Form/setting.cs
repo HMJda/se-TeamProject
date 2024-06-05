@@ -24,8 +24,8 @@ namespace TP
         private void button1_Click(object sender, EventArgs e)
         {  //로그아웃 버튼
             this.Visible = false;
-            //Form form = new Login(main);      
-            //form.ShowDialog();
+            Form form = new Login(main);      
+            form.ShowDialog();
         }
 
         private void button2_Click(object sender, EventArgs e)

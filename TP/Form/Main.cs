@@ -19,116 +19,44 @@ namespace TP
 
         private void Main_Load(object sender, EventArgs e)
         {
-           Form form = new Login(this); 
-           form.ShowDialog();
+            Form form = new Login(this); 
+            form.ShowDialog();
         }
 
-        private void Order_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
             Form form = new Order();
             form.ShowDialog();
         }
 
-        private void Return_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
             Form form = new Return();
             form.ShowDialog();
         }
 
-        private void Stock_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)
         {
             Form form = new Stock();
             form.ShowDialog();
         }
 
-        private void setting_Click(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e)
         {
             Form form = new setting(this);
             form.ShowDialog();
         }
 
-        private void sale_Click(object sender, EventArgs e)
+        private void button5_Click(object sender, EventArgs e)
         {
-            // 메인 폼을 숨깁니다.
-            this.Hide();
-
-            // 판매 폼을 생성하고 표시합니다
-            using (Form form = new sale())
-            {
-                // ShowDialog()를 사용해 판매 폼을 모달로 표시합니다.
-                form.ShowDialog();
-
-                // 판매 폼이 닫히면 메인 폼을 다시 표시합니다.
-                this.Show();
-            }
+            Form form = new sale();
+            form.ShowDialog();
         }
 
-        private void receipt_Click(object sender, EventArgs e)
+        private void button6_Click(object sender, EventArgs e)
         {
-            // 메인 폼을 숨깁니다.
-            this.Hide();
-
-            // 판매 폼을 생성하고 표시합니다
-            using (Form form = new receipt())
-            {
-                // ShowDialog()를 사용해 판매 폼을 모달로 표시합니다.
-                form.ShowDialog();
-
-                // 판매 폼이 닫히면 메인 폼을 다시 표시합니다.
-                this.Show();
-            }
-        }
-
-        private void productinformation_Click(object sender, EventArgs e)
-        {
-            // 메인 폼을 숨깁니다.
-            this.Hide();
-
-            // 판매 폼을 생성하고 표시합니다
-            using (Form form = new productinformation())
-            {
-                // ShowDialog()를 사용해 판매 폼을 모달로 표시합니다.
-                form.ShowDialog();
-
-                // 판매 폼이 닫히면 메인 폼을 다시 표시합니다.
-                this.Show();
-            }
-        }
-        private void salesfigures_Click(object sender, EventArgs e)
-        {
-            // 메인 폼을 숨깁니다.
-            this.Hide();
-
-            // 판매 폼을 생성하고 표시합니다
-            using (Form form = new salesfigures())
-            {
-                // ShowDialog()를 사용해 판매 폼을 모달로 표시합니다.
-                form.ShowDialog();
-
-                // 판매 폼이 닫히면 메인 폼을 다시 표시합니다.
-                this.Show();
-            }
-        }
-
-        private void finish_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void rateofreturn_Click(object sender, EventArgs e)
-        {
-            // 메인 폼을 숨깁니다.
-            this.Hide();
-
-            // 판매 폼을 생성하고 표시합니다
-            using (Form form = new rateofreturn())
-            {
-                // ShowDialog()를 사용해 판매 폼을 모달로 표시합니다.
-                form.ShowDialog();
-
-                // 판매 폼이 닫히면 메인 폼을 다시 표시합니다.
-                this.Show();
-            }
+            Form form = new receipt();
+            form.ShowDialog();
         }
     }
 }
