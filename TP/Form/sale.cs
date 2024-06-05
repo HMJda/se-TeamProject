@@ -13,23 +13,68 @@ using System.IO;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 using TP.control;
 using TP.Entitiy;
+using System.Collections.Specialized;
 
 namespace TP
 {
 
     public partial class sale : Form
     {
-        private string cord;
-        SaleController saleController = new SaleController();
-        ProductInfoEntity productInfoEntity = new ProductInfoEntity();
-        private List<ProductInfo> productInfos = new List<ProductInfo>();
-
+        private StockController stockController;
+        private DataTable dt;
         public sale()
         {
-
             InitializeComponent();
+            stockController = new StockController();
         }
+        private void cordButton_Click(object sender, EventArgs e)
+        {
+            string productCode = productCordTextBox.Text.Trim();
+            dt = stockController.GetStock();
+            DataRow[] foundRows = dt.Select($"제품번호 = '{productCode}'");
 
+            if (foundRows.Length == 0)
+            {
+                MessageBox.Show("재고가 존재하지 않습니다.", "제품 등록 실패");
+                return;
+            }
+
+            DataRow productRow = foundRows[0];
+            string productName = productRow["제품명"].ToString();
+            int price = Convert.ToInt32(productRow["가격"]);
+            int stockQuantity = Convert.ToInt32(productRow["재고량"]);
+            bool productExists = false;
+
+            // 제품 코드의 유효성을 확인한 후, 해당 제품 코드가 textBox2에 존재하는지 확인
+
+            if (!productExists)
+            {
+                int newquantity = 1;
+                if (newquantity > stockQuantity)
+                {
+                    MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                    return;
+                }
+                textBox2.Text += $"\r\n{productCode}\t{productName}\t{newquantity}\t{price}\t{newquantity * price}";
+            }
+            int quantity = 1;
+            foreach (var line in textBox2.Lines)
+            {
+                if (line.Contains(productCode))
+                {
+                    productExists = true;
+                    quantity = Convert.ToInt32($"{quantity}")+1;
+                    if (quantity > stockQuantity)
+                    {
+                        MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                        return;
+                    }
+                    string newLine = $"{productCode}\t\t{productName}\t\t\t\t{quantity}\t\t{price}\t\t{quantity * price}";
+                    textBox2.Text = textBox2.Text.Replace(line, newLine);
+                    break;
+                }
+            }
+        }
         private void cash_Click(object sender, EventArgs e)
         {
 
@@ -40,181 +85,258 @@ namespace TP
         }
         private void chupachups_Click(object sender, EventArgs e)
         {
+            string productCode = "501";
+            dt = stockController.GetStock();
+            DataRow[] foundRows = dt.Select($"제품번호 = '{productCode}'");
 
-            cord = "501"; // 제품 코드 501로 고정
-
-            if (saleController.checkProductCord(cord))
+            if (foundRows.Length == 0)
             {
-                var productInfo = productInfoEntity.GetProductInfo(cord);
-                MessageBox.Show("제품이 등록되었습니다.", "제품 등록");
-
-                // 제품을 추가하거나 업데이트하는 메서드 호출
-                AddOrUpdateProduct(productInfo.Item1, productInfo.Item2, productInfo.Item3);
-
-                // 제품 목록과 총 가격을 업데이트하는 메서드 호출
-                UpdateProductListAndTotal();
+                // 제품 번호가 유효하지 않은 경우
+                MessageBox.Show("재고가 존재하지 않습니다.", "제품 등록 실패");
+                return;
             }
-            else
+
+            DataRow productRow = foundRows[0];
+            string productName = productRow["제품명"].ToString();
+            int price = Convert.ToInt32(productRow["가격"]);
+            int stockQuantity = Convert.ToInt32(productRow["재고량"]);
+            bool productExists = false;
+
+
+            if (!productExists)
             {
-                MessageBox.Show("잘못된 제품 번호입니다.", "제품 등록 실패");
+                int newquantity = 1;
+                // 재고 확인
+                if (newquantity > stockQuantity)
+                {
+                    MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                    return;
+                }
+
+                textBox2.Text += $"\r\n{productCode}\t{productName}\t{newquantity}\t{price}\t{newquantity * price}";
+            }
+
+            int quantity = 1;
+            foreach (var line in textBox2.Lines)
+            {
+                quantity++;
+                if (line.Contains(productCode))
+                {
+                    productExists = true;
+                    // 재고 확인
+                    if (quantity > stockQuantity)
+                    {
+                        MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                        return;
+                    }
+                    string newLine = $"{productCode}\t\t{productName}\t\t\t\t{quantity}\t\t{price}\t\t{quantity * price}";
+                    textBox2.Text = textBox2.Text.Replace(line, newLine);
+                    return;
+                }
             }
         }
 
         private void paperCup_Click(object sender, EventArgs e)
         {
+            string productCode = "502";
+            dt = stockController.GetStock();
+            DataRow[] foundRows = dt.Select($"제품번호 = '{productCode}'");
 
-            cord = "502"; // 제품 코드 501로 고정
-
-            if (saleController.checkProductCord(cord))
+            if (foundRows.Length == 0)
             {
-                var productInfo = productInfoEntity.GetProductInfo(cord);
-                MessageBox.Show("제품이 등록되었습니다.", "제품 등록");
-
-                // 제품을 추가하거나 업데이트하는 메서드 호출
-                AddOrUpdateProduct(productInfo.Item1, productInfo.Item2, productInfo.Item3);
-
-                // 제품 목록과 총 가격을 업데이트하는 메서드 호출
-                UpdateProductListAndTotal();
+                // 제품 번호가 유효하지 않은 경우
+                MessageBox.Show("재고가 존재하지 않습니다.", "제품 등록 실패");
+                return;
             }
-            else
+
+            DataRow productRow = foundRows[0];
+            string productName = productRow["제품명"].ToString();
+            int price = Convert.ToInt32(productRow["가격"]);
+            int stockQuantity = Convert.ToInt32(productRow["재고량"]);
+            bool productExists = false;
+
+            foreach (var line in textBox2.Lines)
             {
-                MessageBox.Show("잘못된 제품 번호입니다.", "제품 등록 실패");
+                if (line.Contains(productCode))
+                {
+                    productExists = true;
+                    quantity++;
+                    // 재고 확인
+                    if (quantity > stockQuantity)
+                    {
+                        MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                        return;
+                    }
+                    string newLine = $"{productCode}\t\t{productName}\t\t\t\t{quantity}\t\t{price}\t\t{quantity * price}";
+                    textBox2.Text = textBox2.Text.Replace(line, newLine);
+                    return;
+                }
+            }
+            if (!productExists)
+            {
+                // 재고 확인
+                if (quantity > stockQuantity)
+                {
+                    MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                    return;
+                }
+                textBox2.Text += $"\r\n{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
             }
         }
-
         private void cupOfIce_Click(object sender, EventArgs e)
         {
+            string productCode = "503";
+            dt = stockController.GetStock();
+            DataRow[] foundRows = dt.Select($"제품번호 = '{productCode}'");
 
-            cord = "503"; // 제품 코드 501로 고정
-
-            if (saleController.checkProductCord(cord))
+            if (foundRows.Length == 0)
             {
-                var productInfo = productInfoEntity.GetProductInfo(cord);
-                MessageBox.Show("제품이 등록되었습니다.", "제품 등록");
-
-                // 제품을 추가하거나 업데이트하는 메서드 호출
-                AddOrUpdateProduct(productInfo.Item1, productInfo.Item2, productInfo.Item3);
-
-                // 제품 목록과 총 가격을 업데이트하는 메서드 호출
-                UpdateProductListAndTotal();
+                // 제품 번호가 유효하지 않은 경우
+                MessageBox.Show("재고가 존재하지 않습니다.", "제품 등록 실패");
+                return;
             }
-            else
+
+            DataRow productRow = foundRows[0];
+            string productName = productRow["제품명"].ToString();
+            int price = Convert.ToInt32(productRow["가격"]);
+            int stockQuantity = Convert.ToInt32(productRow["재고량"]);
+            bool productExists = false;
+
+            foreach (var line in textBox2.Lines)
             {
-                MessageBox.Show("잘못된 제품 번호입니다.", "제품 등록 실패");
+                if (line.Contains(productCode))
+                {
+                    productExists = true;
+                    quantity++;
+                    // 재고 확인
+                    if (quantity > stockQuantity)
+                    {
+                        MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                        return;
+                    }
+                    string newLine = $"{productCode}\t\t{productName}\t\t\t\t{quantity}\t\t{price}\t\t{quantity * price}";
+                    textBox2.Text = textBox2.Text.Replace(line, newLine);
+                    return;
+                }
+            }
+            if (!productExists)
+            {
+                // 재고 확인
+                if (quantity > stockQuantity)
+                {
+                    MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                    return;
+                }
+                textBox2.Text += $"\r\n{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
             }
         }
-
         private void selectionCancel_Click(object sender, EventArgs e)
         {
 
         }
-
         private void plasticBackSmall_Click(object sender, EventArgs e)
         {
+            string productCode = "504";
+            dt = stockController.GetStock();
+            DataRow[] foundRows = dt.Select($"제품번호 = '{productCode}'");
 
-            cord = "504"; // 제품 코드 501로 고정
-
-            if (saleController.checkProductCord(cord))
+            if (foundRows.Length == 0)
             {
-                var productInfo = productInfoEntity.GetProductInfo(cord);
-                MessageBox.Show("제품이 등록되었습니다.", "제품 등록");
-
-                // 제품을 추가하거나 업데이트하는 메서드 호출
-                AddOrUpdateProduct(productInfo.Item1, productInfo.Item2, productInfo.Item3);
-
-                // 제품 목록과 총 가격을 업데이트하는 메서드 호출
-                UpdateProductListAndTotal();
+                // 제품 번호가 유효하지 않은 경우
+                MessageBox.Show("재고가 존재하지 않습니다.", "제품 등록 실패");
+                return;
             }
-            else
+
+            DataRow productRow = foundRows[0];
+            string productName = productRow["제품명"].ToString();
+            int price = Convert.ToInt32(productRow["가격"]);
+            int stockQuantity = Convert.ToInt32(productRow["재고량"]);
+            bool productExists = false;
+
+            foreach (var line in textBox2.Lines)
             {
-                MessageBox.Show("잘못된 제품 번호입니다.", "제품 등록 실패");
+                if (line.Contains(productCode))
+                {
+                    productExists = true;
+                    quantity++;
+                    // 재고 확인
+                    if (quantity > stockQuantity)
+                    {
+                        MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                        return;
+                    }
+                    string newLine = $"{productCode}\t\t{productName}\t\t\t\t{quantity}\t\t{price}\t\t{quantity * price}";
+                    textBox2.Text = textBox2.Text.Replace(line, newLine);
+                    return;
+                }
+            }
+            if (!productExists)
+            {
+                // 재고 확인
+                if (quantity > stockQuantity)
+                {
+                    MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                    return;
+                }
+                textBox2.Text += $"\r\n{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
             }
         }
-
         private void plasticBackMedium_Click(object sender, EventArgs e)
         {
+            string productCode = "505";
+            dt = stockController.GetStock();
+            DataRow[] foundRows = dt.Select($"제품번호 = '{productCode}'");
 
-            cord = "505"; // 제품 코드 501로 고정
-
-            if (saleController.checkProductCord(cord))
+            if (foundRows.Length == 0)
             {
-                var productInfo = productInfoEntity.GetProductInfo(cord);
-                MessageBox.Show("제품이 등록되었습니다.", "제품 등록");
-
-                // 제품을 추가하거나 업데이트하는 메서드 호출
-                AddOrUpdateProduct(productInfo.Item1, productInfo.Item2, productInfo.Item3);
-
-                // 제품 목록과 총 가격을 업데이트하는 메서드 호출
-                UpdateProductListAndTotal();
+                // 제품 번호가 유효하지 않은 경우
+                MessageBox.Show("재고가 존재하지 않습니다.", "제품 등록 실패");
+                return;
             }
-            else
+
+            DataRow productRow = foundRows[0];
+            string productName = productRow["제품명"].ToString();
+            int price = Convert.ToInt32(productRow["가격"]);
+            int stockQuantity = Convert.ToInt32(productRow["재고량"]);
+            bool productExists = false;
+
+            foreach (var line in textBox2.Lines)
             {
-                MessageBox.Show("잘못된 제품 번호입니다.", "제품 등록 실패");
+                if (line.Contains(productCode))
+                {
+                    productExists = true;
+                    quantity++;
+                    // 재고 확인
+                    if (quantity > stockQuantity)
+                    {
+                        MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                        return;
+                    }
+                    string newLine = $"{productCode}\t\t{productName}\t\t\t\t{quantity}\t\t{price}\t\t{quantity * price}";
+                    textBox2.Text = textBox2.Text.Replace(line, newLine);
+                    return;
+                }
+            }
+            if (!productExists)
+            {
+                // 재고 확인
+                if (quantity > stockQuantity)
+                {
+                    MessageBox.Show("재고 수량을 초과했습니다.", "제품 등록 실패");
+                    return;
+                }
+                textBox2.Text += $"\r\n{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
             }
         }
-
-
         private void pay_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void cordButton_Click(object sender, EventArgs e)
-        {
-            cord = productCordTextBox.Text;
-
-            if (saleController.checkProductCord(cord))
-            {
-                var productInfo = productInfoEntity.GetProductInfo(cord);
-                MessageBox.Show("제품이 등록되었습니다.", "제품 등록");
-
-                // 제품을 추가하거나 업데이트하는 메서드 호출
-                AddOrUpdateProduct(productInfo.Item1, productInfo.Item2, productInfo.Item3);
-
-                // 제품 목록과 총 가격을 업데이트하는 메서드 호출
-                UpdateProductListAndTotal();
-            }
-            else
-            {
-                MessageBox.Show("잘못된 제품 번호입니다.", "제품 등록 실패");
-            }
-        }
-        private void AddOrUpdateProduct(string cord, string name, decimal price)
-        {
-            var existingProduct = productInfos.Find(p => p.Cord == cord);
-            if (existingProduct != null)
-            {
-                existingProduct.Quantity += 1;
-            }
-            else
-            {
-                productInfos.Add(new ProductInfo { Cord = cord, Name = name, Price = price, Quantity = 1 });
-            }
-        }
-        private void UpdateProductListAndTotal()
-        {
-            textBox2.Clear();
-            decimal total = 0;
-            foreach (var product in productInfos)
-            {
-                decimal productTotalPrice = product.Price * product.Quantity;
-                textBox2.Text += $"{product.Cord}\t\t{product.Name}\t\t\t\t\t{product.Quantity}\t\t{product.Price}\t\t{productTotalPrice}\r\n";
-                total += productTotalPrice;
-            }
-            // 총 가격을 표시하는 Label이 있다고 가정하고 호출
-            totalAmountLabel.Text = $"총 가격: {total}";
         }
 
         private void textBox6_TextChanged(object sender, EventArgs e)
         {
 
         }
-        public class ProductInfo
-        {
-            public string Cord { get; set; }
-            public string Name { get; set; }
-            public decimal Price { get; set; }
-            public int Quantity { get; set; }
-        }
+
     }
 }
