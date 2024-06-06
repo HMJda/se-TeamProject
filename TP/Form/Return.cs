@@ -10,8 +10,6 @@ namespace TP
 {
     public partial class Return : Form
     {
-        private string DB_Server_Info = "Data Source = localhost;" +
-           "User ID = DEU; Password = 1234;";
         private string categori = null;
         private string label = "제품명";
         private bool saveSuccess = false; //저장 성공
