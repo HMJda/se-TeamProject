@@ -51,7 +51,7 @@ namespace TP
                         MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                         return;
                     }
-                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}";
+                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
                     textBox2.Lines = lines;
                     UpdateTotalPrice();
                     break;
@@ -64,7 +64,7 @@ namespace TP
                     MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                     return;
                 }
-                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}\r\n";
+                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
                 UpdateTotalPrice();
             }
         }
@@ -103,7 +103,7 @@ namespace TP
                         MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                         return;
                     }
-                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}";
+                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
                     textBox2.Lines = lines;
                     UpdateTotalPrice();
                     break;
@@ -117,7 +117,7 @@ namespace TP
                     MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                     return;
                 }
-                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}\r\n";
+                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
                 UpdateTotalPrice();
             }
         }
@@ -156,7 +156,7 @@ namespace TP
                         MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                         return;
                     }
-                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}";
+                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
                     textBox2.Lines = lines;
                     UpdateTotalPrice();
                     break;
@@ -170,7 +170,7 @@ namespace TP
                     MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                     return;
                 }
-                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}\r\n";
+                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
                 UpdateTotalPrice();
             }
         }
@@ -209,7 +209,7 @@ namespace TP
                         MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                         return;
                     }
-                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}";
+                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
                     textBox2.Lines = lines;
                     UpdateTotalPrice();
                     break;
@@ -223,7 +223,7 @@ namespace TP
                     MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                     return;
                 }
-                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}\r\n";
+                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
                 UpdateTotalPrice();
             }
         }
@@ -262,7 +262,7 @@ namespace TP
                         MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                         return;
                     }
-                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}";
+                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
                     textBox2.Lines = lines;
                     UpdateTotalPrice();
                     break;
@@ -276,7 +276,7 @@ namespace TP
                     MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                     return;
                 }
-                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}\r\n";
+                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
                 UpdateTotalPrice();
             }
         }
@@ -315,7 +315,7 @@ namespace TP
                         MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                         return;
                     }
-                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}";
+                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
                     textBox2.Lines = lines;
                     UpdateTotalPrice();
                     break;
@@ -329,7 +329,7 @@ namespace TP
                     MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                     return;
                 }
-                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}\r\n";
+                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
                 UpdateTotalPrice();
             }
         }
