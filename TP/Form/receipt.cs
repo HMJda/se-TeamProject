@@ -16,8 +16,8 @@ namespace TP
             InitializeComponent();
             receiptControl = new ReceiptControl();
             refundController = new RefundController(dateTime, receiptNumberTextBox);
-            ReceiptDataGridView.AllowUserToAddRows = false; //빈레코드 표시x
-            receiptDetailGridView.AllowUserToAddRows = false; //빈레코드 표시x
+            ReceiptDataGridView.AllowUserToAddRows = false; // 빈 레코드 표시x
+            receiptDetailGridView.AllowUserToAddRows = false; // 빈 레코드 표시x
         }
 
         private void searchButton_Click(object sender, EventArgs e)
@@ -63,6 +63,11 @@ namespace TP
                 return;
             }
 
+            foreach (DataGridViewRow row in ReceiptDataGridView.SelectedRows)
+            {
+                Console.WriteLine($"Selected row index: {row.Index}, 영수증번호: {row.Cells["영수증번호"].Value}");
+            }
+
             // DataGridView에서 선택된 행의 "영수증번호" 셀의 값을 가져옴
             string receiptNo = ReceiptDataGridView.SelectedRows[0].Cells["영수증번호"].Value.ToString();
 
@@ -74,6 +79,10 @@ namespace TP
                 if (isRefunded)
                 {
                     MessageBox.Show("환불 처리가 완료되었습니다.");
+                }
+                else
+                {
+                    MessageBox.Show("환불 처리 중 오류가 발생했습니다.");
                 }
             }
         }
@@ -92,9 +101,23 @@ namespace TP
             }
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void showReceipt_Click(object sender, EventArgs e)
         {
+            using (showReceipt receiptPrint = new showReceipt())
+            {
+                // 영수증 상세 내역 데이터 가져오기
+                int rowIndex = ReceiptDataGridView.SelectedCells[0].RowIndex;
+                string receiptNo = ReceiptDataGridView.Rows[rowIndex].Cells["영수증번호"].Value.ToString();
+                DataTable receiptDetails = receiptControl.GetReceiptDetails(receiptNo);
 
+                // 새로운 폼에 데이터 표시
+                receiptPrint.ShowReceiptDetails(receiptDetails);
+
+                // 새로운 폼을 모달로 표시합니다.
+                receiptPrint.ShowDialog();
+
+                this.Show();
+            }
         }
     }
 }
