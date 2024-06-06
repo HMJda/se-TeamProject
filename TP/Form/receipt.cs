@@ -16,8 +16,8 @@ namespace TP
             InitializeComponent();
             receiptControl = new ReceiptControl();
             refundController = new RefundController(dateTime, receiptNumberTextBox);
-            ReceiptDataGridView.AllowUserToAddRows = false; //빈레코드 표시x
-            receiptDetailGridView.AllowUserToAddRows = false; //빈레코드 표시x
+            ReceiptDataGridView.AllowUserToAddRows = false; // 빈 레코드 표시x
+            receiptDetailGridView.AllowUserToAddRows = false; // 빈 레코드 표시x
         }
 
         private void searchButton_Click(object sender, EventArgs e)
@@ -63,11 +63,17 @@ namespace TP
                 return;
             }
 
+            foreach (DataGridViewRow row in ReceiptDataGridView.SelectedRows)
+            {
+                Console.WriteLine($"Selected row index: {row.Index}, 영수증번호: {row.Cells["영수증번호"].Value}");
+            }
+
+            // DataGridView에서 선택된 행의 "영수증번호" 셀의 값을 가져옴
+            string receiptNo = ReceiptDataGridView.SelectedRows[0].Cells["영수증번호"].Value.ToString();
+
             DialogResult result = MessageBox.Show("환불 처리를 하시겠습니까?", "환불", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
-                string receiptNo = ReceiptDataGridView.SelectedRows[0].Cells["영수증번호"].Value.ToString();
-
                 bool isRefunded = refundController.ProcessRefund(receiptNo);
 
                 if (isRefunded)
@@ -91,13 +97,9 @@ namespace TP
                 if (dataTable != null && dataTable.Rows.Count > 0)
                 {
                     receiptDetailGridView.DataSource = dataTable;
+
                 }
             }
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
