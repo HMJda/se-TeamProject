@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Data;
-using System.Data.OracleClient;
+using Oracle.ManagedDataAccess.Client;
 using System.Windows.Forms;
 using TP.control;
 
@@ -10,14 +10,14 @@ namespace TP
     public partial class AddInvenUI : Form
     {
         private OrderReturnController OrderController;
-        private StockController stckcontroller;
+        private StockController stockcontroller;
         private DataTable dt;
 
-        string DB_Server_Info = "Data Source = localhost; User ID = system; Password = 1234;";
         public AddInvenUI()
         {
             InitializeComponent();
             OrderController = new OrderReturnController();
+            stockcontroller = new StockController();
             dataview();
         }
 
@@ -38,8 +38,58 @@ namespace TP
                 int testquantity = 1;
                 // 등록 작업 실행
                 changeLog(testquantity);
+                //재고 테이블에 수량 추가
+                for (int i = 0; i < addInvenTable.Rows.Count; i++)
+                {
+                    if (Convert.ToBoolean(addInvenTable.Rows[i].Cells["chk"].Value)) //체크된 데이터 선택 부분
+                    {
+                        try
+                        {
+                            string sqltxt;
+                            if (DateTime.Now.ToString("yyyy-MM-dd") != Properties.Settings.Default.date)
+                            {
+                                sqltxt = "MERGE INTO 재고 " +
+                                    "USING dual " +
+                                    "ON (제품번호 = :제품번호) " +
+                                    "WHEN NOT MATCHED THEN " +
+                                    "INSERT (제품번호, 제품명, 재고량, 가격) " +
+                                    "VALUES (:제품번호, :제품명, :재고량, :가격) " +
+                                    "WHEN MATCHED THEN " +
+                                    "UPDATE SET 재고량 = 재고량 + :재고량";
+                            }
+                            else
+                            {
+                                sqltxt = "MERGE INTO 재고 " +
+                                    "USING dual " +
+                                    "ON (제품번호 = :제품번호) " +
+                                    "WHEN NOT MATCHED THEN " +
+                                    "INSERT (제품번호, 제품명, 재고량, 가격) " +
+                                    "VALUES (:제품번호, :제품명, :재고량, :가격) " +
+                                    "WHEN MATCHED THEN " +
+                                    "UPDATE SET 재고량 = :재고량";
+                            }
+
+                            OracleParameter[] stock =
+                            {
+                            new OracleParameter("제품번호", addInvenTable.Rows[i].Cells["발주제품"].Value.ToString()),
+                            new OracleParameter("제품명", addInvenTable.Rows[i].Cells["제품명"].Value.ToString()),
+                            new OracleParameter("재고량", Convert.ToInt32(addInvenTable.Rows[i].Cells["수량"].Value)),
+                            new OracleParameter("가격",  Convert.ToInt32(addInvenTable.Rows[i].Cells["단가"].Value)*1.1),
+                        };
+                            stockcontroller.SetStock(sqltxt, stock);
+
+                            OrderController.SetOrder("DELETE 발주");
+                            Properties.Settings.Default.date = DateTime.Now.ToString("yyyy-MM-dd");
+                        }
+                        catch (OracleException ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+                }
             }
             // 사용자가 "아니오"를 선택한 경우는 아무 작업도 수행하지 않습니다.
+            
         }
 
         // 등록 작업을 실행하는 메서드
@@ -60,7 +110,7 @@ namespace TP
             try
             {
                 addInvenTable.Columns.Clear();
-                dt = OrderController.GetOrders("select 발주제품,제품.제품명,수량,제품.규격,제품.제조업체 from 발주,제품 where 발주.발주제품=제품.제품번호");
+                dt = OrderController.GetOrders("select 발주제품,제품.제품명,수량,제품.규격,제품.제조업체,제품.단가 from 발주,제품 where 발주.발주제품=제품.제품번호");
                 addInvenTable.AllowUserToAddRows = false; //빈레코드 표시x
                 var chkCol = new DataGridViewCheckBoxColumn
                 {

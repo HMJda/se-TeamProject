@@ -33,7 +33,6 @@ namespace TP.Entitiy
                 OracleCommand cmd = new OracleCommand(sqltxt, conn);
                 return cmd.ExecuteReader();
             }
-        
         }
         public DataTable GetReceipt()
         {
@@ -43,8 +42,8 @@ namespace TP.Entitiy
 
         public DataTable GetReceipts() // 영수증 정보 모두 받는 용도
         {
-            DBController dBController = new DBController();
-            return dBController.GetDB("select * from 영수증");
+            ReceiptTable = dBcontroller.GetDB("select * from 영수증");
+            return ReceiptTable;
         }
 
         public bool IsReceiptExists(int receiptNumber)
@@ -106,13 +105,11 @@ namespace TP.Entitiy
 
         public void SetReceipt(string sqltxt)
         {
-            using (OracleConnection conn = new OracleConnection(DB_Server_Info))
-            {
-                conn.Open();
-                OracleCommand cmd = new OracleCommand(sqltxt, conn);
-                cmd.ExecuteNonQuery();
-            }
             dBcontroller.SetDB(sqltxt);
+        }
+        public void SetReceipt(string sqltxt, OracleParameter[] parameters)
+        {
+            dBcontroller.ExecuteNonQuery(sqltxt, parameters);
         }
     }
 }

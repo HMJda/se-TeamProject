@@ -9,8 +9,9 @@ namespace TP
     public partial class receipt : Form
     {
         private RefundController refundController;
-
-        public receipt(string dbServerInfo)
+        private string dbServerInfo = "Data Source = localhost; " +
+            "User ID = DEU; Password = 1234;";
+        public receipt()
         {
             InitializeComponent();
             refundController = new RefundController(dbServerInfo, dateTime, receiptNumberTextBox);

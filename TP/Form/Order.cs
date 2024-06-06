@@ -15,7 +15,7 @@ namespace TP
         private bool saveSuccess = false; //저장 성공
         private bool selectsusses = false; //검색 성공 
 
-        private StockController stckcontroller;
+        private StockController stockcontroller;
         private ProductInfoController productInfoController;
         private OrderReturnController orderController;
         private LoginController loginController;
@@ -24,7 +24,7 @@ namespace TP
         public Order()
         {
             InitializeComponent();
-            stckcontroller = new StockController();
+            stockcontroller = new StockController();
             productInfoController = new ProductInfoController();
             orderController = new OrderReturnController();
             loginController = new LoginController();
@@ -147,39 +147,6 @@ namespace TP
                         };
                         orderController.SetOrder(sqltxt, order);
 
-                        //재고 테이블에 수량 추가
-                        if (DateTime.Now.ToString("yyyy-MM-dd") != Properties.Settings.Default.date)
-                        {
-                            sqltxt = "MERGE INTO 재고 " +
-                                "USING dual " +
-                                "ON (제품번호 = :제품번호) " +
-                                "WHEN NOT MATCHED THEN " +
-                                "INSERT (제품번호, 제품명, 재고량, 가격) " +
-                                "VALUES (:제품번호, :제품명, :재고량, :가격) " +
-                                "WHEN MATCHED THEN " +
-                                "UPDATE SET 재고량 = 재고량 + :재고량";
-                        }
-                        else
-                        {
-                            sqltxt = "MERGE INTO 재고 " +
-                                "USING dual " +
-                                "ON (제품번호 = :제품번호) " +
-                                "WHEN NOT MATCHED THEN " +
-                                "INSERT (제품번호, 제품명, 재고량, 가격) " +
-                                "VALUES (:제품번호, :제품명, :재고량, :가격) " +
-                                "WHEN MATCHED THEN " +
-                                "UPDATE SET 재고량 = :재고량";
-                        }
-
-                        OracleParameter[] stock =
-                        {
-                            new OracleParameter("제품번호", dataGridView1.Rows[i].Cells["제품번호"].Value.ToString()),
-                            new OracleParameter("제품명", dataGridView1.Rows[i].Cells["제품명"].Value.ToString()),
-                            new OracleParameter("재고량", Convert.ToInt32(dataGridView1.Rows[i].Cells["발주량"].Value)),
-                            new OracleParameter("가격",  Convert.ToInt32(dataGridView1.Rows[i].Cells["단가"].Value)*1.1),
-                        };
-
-                        stckcontroller.SetStock(sqltxt, stock);
 
                         Properties.Settings.Default.date = DateTime.Now.ToString("yyyy-MM-dd");
 
@@ -204,12 +171,6 @@ namespace TP
                 MessageBox.Show("저장되었습니다.");
             }
 
-            /*for (int j = 0; j < list.Count; j++)
-            {
-                sw.WriteLine($"{list[j].Orderindex},{list[j].userID},{list[j].product},{list[j].quantity},{list[j].user_address},{list[j].date}");
-            }
-            sw.Close();
-            fs.Close();*/
         }
 
         private void Order_FormClosing(object sender, FormClosingEventArgs e)
@@ -273,19 +234,5 @@ namespace TP
             saveSuccess = false;
         }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
