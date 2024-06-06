@@ -83,7 +83,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="control\AddInven.cs" />
     <Compile Include="control\OrderReturnController.cs" />
     <Compile Include="control\ProductInfoController.cs" />
     <Compile Include="control\ReceiptControl.cs" />
