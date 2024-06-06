@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Oracle.ManagedDataAccess.Client;
+using System;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Oracle.ManagedDataAccess.Client;
 
 namespace TP.control
 {
     internal class DBController
     {
         private string DB_Server_Info = "Data Source = localhost; " +
-            "User ID = DEU; Password = 1234;"; 
+            "User ID = DEU; Password = 1234;";
 
         public DataTable GetDB(string sqltxt)
         {
@@ -35,7 +31,7 @@ namespace TP.control
                     Console.WriteLine($"Error: {ex.Message}");
                     return null;
                 }
-            }        
+            }
         }
         public void SetDB(string sqltxt)
         {
@@ -48,6 +44,7 @@ namespace TP.control
                     {
                         cmd.ExecuteNonQuery();
                     }
+                    conn.Close();
                 }
                 catch (Exception ex)
                 {
@@ -74,8 +71,10 @@ namespace TP.control
                             }
                         }
                         cmd.ExecuteNonQuery();
+
                     }
-                } 
+                    conn.Close();
+                }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Error: {ex.Message}");

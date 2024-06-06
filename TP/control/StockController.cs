@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Oracle.ManagedDataAccess.Client;
 using System.Data;
 using TP.Entitiy;
-using Oracle.ManagedDataAccess;
-using Oracle.ManagedDataAccess.Client;
 
 namespace TP
 {
@@ -29,7 +23,7 @@ namespace TP
         }
         public void SetStock(string sqltxt, OracleParameter[] parameters)
         {
-            StockEntitiy.SetStock(sqltxt,parameters);
+            StockEntitiy.SetStock(sqltxt, parameters);
         }
     }
 }

@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Oracle.ManagedDataAccess;
-using Oracle.ManagedDataAccess.Client;
-using System.IO;
 using TP.control;
 
 namespace TP
@@ -17,82 +8,72 @@ namespace TP
 
     public partial class receipt : Form
     {
-        private ReceiptControl receiptControl;
-
+        private RefundController refundController;
+        private string dbServerInfo = "Data Source = localhost; " +
+            "User ID = DEU; Password = 1234;";
         public receipt()
         {
             InitializeComponent();
-            receiptControl = new ReceiptControl();
+            refundController = new RefundController(dbServerInfo, dateTime, receiptNumberTextBox);
         }
 
         private void searchButton_Click(object sender, EventArgs e)
         {
-            string searchText = searchTextbox.Text;
-            DateTime searchDate = dateTime.Value;
-
-            int receiptNo = 0;
-            if (!string.IsNullOrWhiteSpace(searchText))
-            {
-                int.TryParse(searchText, out receiptNo);
-            }
-
-            DataTable dataTable = receiptControl.GetReceipt(searchDate, receiptNo);
+            DataTable dataTable = refundController.GetReceipt();
 
             if (dataTable != null && dataTable.Rows.Count > 0)
             {
-                receiptDataGridView.DataSource = dataTable;
+                ReceiptDataGridView.DataSource = dataTable;
             }
             else
             {
-                receiptDataGridView.DataSource = null;
-                if (string.IsNullOrWhiteSpace(searchText))
+            }
+        }
+
+        private void RefundButton_Click_1(object sender, EventArgs e)
+        {
+            if (receiptDetailGridView.DataSource == null)
+            {
+                if (receiptDetailGridView.DataSource == null || receiptDetailGridView.Rows.Count == 0)
                 {
-                    MessageBox.Show("해당 날짜에 영수증이 없습니다.");
+                    MessageBox.Show("환불할 영수증을 선택하세요.");
+                    return;
                 }
+
                 else
-                {
-                    MessageBox.Show("해당 번호의 영수증이 없습니다.");
+                { 
+
+                    DialogResult result = MessageBox.Show("환불 처리를 하시겠습니까?", "환불", MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
+                    {
+                        int receiptNo = Convert.ToInt32(receiptDetailGridView.Rows[0].Cells["ReceiptNo"].Value);
+                        bool isRefunded = refundController.ProcessRefund(receiptNo);
+
+
+                        if (isRefunded)
+                        {
+                            MessageBox.Show("환불 처리가 완료되었습니다.");
+                        }
+                        else
+                        {
+                            this.Close();
+                        }
+                    
+                    }
                 }
             }
         }
 
-        private void receiptDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void ReceiptDataGridView_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
-                DataGridViewRow row = receiptDataGridView.Rows[e.RowIndex];
-                int receiptNo = Convert.ToInt32(row.Cells["No"].Value);
-
-                DataTable dataTable = receiptControl.GetReceiptDetails(receiptNo);
+                int receiptNo = Convert.ToInt32(ReceiptDataGridView.Rows[e.RowIndex].Cells["No"].Value);
+                DataTable dataTable = refundController.GetReceiptDetails(receiptNo);
 
                 if (dataTable != null && dataTable.Rows.Count > 0)
                 {
                     receiptDetailGridView.DataSource = dataTable;
-                }
-            }
-        }
-
-        private void refundButton_Click(object sender, EventArgs e)
-        {
-            if (receiptDetailGridView.DataSource == null)
-            {
-                MessageBox.Show("환불할 영수증을 선택하세요.");
-                return;
-            }
-
-            DialogResult result = MessageBox.Show("환불 처리를 하시겠습니까?", "환불", MessageBoxButtons.YesNo);
-            if (result == DialogResult.Yes)
-            {
-                string paymentMethod = ""; // 체크박스 또는 라디오 버튼을 통해 결제 방법을 받음
-                bool isRefunded = receiptControl.ProcessRefund(Convert.ToInt32(receiptDetailGridView.Rows[0].Cells["ReceiptNo"].Value), paymentMethod);
-
-                if (isRefunded)
-                {
-                    MessageBox.Show("환불 처리가 완료되었습니다.");
-                }
-                else
-                {
-                    MessageBox.Show("결제 정보가 일치하지 않습니다.");
                 }
             }
         }

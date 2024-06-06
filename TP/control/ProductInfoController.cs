@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
 using TP.Entitiy;
 
 namespace TP.control
@@ -16,6 +11,10 @@ namespace TP.control
         {
             return productInfoEntity.GetProduct("select * from 제품");
         }
+        public DataTable GetCategories()
+        {
+            return productInfoEntity.GetProduct("select * from 카테고리");
+        }
     }
-    
+
 }

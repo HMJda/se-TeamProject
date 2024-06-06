@@ -30,21 +30,19 @@
         {
             this.label4 = new System.Windows.Forms.Label();
             this.receiptDetailGridView = new System.Windows.Forms.DataGridView();
-            this.receiptDataGridView = new System.Windows.Forms.DataGridView();
+            this.ReceiptDataGridView = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateTime = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
-            this.searchTextbox = new System.Windows.Forms.TextBox();
+            this.receiptNumberTextBox = new System.Windows.Forms.TextBox();
             this.searchButton = new System.Windows.Forms.Button();
-            this.refundButton = new System.Windows.Forms.Button();
+            this.RefundButton = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
-            this.cash = new System.Windows.Forms.CheckBox();
-            this.card = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.receiptDetailGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.receiptDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ReceiptDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // label4
@@ -60,27 +58,28 @@
             // receiptDetailGridView
             // 
             this.receiptDetailGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.receiptDetailGridView.Location = new System.Drawing.Point(12, 71);
+            this.receiptDetailGridView.Location = new System.Drawing.Point(12, 51);
             this.receiptDetailGridView.Name = "receiptDetailGridView";
             this.receiptDetailGridView.RowTemplate.Height = 23;
-            this.receiptDetailGridView.Size = new System.Drawing.Size(377, 399);
+            this.receiptDetailGridView.Size = new System.Drawing.Size(377, 419);
             this.receiptDetailGridView.TabIndex = 1;
             // 
-            // receiptDataGridView
+            // ReceiptDataGridView
             // 
-            this.receiptDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.receiptDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.receiptDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ReceiptDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.ReceiptDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ReceiptDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2,
             this.Column3,
             this.Column4});
-            this.receiptDataGridView.Location = new System.Drawing.Point(426, 51);
-            this.receiptDataGridView.Name = "receiptDataGridView";
-            this.receiptDataGridView.RowHeadersVisible = false;
-            this.receiptDataGridView.RowTemplate.Height = 23;
-            this.receiptDataGridView.Size = new System.Drawing.Size(420, 477);
-            this.receiptDataGridView.TabIndex = 2;
+            this.ReceiptDataGridView.Location = new System.Drawing.Point(426, 51);
+            this.ReceiptDataGridView.Name = "ReceiptDataGridView";
+            this.ReceiptDataGridView.RowHeadersVisible = false;
+            this.ReceiptDataGridView.RowTemplate.Height = 23;
+            this.ReceiptDataGridView.Size = new System.Drawing.Size(420, 477);
+            this.ReceiptDataGridView.TabIndex = 2;
+            this.ReceiptDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ReceiptDataGridView_CellContentClick_1);
             // 
             // Column1
             // 
@@ -118,12 +117,12 @@
             this.label5.TabIndex = 4;
             this.label5.Text = "영수증 번호";
             // 
-            // searchTextbox
+            // receiptNumberTextBox
             // 
-            this.searchTextbox.Location = new System.Drawing.Point(676, 15);
-            this.searchTextbox.Name = "searchTextbox";
-            this.searchTextbox.Size = new System.Drawing.Size(89, 21);
-            this.searchTextbox.TabIndex = 5;
+            this.receiptNumberTextBox.Location = new System.Drawing.Point(676, 15);
+            this.receiptNumberTextBox.Name = "receiptNumberTextBox";
+            this.receiptNumberTextBox.Size = new System.Drawing.Size(89, 21);
+            this.receiptNumberTextBox.TabIndex = 5;
             // 
             // searchButton
             // 
@@ -135,14 +134,15 @@
             this.searchButton.UseVisualStyleBackColor = true;
             this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
-            // refundButton
+            // RefundButton
             // 
-            this.refundButton.Location = new System.Drawing.Point(17, 487);
-            this.refundButton.Name = "refundButton";
-            this.refundButton.Size = new System.Drawing.Size(84, 41);
-            this.refundButton.TabIndex = 7;
-            this.refundButton.Text = "환불";
-            this.refundButton.UseVisualStyleBackColor = true;
+            this.RefundButton.Location = new System.Drawing.Point(17, 487);
+            this.RefundButton.Name = "RefundButton";
+            this.RefundButton.Size = new System.Drawing.Size(84, 41);
+            this.RefundButton.TabIndex = 7;
+            this.RefundButton.Text = "환불";
+            this.RefundButton.UseVisualStyleBackColor = true;
+            this.RefundButton.Click += new System.EventHandler(this.RefundButton_Click_1);
             // 
             // button6
             // 
@@ -153,45 +153,23 @@
             this.button6.Text = "영수증 출력";
             this.button6.UseVisualStyleBackColor = true;
             // 
-            // cash
-            // 
-            this.cash.AutoSize = true;
-            this.cash.Location = new System.Drawing.Point(199, 13);
-            this.cash.Name = "cash";
-            this.cash.Size = new System.Drawing.Size(48, 16);
-            this.cash.TabIndex = 9;
-            this.cash.Text = "현금";
-            this.cash.UseVisualStyleBackColor = true;
-            // 
-            // card
-            // 
-            this.card.AutoSize = true;
-            this.card.Location = new System.Drawing.Point(199, 36);
-            this.card.Name = "card";
-            this.card.Size = new System.Drawing.Size(48, 16);
-            this.card.TabIndex = 10;
-            this.card.Text = "카드";
-            this.card.UseVisualStyleBackColor = true;
-            // 
             // receipt
             // 
             this.ClientSize = new System.Drawing.Size(860, 540);
-            this.Controls.Add(this.card);
-            this.Controls.Add(this.cash);
             this.Controls.Add(this.button6);
-            this.Controls.Add(this.refundButton);
+            this.Controls.Add(this.RefundButton);
             this.Controls.Add(this.searchButton);
-            this.Controls.Add(this.searchTextbox);
+            this.Controls.Add(this.receiptNumberTextBox);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.dateTime);
-            this.Controls.Add(this.receiptDataGridView);
+            this.Controls.Add(this.ReceiptDataGridView);
             this.Controls.Add(this.receiptDetailGridView);
             this.Controls.Add(this.label4);
             this.Name = "receipt";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "영수증";
             ((System.ComponentModel.ISupportInitialize)(this.receiptDetailGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.receiptDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ReceiptDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -214,18 +192,16 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DataGridView receiptDetailGridView;
-        private System.Windows.Forms.DataGridView receiptDataGridView;
+        private System.Windows.Forms.DataGridView ReceiptDataGridView;
         private System.Windows.Forms.DateTimePicker dateTime;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox searchTextbox;
+        private System.Windows.Forms.TextBox receiptNumberTextBox;
         private System.Windows.Forms.Button searchButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.Button refundButton;
+        private System.Windows.Forms.Button RefundButton;
         private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.CheckBox cash;
-        private System.Windows.Forms.CheckBox card;
     }
 }
