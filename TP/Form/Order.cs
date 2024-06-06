@@ -10,18 +10,17 @@ namespace TP
 
     public partial class Order : Form
     {
-        private string DB_Server_Info = "Data Source = localhost;" +
-           "User ID = DEU; Password = 1234;";
         private string categori = null;
         private string label = "제품명";
         private bool saveSuccess = false; //저장 성공
         private bool selectsusses = false; //검색 성공 
+
         private StockController stckcontroller;
         private ProductInfoController productInfoController;
         private OrderReturnController orderController;
         private LoginController loginController;
-        private string sqltxt = "select * from 제품";
         private DataTable dt;
+
         public Order()
         {
             InitializeComponent();
@@ -31,8 +30,43 @@ namespace TP
             loginController = new LoginController();
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList; //콤보 박스 읽기 전용
             comboBox1.Text = label;
+
+            // ComboBox2 설정
+            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox2.SelectedIndexChanged += new EventHandler(comboBox2_SelectedIndexChanged);
+            LoadCategories();
+
             dataview();
         }
+
+        private void LoadCategories()
+        {
+            try
+            {
+                // 기본 "전체" 추가
+                comboBox2.Items.Add("전체");
+
+                // 카테고리 데이터 불러오기
+                DataTable categoryData = productInfoController.GetCategories();
+                foreach (DataRow row in categoryData.Rows)
+                {
+                    comboBox2.Items.Add(row["카테고리"].ToString());
+                }
+
+                comboBox2.SelectedIndex = 0; // 기본적으로 "전체" 선택
+            }
+            catch (OracleException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            categori = comboBox2.SelectedItem.ToString() == "전체" ? null : comboBox2.SelectedItem.ToString();
+            dataview();
+        }
+
         private void dataview()
         {
             try
@@ -73,6 +107,7 @@ namespace TP
                 MessageBox.Show(ex.Message);
             }
         }
+
         private void button2_Click(object sender, EventArgs e) //검색 부분
         {
             selectsusses = false;
@@ -176,6 +211,7 @@ namespace TP
             sw.Close();
             fs.Close();*/
         }
+
         private void Order_FormClosing(object sender, FormClosingEventArgs e)
         {
             //닫혔을때 save 하는지 물어보는 부분 
@@ -196,35 +232,7 @@ namespace TP
                 }
                 //MessageBox.Show("저장하시겠습니까?"); //예,아니요,취소 부분 되게 
             }
-        }
-
-
-
-        private void radioButton1_CheckedChanged(object sender, EventArgs e) //카테고리 선택
-        {
-            if (radioButton4.Checked == true)
-            {
-                categori = null;
-                dataview();
-
-            }
-            if (radioButton1.Checked == true)
-            {
-                categori = radioButton1.Text;
-                dataview();
-
-            }
-            else if (radioButton2.Checked == true)
-            {
-                categori = radioButton2.Text;
-                dataview();
-            }
-            else if (radioButton3.Checked == true)
-            {
-                categori = radioButton3.Text;
-                dataview();
-            }
-        }
+        }  
 
         private void find() //검색 부분
         {
@@ -263,6 +271,21 @@ namespace TP
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             saveSuccess = false;
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

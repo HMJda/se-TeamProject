@@ -11,6 +11,10 @@ namespace TP.control
         {
             return productInfoEntity.GetProduct("select * from 제품");
         }
+        public DataTable GetCategories()
+        {
+            return productInfoEntity.GetProduct("select * from 카테고리");
+        }
     }
 
 }

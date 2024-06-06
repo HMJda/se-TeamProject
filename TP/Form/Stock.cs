@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Data;
+using System.Data.OracleClient;
 using System.Drawing;
 using System.Windows.Forms;
+using TP.control;
 
 
 namespace TP
@@ -12,12 +14,48 @@ namespace TP
         private string label = "제품명";
         private int selectsusses = 0; //검색 성공 
         private StockController stockController;
+        private ProductInfoController productInfoController;
+
         public Stock()
         {
             InitializeComponent();
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList; //콤보 박스 읽기 전용
             comboBox1.Text = label;
             stockController = new StockController();
+            productInfoController = new ProductInfoController();
+
+            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox2.SelectedIndexChanged += new EventHandler(comboBox2_SelectedIndexChanged);
+            LoadCategories();
+
+            dataview();
+        }
+
+        private void LoadCategories()
+        {
+            try
+            {
+                // 기본 "전체" 추가
+                comboBox2.Items.Add("전체");
+
+                // 카테고리 데이터 불러오기
+                DataTable categoryData = productInfoController.GetCategories();
+                foreach (DataRow row in categoryData.Rows)
+                {
+                    comboBox2.Items.Add(row["카테고리"].ToString());
+                }
+
+                comboBox2.SelectedIndex = 0; // 기본적으로 "전체" 선택
+            }
+            catch (OracleException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            categori = comboBox2.SelectedItem.ToString() == "전체" ? null : comboBox2.SelectedItem.ToString();
             dataview();
         }
 
@@ -30,32 +68,6 @@ namespace TP
             }
             dataGridView1.AllowUserToAddRows = false; //빈레코드 표시x
             dataGridView1.DataSource = dt;
-        }
-
-        private void radioButton1_CheckedChanged(object sender, EventArgs e) //카테고리 선택
-        {
-            if (radioButton4.Checked == true)
-            {
-                categori = null;
-                dataview();
-
-            }
-            if (radioButton1.Checked == true)
-            {
-                categori = radioButton1.Text;
-                dataview();
-
-            }
-            else if (radioButton2.Checked == true)
-            {
-                categori = radioButton2.Text;
-                dataview();
-            }
-            else if (radioButton3.Checked == true)
-            {
-                categori = radioButton3.Text;
-                dataview();
-            }
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -103,6 +115,21 @@ namespace TP
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }
