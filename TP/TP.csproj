@@ -113,9 +113,6 @@
     <Compile Include="Form\Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form\showReceipt.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Form\receipt.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -183,9 +180,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form\showReceipt.resx">
-      <DependentUpon>showReceipt.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\productinformation.resx">
       <DependentUpon>productinformation.cs</DependentUpon>
