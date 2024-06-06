@@ -61,20 +61,17 @@ namespace TP
                 return;
             }
 
+            // DataGridView에서 선택된 행의 "영수증번호" 셀의 값을 가져옴
+            string receiptNo = ReceiptDataGridView.SelectedRows[0].Cells["영수증번호"].Value.ToString();
+
             DialogResult result = MessageBox.Show("환불 처리를 하시겠습니까?", "환불", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
-                string receiptNo = ReceiptDataGridView.SelectedRows[0].Cells["영수증번호"].Value.ToString();
-
                 bool isRefunded = refundController.ProcessRefund(receiptNo);
 
                 if (isRefunded)
                 {
                     MessageBox.Show("환불 처리가 완료되었습니다.");
-                }
-                else
-                {
-                    MessageBox.Show("환불 처리 중 오류가 발생했습니다.");
                 }
             }
         }
