@@ -33,7 +33,7 @@ namespace TP
         }
 
 
-        private void RemovePlaceholder(object sender, EventArgs e)
+        private void RemovePlaceholder(object sender, EventArgs e) //비밀번호 입력시 정보보호를 위해 ●으로 표시
         {
             TextBox txt = (TextBox)sender;
             if (txt.Text == IdPlaceholder | txt.Text == PwPlaceholder)
@@ -45,7 +45,7 @@ namespace TP
             }
         }
 
-        private void SetPlaceholder(object sender, EventArgs e)
+        private void SetPlaceholder(object sender, EventArgs e) //입력이 없을때 아이디와 비밀번호를 회색으로 텍스트박스에 표시 
         {
             TextBox txt = (TextBox)sender;
             if (string.IsNullOrEmpty(txt.Text))
@@ -61,7 +61,7 @@ namespace TP
             }
         }
 
-        private void Login_Click(object sender, EventArgs e)
+        private void Login_Click(object sender, EventArgs e) //로그인 클릭
         {
 
             id = textBox1.Text;

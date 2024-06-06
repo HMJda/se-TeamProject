@@ -36,7 +36,7 @@ namespace TP
             dataview();
         }
 
-        private void LoadCategories()
+        private void LoadCategories()// 카테고리 불러오기
         {
             try
             {
@@ -58,19 +58,19 @@ namespace TP
             }
         }
 
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e) //combobox2의 인덱스가 변경될 경우 
         {
             categori = comboBox2.SelectedItem.ToString() == "전체" ? null : comboBox2.SelectedItem.ToString();
             dataview();
         }
 
-        private void dataview()
+        private void dataview() //데이터 갱신
         {
             try
             {
                 dataGridView1.Columns.Clear();
                 dt = productInfoController.GetProduct();
-                if (!string.IsNullOrEmpty(categori)) // Check if categori is not empty or null
+                if (!string.IsNullOrEmpty(categori)) // 카테고리가 비어있는지 확인
                 {
                     dt.DefaultView.RowFilter = $"카테고리 ='{categori}'";
                 }
@@ -164,13 +164,13 @@ namespace TP
                 }
                 else
                 {
-                    dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.White;
+                    dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.White;//선택된 데이터 하얀색으로 보임으로 보임
                 }
 
             }
             if (saveSuccess == true)
             {
-                MessageBox.Show("저장되었습니다.");
+                MessageBox.Show("저장되었습니다."); //저장 완료시 
             }
 
         }
