@@ -10,7 +10,6 @@ namespace TP
         public AddInvenUI()
         {
             InitializeComponent();
-            dataview();
         }
 
         private void quitButton_Click(object sender, EventArgs e)
