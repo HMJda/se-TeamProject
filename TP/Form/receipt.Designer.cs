@@ -56,6 +56,7 @@
             this.receiptDetailGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.receiptDetailGridView.Location = new System.Drawing.Point(12, 51);
             this.receiptDetailGridView.Name = "receiptDetailGridView";
+            this.receiptDetailGridView.RowHeadersVisible = false;
             this.receiptDetailGridView.RowHeadersWidth = 51;
             this.receiptDetailGridView.RowTemplate.Height = 23;
             this.receiptDetailGridView.Size = new System.Drawing.Size(377, 419);
@@ -67,6 +68,7 @@
             this.ReceiptDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ReceiptDataGridView.Location = new System.Drawing.Point(426, 51);
             this.ReceiptDataGridView.Name = "ReceiptDataGridView";
+            this.ReceiptDataGridView.ReadOnly = true;
             this.ReceiptDataGridView.RowHeadersVisible = false;
             this.ReceiptDataGridView.RowHeadersWidth = 51;
             this.ReceiptDataGridView.RowTemplate.Height = 23;
