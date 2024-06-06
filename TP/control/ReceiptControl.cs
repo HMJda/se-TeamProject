@@ -27,6 +27,7 @@ namespace TP.control
         }
         public DataTable GetReceiptDetails(string receiptNo)
         {
+            Console.WriteLine($"GetReceiptDetails 호출됨. 영수증번호: {receiptNo}"); // 디버깅 메시지
             return receiptList.GetReceiptDetails(receiptNo);
         }
     }

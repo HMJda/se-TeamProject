@@ -80,9 +80,12 @@ namespace TP
 
         private void ReceiptDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && ReceiptDataGridView.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
+            if (e.RowIndex >= 0)
             {
+                // 클릭된 셀의 행 인덱스를 가져옴
                 string receiptNo = ReceiptDataGridView.Rows[e.RowIndex].Cells["영수증번호"].Value.ToString();
+                MessageBox.Show($"선택된 영수증번호: {receiptNo}"); // 디버깅 메시지
+
                 DataTable dataTable = receiptControl.GetReceiptDetails(receiptNo);
 
                 if (dataTable != null && dataTable.Rows.Count > 0)
@@ -91,7 +94,7 @@ namespace TP
                 }
                 else
                 {
-                    MessageBox.Show("영수증 상세 내역을 불러오지 못했습니다.");
+                    MessageBox.Show("영수증 상세 내역을 불러오지 못했습니다."); // 디버깅 메시지
                 }
             }
         }

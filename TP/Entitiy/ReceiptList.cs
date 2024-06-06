@@ -28,7 +28,19 @@ namespace TP.Entitiy
         {
             // 영수증 상세 정보를 가져오는 쿼리
             string sqltxt = $"SELECT * FROM 영수증상세 WHERE 영수증번호 = '{receiptNo}'";
+            Console.WriteLine($"Executing SQL: {sqltxt}"); // SQL 쿼리 출력
+
             receiptTable = dBcontroller.GetDB(sqltxt);
+
+            if (receiptTable == null)
+            {
+                Console.WriteLine("No data returned."); // 디버깅 메시지
+            }
+            else
+            {
+                Console.WriteLine($"Rows returned: {receiptTable.Rows.Count}"); // 디버깅 메시지
+            }
+
             return receiptTable;
         }
 
