@@ -1,0 +1,220 @@
+ALTER session set "_ORACLE_SCRIPT"=true;
+DROP USER DEU CASCADE; -- 기존 사용자 삭제(현재 접속되어 있으면 삭제 안 됨)
+    -- CASCADE option : 관련 스키마 개체들도 함께 삭제.  Default는 No Action
+CREATE USER DEU IDENTIFIED BY 1234  -- 사용자 ID : DEU, 비밀번호 : 1234
+    DEFAULT TABLESPACE USERS
+    TEMPORARY TABLESPACE TEMP;
+GRANT connect, resource, dba TO DEU; -- 권한 부여
+
+CREATE TABLE 회원(
+    아이디 CHAR(20) NOT NULL,
+    비번 CHAR(20) NOT NULL,
+    이름 CHAR(10) NOT NULL,
+    나이  INT,
+    직책  CHAR(20),
+    전화번호 CHAR(20),
+    편의점 CHAR(20),
+    편의점주소 CHAR(30),
+    PRIMARY KEY(아이디)
+);
+
+create table 카테고리
+(카테고리 char(20) not null,
+primary key(카테고리));
+
+CREATE TABLE 제품 (
+    제품번호 CHAR(20) NOT NULL,
+    제품명 CHAR(20),
+    카테고리 CHAR(20),
+    재고량 INT,
+    단가 INT,
+    규격 CHAR(20),
+    제조업체 CHAR(20),
+    FOREIGN KEY(카테고리) REFERENCES 카테고리(카테고리),
+    PRIMARY KEY(제품번호),
+    CHECK (재고량 >= 0 AND 재고량 <=1000)
+);
+
+CREATE TABLE  발주 (
+    발주번호   CHAR(10) NOT NULL,
+    주문고객   CHAR(20),
+    발주제품   CHAR(20),
+    수량        INT,
+    배송지     CHAR(30),
+    주문일자  CHAR(30),
+    PRIMARY KEY(발주번호),       
+    FOREIGN KEY(주문고객)   REFERENCES   회원(아이디),
+    FOREIGN KEY(발주제품)   REFERENCES   제품(제품번호)
+);
+
+CREATE TABLE  반품 (
+    반품번호   CHAR(10) NOT NULL,
+    반품고객   CHAR(20),
+    반품제품   CHAR(20),
+    반품수량  INT,
+    반품지     CHAR(30),
+    반품일자  CHAR(30),
+    PRIMARY KEY(반품번호),       
+    FOREIGN KEY(반품고객)   REFERENCES   회원(아이디),
+    FOREIGN KEY(반품제품)   REFERENCES   제품(제품번호)
+);
+
+CREATE TABLE  재고 (
+    제품번호   CHAR(20),
+    제품명      CHAR(20),
+    재고량      INT,
+    가격       INT,    
+    FOREIGN KEY(제품번호) REFERENCES 제품(제품번호)
+);
+CREATE TABLE 영수증 (
+    영수증번호 CHAR(20) NOT NULL,
+    거래시간 DATE NOT NULL,
+    거래형태 VARCHAR(30) NOT NULL,
+    총가격 INT,
+    PRIMARY KEY(영수증번호)
+);
+CREATE TABLE 영수증상세 (
+    영수증번호 CHAR(20),
+    제품번호 CHAR(20),
+    상품명 CHAR(20),
+    수량 INT,
+    상품가격 INT,    
+    FOREIGN KEY (영수증번호) REFERENCES 영수증(영수증번호),
+    FOREIGN KEY (제품번호) REFERENCES 제품(제품번호)
+);
+
+CREATE OR REPLACE TRIGGER update_total_price
+AFTER INSERT OR UPDATE ON 영수증상세
+FOR EACH ROW
+DECLARE
+    total_price INT;
+BEGIN
+    IF INSERTING THEN
+        UPDATE 영수증
+        SET 총가격 = 총가격 + (:NEW.상품가격 * :NEW.수량)
+        WHERE 영수증번호 = :NEW.영수증번호;
+    ELSIF UPDATING THEN
+        UPDATE 영수증
+        SET 총가격 = 총가격 - (:OLD.상품가격 * :OLD.수량) + (:NEW.상품가격 * :NEW.수량)
+        WHERE 영수증번호 = :NEW.영수증번호;
+    END IF;
+END;
+
+insert into 회원
+values ('user1','1234','홍길동',35,'점장','010-1234-5678','동의편의점','동의대학교');
+
+insert into 카테고리 values ('라면');
+insert into 카테고리 values ('음료');
+insert into 카테고리 values ('과자');
+INSERT INTO 제품 VALUES ('001','라면1','라면','100',2400,'120g','업체1');
+INSERT INTO 제품 VALUES ('002', '라면2', '라면', 100, 2500, '130g', '업체1');
+INSERT INTO 제품 VALUES ('003', '라면3', '라면', 100, 2440, '125g', '업체2');
+INSERT INTO 제품 VALUES ('004', '틈새라면', '라면', 100, 2400, '120g', '업체1');
+INSERT INTO 제품 VALUES ('005', '간장라면', '라면', 100, 2500, '130g', '업체1');
+INSERT INTO 제품 VALUES ('006', '참깨라면', '라면', 100, 2440, '125g', '업체4');
+INSERT INTO 제품 VALUES ('007', '육개장', '라면', 100, 2400, '120g', '업체3');
+INSERT INTO 제품 VALUES ('008', '라면2', '라면', 100, 2500, '130g', '업체1');
+INSERT INTO 제품 VALUES ('009', '라면3', '라면', 100, 2440, '125g', '업체2');
+
+INSERT INTO 제품 VALUES ('101', '음료1', '음료', 100, 1200, '300ml', '업체1');
+INSERT INTO 제품 VALUES ('102', '음료2', '음료', 1030, 2400, '1.25L', '업체1');
+INSERT INTO 제품 VALUES ('103', '음료3', '음료', 1012, 2440, '2L', '업체2');
+INSERT INTO 제품 VALUES ('104', '코카', '음료', 103, 1200, '300ml', '업체2');
+INSERT INTO 제품 VALUES ('105', '사이다', '음료', 100, 2400, '1.25L', '업체1');
+INSERT INTO 제품 VALUES ('106', '환타', '음료', 140, 2440, '2L', '업체2');
+INSERT INTO 제품 VALUES ('107', '판타', '음료', 130, 1200, '300ml', '업체1');
+INSERT INTO 제품 VALUES ('108', '울트라', '음료', 160, 2400, '1.25L', '업체1');
+INSERT INTO 제품 VALUES ('109', '음료3', '음료', 100, 2440, '2L', '업체2');
+INSERT INTO 제품 VALUES ('201', '과자1', '과자', 100, 1200, '220g', '업체1');
+INSERT INTO 제품 VALUES ('202', '과자2', '과자', 100, 1300, '230g', '업체1');
+INSERT INTO 제품 VALUES ('203', '과자3', '과자', 100, 2440, '300g', '업체2');
+INSERT INTO 제품 VALUES ('204', '과자4', '과자', 100, 1200, '220g', '업체1');
+INSERT INTO 제품 VALUES ('205', '과자5', '과자', 100, 1300, '230g', '업체1');
+INSERT INTO 제품 VALUES ('206', '과자6', '과자', 100, 2440, '300g', '업체2');
+INSERT INTO 제품 VALUES ('207', '과자7', '과자', 100, 1200, '220g', '업체1');
+INSERT INTO 제품 VALUES ('208', '과자8', '과자', 100, 1300, '230g', '업체12');
+INSERT INTO 제품 VALUES ('209', '과자9', '과자', 100, 2440, '300g', '업체5');
+INSERT INTO 제품 VALUES ('210', '과자10', '과자', 100, 1200, '220g', '업체3');
+INSERT INTO 제품 VALUES ('211', '과자11', '과자', 100, 1300, '230g', '업체7');
+INSERT INTO 제품 VALUES ('212', '과자12', '과자', 100, 2440, '300g', '업체2');
+INSERT INTO 제품 VALUES ('213', '과자13', '과자', 100, 1200, '220g', '업체5');
+INSERT INTO 제품 VALUES ('214', '과자14', '과자', 100, 1300, '230g', '업체1');
+INSERT INTO 제품 VALUES ('215', '과자15', '과자', 100, 2440, '300g', '업체2');
+
+insert into 카테고리 values ('생필품');
+INSERT INTO 제품 VALUES ('501', '츄파츕스', '과자', 100, 250, '12g', '업체1');
+INSERT INTO 제품 VALUES ('502', '종이컵', '생필품', 100, 50, '5g', '업체9');
+INSERT INTO 제품 VALUES ('503', '컵얼음', '음료', 100, 600, '180g', '업체7');
+INSERT INTO 제품 VALUES ('504', '봉투(소)', '생필품', 100, 50, '1g', '업체9');
+INSERT INTO 제품 VALUES ('505', '봉투(중)', '생필품', 100, 100, '1g', '업체9');
+
+CREATE OR REPLACE VIEW 거래내역 AS
+SELECT 
+    TO_CHAR(영수증.거래시간, 'YYYY/MM/DD') AS 거래일,
+    TO_CHAR(영수증.거래시간, 'HH24') || '시' AS 시간, 
+    SUM(영수증상세.상품가격 * 영수증상세.수량) AS 결제금액,  -- 거래형태와 상관없이 모든 총가격을 합산
+    SUM(CASE WHEN 영수증.거래형태 = '환불' THEN -영수증상세.상품가격 * 영수증상세.수량 ELSE 0 END) AS 반품금액, 
+    COUNT(DISTINCT 영수증.영수증번호) AS 객수, 
+    SUM(영수증상세.상품가격 * 영수증상세.수량) + 
+    SUM(CASE WHEN 영수증.거래형태 = '환불' THEN -영수증상세.상품가격 * 영수증상세.수량 ELSE 0 END) AS 판매금액  -- 결제금액에서 반품금액을 빼서 판매금액 계산
+FROM 
+    영수증 
+JOIN 
+    영수증상세 ON 영수증.영수증번호 = 영수증상세.영수증번호 
+GROUP BY 
+    TO_CHAR(영수증.거래시간, 'YYYY/MM/DD'),
+    TO_CHAR(영수증.거래시간, 'HH24')
+ORDER BY 
+    TO_CHAR(영수증.거래시간, 'YYYY/MM/DD'),
+    TO_CHAR(영수증.거래시간, 'HH24');
+
+
+
+
+CREATE OR REPLACE VIEW 월별거래내역 AS
+SELECT 
+    TO_CHAR(거래시간, 'YYYY-MM-DD') AS 거래일자,
+    TO_CHAR(거래시간, 'DD') || '일' AS 일자,
+    SUM(결제금액) AS 결제금액, 
+    SUM(반품금액) AS 반품금액,
+    SUM(객수) AS 객수, 
+    SUM(판매금액) AS 판매금액
+FROM (
+    SELECT 
+        TRUNC(영수증.거래시간) AS 거래시간,
+        SUM(영수증상세.상품가격 * 영수증상세.수량) AS 결제금액,  -- 거래형태가 '환불'이 아닌 경우에만 가격 * 수량을 합산
+        SUM(CASE WHEN 영수증.거래형태 = '환불' THEN -영수증상세.상품가격 * 영수증상세.수량 ELSE 0 END) AS 반품금액,  -- 거래형태가 '환불'인 경우에만 가격 * 수량을 합산 (음수)
+        COUNT(DISTINCT 영수증.영수증번호) AS 객수, 
+        SUM(영수증상세.상품가격 * 영수증상세.수량) +
+        SUM(CASE WHEN 영수증.거래형태 = '환불' THEN - 영수증상세.상품가격 * 영수증상세.수량 ELSE 0 END) AS 판매금액  -- 결제금액에서 반품금액을 빼서 판매금액 계산
+    FROM 
+        영수증 
+    JOIN 
+        영수증상세 ON 영수증.영수증번호 = 영수증상세.영수증번호 
+    GROUP BY 
+        TRUNC(영수증.거래시간)
+)
+GROUP BY 
+    TO_CHAR(거래시간, 'YYYY-MM-DD'),
+    TO_CHAR(거래시간, 'DD') || '일' 
+ORDER BY 
+    TO_CHAR(거래시간, 'YYYY-MM-DD');
+
+
+CREATE OR REPLACE VIEW 대분류별실적 AS
+SELECT 
+    TO_CHAR(영수증.거래시간, 'YYYY-MM-DD') AS 거래일자,
+    제품.카테고리 AS 대분류,
+    SUM(영수증상세.수량) AS 수량,
+    SUM(영수증상세.수량 * 영수증상세.상품가격) AS 결제금액
+FROM 
+    영수증
+JOIN 
+    영수증상세 ON 영수증.영수증번호 = 영수증상세.영수증번호
+JOIN 
+    제품 ON 영수증상세.제품번호 = 제품.제품번호
+WHERE
+    영수증.거래형태 = '결제'
+GROUP BY 
+    TO_CHAR(영수증.거래시간, 'YYYY-MM-DD'),
+    제품.카테고리;
