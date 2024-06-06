@@ -8,11 +8,13 @@ namespace TP
 
     public partial class receipt : Form
     {
+        private ReceiptControl receiptControl;
         private RefundController refundController;
 
         public receipt()
         {
             InitializeComponent();
+            receiptControl = new ReceiptControl();
             refundController = new RefundController(dateTime, receiptNumberTextBox);
             ReceiptDataGridView.AllowUserToAddRows = false; //빈레코드 표시x
             receiptDetailGridView.AllowUserToAddRows = false; //빈레코드 표시x
@@ -26,7 +28,7 @@ namespace TP
             if (string.IsNullOrEmpty(receiptNumberTextBox.Text.Trim()))
             {
                 // 영수증 번호가 없는 경우 해당 날짜에 있는 모든 정보를 불러옴
-                DataTable dataTable = refundController.GetReceipt(selectedDate);
+                DataTable dataTable = receiptControl.GetReceipt(selectedDate);
 
                 if (dataTable != null && dataTable.Rows.Count > 0)
                 {
@@ -41,7 +43,7 @@ namespace TP
             {
                 string receiptNumber = receiptNumberTextBox.Text.Trim(); // 영수증 번호를 가져옴
 
-                DataTable dataTable = refundController.GetReceipt(selectedDate, receiptNumber);
+                DataTable dataTable = receiptControl.GetReceipt(selectedDate, receiptNumber);
                 if (dataTable != null && dataTable.Rows.Count > 0)
                 {
                     ReceiptDataGridView.DataSource = dataTable;
@@ -84,13 +86,18 @@ namespace TP
             if (e.RowIndex >= 0)
             {
                 string receiptNo = ReceiptDataGridView.Rows[e.RowIndex].Cells["영수증번호"].Value.ToString();
-                DataTable dataTable = refundController.GetReceiptDetails(receiptNo);
+                DataTable dataTable = receiptControl.GetReceiptDetails(receiptNo);
 
                 if (dataTable != null && dataTable.Rows.Count > 0)
                 {
                     receiptDetailGridView.DataSource = dataTable;
                 }
             }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
