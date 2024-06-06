@@ -68,14 +68,6 @@ namespace TP
                 UpdateTotalPrice();
             }
         }
-        private void cash_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void allCancel_Click(object sender, EventArgs e)
-        {
-
-        }
         private void chupachups_Click(object sender, EventArgs e)
         {
             string productCode = "501";
@@ -430,6 +422,11 @@ namespace TP
                 MessageBox.Show("판매목록에 물품이 있어 닫을 수 없습니다.", "경고");
                 e.Cancel = true;
             }
+        }
+
+        private void cancel_Click(object sender, EventArgs e)
+        {
+            textBox2.Text = "";
         }
     }
 }
