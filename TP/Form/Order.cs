@@ -7,7 +7,6 @@ using TP.control;
 
 namespace TP
 {
-
     public partial class Order : Form
     {
         private string categori = null;
@@ -15,7 +14,6 @@ namespace TP
         private bool saveSuccess = false; //저장 성공
         private bool selectsusses = false; //검색 성공 
 
-        private InquiryInvenController stockcontroller;
         private ProductInfoController productInfoController;
         private OrderReturnController orderController;
         private LoginController loginController;
@@ -24,7 +22,6 @@ namespace TP
         public Order()
         {
             InitializeComponent();
-            stockcontroller = new InquiryInvenController();
             productInfoController = new ProductInfoController();
             orderController = new OrderReturnController();
             loginController = new LoginController();
@@ -127,6 +124,10 @@ namespace TP
                         {
                             orderController.SetOrder("DELETE 발주");
                         }
+                        if(Convert.ToInt32(dataGridView1.Rows[i].Cells["발주량"].Value) > Convert.ToInt32(dataGridView1.Rows[i].Cells["재고량"].Value)){
+                            MessageBox.Show("발주량을 초과하였습니다.");
+                            break;
+                        }
                         string user_address = loginController.GetUserDetail(Properties.Settings.Default.LoginIDSave.ToString(), "편의점주소");
                         //발주 테이블 추가 
                         string sqltxt = "MERGE INTO 발주 " +
@@ -136,6 +137,7 @@ namespace TP
                                         "INSERT (발주번호, 주문고객, 발주제품, 수량, 배송지, 주문일자) " +
                                         "VALUES (:발주번호, :주문고객, :발주제품, :수량, :배송지, :주문일자) " +
                                         "WHEN MATCHED THEN UPDATE SET 수량 = :수량";
+
                         OracleParameter[] order =
                         {
                             new OracleParameter("발주번호", Properties.Settings.Default.Orderindex.ToString()),

@@ -21,7 +21,7 @@ namespace TP.control
         {
             this.dateTimePicker = dateTimePicker;
             this.receiptNumberTextBox = receiptNumberTextBox;
-            receiptList = new ReceiptList(dbServerInfo);
+            receiptList = new ReceiptList();
         }
 
         private DateTime GetDate()
@@ -83,7 +83,7 @@ namespace TP.control
 
         private void SaveRefundedReceipt(string receiptNo)
         {
-            string sqltxt = $"INSERT INTO RefundedReceipts (ReceiptNo, RefundDate) VALUES ('{receiptNo}', CURRENT_TIMESTAMP)";
+            string sqltxt = $"INSERT INTO RefundedReceipts (영수증번호, RefundDate) VALUES ('{receiptNo}', CURRENT_TIMESTAMP)";
             receiptList.SetReceipt(sqltxt);
         }
     }
