@@ -57,7 +57,7 @@ namespace TP
 
         private void RefundButton_Click_1(object sender, EventArgs e)
         {
-            if (ReceiptDataGridView.SelectedRows.Count == 0)
+            if (ReceiptDataGridView.CurrentCell == null && ReceiptDataGridView.CurrentCell.Selected)
             {
                 MessageBox.Show("환불할 영수증을 선택하세요.");
                 return;
@@ -89,6 +89,25 @@ namespace TP
                 {
                     receiptDetailGridView.DataSource = dataTable;
                 }
+            }
+        }
+
+        private void showReceipt_Click(object sender, EventArgs e)
+        {
+            using (showReceipt receiptPrint = new showReceipt())
+            {
+                // 영수증 상세 내역 데이터 가져오기
+                int rowIndex = ReceiptDataGridView.SelectedCells[0].RowIndex;
+                string receiptNo = ReceiptDataGridView.Rows[rowIndex].Cells["영수증번호"].Value.ToString();
+                DataTable receiptDetails = receiptControl.GetReceiptDetails(receiptNo);
+
+                // 새로운 폼에 데이터 표시
+                receiptPrint.ShowReceiptDetails(receiptDetails);
+
+                // 새로운 폼을 모달로 표시합니다.
+                receiptPrint.ShowDialog();
+
+                this.Show();
             }
         }
     }

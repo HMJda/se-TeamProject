@@ -40,27 +40,22 @@ namespace TP
             {
                 type = 1;
                 setdate = dateTimePicker1.Value.ToString("yyyy-MM-dd");
-                dataview(type, setdate);
-                //MessageBox.Show(setdate);
             }
             else if (radioButton2.Checked == true)
             {
                 type = 2;
                 setdate = string.Format("{0:D4}-{1:D2}", Int32.Parse(yearcomboBox.Text.ToString()), Int32.Parse(monthcomboBox.Text.ToString()));
-                dataview(type, setdate);
-                //MessageBox.Show(setdate);
             }
             else if (radioButton3.Checked == true)
             {
                 type = 3;
                 setdate = string.Format("{0:D4}-{1:D2}", Int32.Parse(yearcomboBox.Text.ToString()), Int32.Parse(monthcomboBox.Text.ToString()));
-                dataview(type, setdate);
-                //MessageBox.Show(setdate);
             }
+            dataview(type, setdate);
         }
 
         private void radioButton_CheckedChanged(object sender, EventArgs e)
-        {
+        {   
             if (radioButton1.Checked == true) //일일판매실적 
             {
                 monthcomboBox.Visible = false;

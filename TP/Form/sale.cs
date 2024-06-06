@@ -8,19 +8,19 @@ namespace TP
 
     public partial class sale : Form
     {
-        private InquiryInvenController stockController;
+        private InquiryInvenController inquiryInvenController;
         private SaleController saleController;
         private DataTable dt;
         public sale()
         {
             InitializeComponent();
-            stockController = new InquiryInvenController();
+            inquiryInvenController = new InquiryInvenController();
             saleController = new SaleController();
         }
         private void cordButton_Click(object sender, EventArgs e)
         {
             string productCode = productCordTextBox.Text.Trim();
-            dt = stockController.GetStock();
+            dt = inquiryInvenController.GetStock();
             DataRow[] foundRows = dt.Select($"제품번호 = '{productCode}'");
 
             if (foundRows.Length == 0)
@@ -51,7 +51,7 @@ namespace TP
                         MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                         return;
                     }
-                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}";
+                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
                     textBox2.Lines = lines;
                     UpdateTotalPrice();
                     break;
@@ -64,22 +64,14 @@ namespace TP
                     MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                     return;
                 }
-                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}\r\n";
+                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
                 UpdateTotalPrice();
             }
-        }
-        private void cash_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void allCancel_Click(object sender, EventArgs e)
-        {
-
         }
         private void chupachups_Click(object sender, EventArgs e)
         {
             string productCode = "501";
-            dt = stockController.GetStock();
+            dt = inquiryInvenController.GetStock();
             DataRow[] foundRows = dt.Select($"제품번호 = '{productCode}'");
 
             if (foundRows.Length == 0)
@@ -111,7 +103,7 @@ namespace TP
                         MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                         return;
                     }
-                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}";
+                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
                     textBox2.Lines = lines;
                     UpdateTotalPrice();
                     break;
@@ -125,14 +117,14 @@ namespace TP
                     MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                     return;
                 }
-                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}\r\n";
+                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
                 UpdateTotalPrice();
             }
         }
         private void paperCup_Click(object sender, EventArgs e)
         {
             string productCode = "502";
-            dt = stockController.GetStock();
+            dt = inquiryInvenController.GetStock();
             DataRow[] foundRows = dt.Select($"제품번호 = '{productCode}'");
 
             if (foundRows.Length == 0)
@@ -164,7 +156,7 @@ namespace TP
                         MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                         return;
                     }
-                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}";
+                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
                     textBox2.Lines = lines;
                     UpdateTotalPrice();
                     break;
@@ -178,14 +170,14 @@ namespace TP
                     MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                     return;
                 }
-                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}\r\n";
+                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
                 UpdateTotalPrice();
             }
         }
         private void cupOfIce_Click(object sender, EventArgs e)
         {
             string productCode = "503";
-            dt = stockController.GetStock();
+            dt = inquiryInvenController.GetStock();
             DataRow[] foundRows = dt.Select($"제품번호 = '{productCode}'");
 
             if (foundRows.Length == 0)
@@ -217,7 +209,7 @@ namespace TP
                         MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                         return;
                     }
-                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}";
+                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
                     textBox2.Lines = lines;
                     UpdateTotalPrice();
                     break;
@@ -231,14 +223,14 @@ namespace TP
                     MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                     return;
                 }
-                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}\r\n";
+                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
                 UpdateTotalPrice();
             }
         }
         private void plasticBackSmall_Click(object sender, EventArgs e)
         {
             string productCode = "504";
-            dt = stockController.GetStock();
+            dt = inquiryInvenController.GetStock();
             DataRow[] foundRows = dt.Select($"제품번호 = '{productCode}'");
 
             if (foundRows.Length == 0)
@@ -270,7 +262,7 @@ namespace TP
                         MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                         return;
                     }
-                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}";
+                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
                     textBox2.Lines = lines;
                     UpdateTotalPrice();
                     break;
@@ -284,14 +276,14 @@ namespace TP
                     MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                     return;
                 }
-                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}\r\n";
+                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
                 UpdateTotalPrice();
             }
         }
         private void plasticBackMedium_Click(object sender, EventArgs e)
         {
             string productCode = "505";
-            dt = stockController.GetStock();
+            dt = inquiryInvenController.GetStock();
             DataRow[] foundRows = dt.Select($"제품번호 = '{productCode}'");
 
             if (foundRows.Length == 0)
@@ -323,7 +315,7 @@ namespace TP
                         MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                         return;
                     }
-                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}";
+                    lines[i] = $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}";
                     textBox2.Lines = lines;
                     UpdateTotalPrice();
                     break;
@@ -337,7 +329,7 @@ namespace TP
                     MessageBox.Show("재고가 없습니다.", "제품 등록 실패");
                     return;
                 }
-                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price / 1.1}\t{quantity * price}\r\n";
+                textBox2.Text += $"{productCode}\t{productName}\t{quantity}\t{price}\t{quantity * price}\r\n";
                 UpdateTotalPrice();
             }
         }
@@ -395,7 +387,7 @@ namespace TP
                         int i = Convert.ToInt32(quantity);
                         sqltxt = $@"MERGE into 재고 USING dual ON (제품번호 = '{productCode}')
                                  WHEN MATCHED THEN UPDATE SET 재고량 = 재고량 - {i}";
-                        stockController.SetStock(sqltxt);
+                        inquiryInvenController.SetStock(sqltxt);
                     }
                     catch (OracleException ex)
                     {
@@ -430,6 +422,11 @@ namespace TP
                 MessageBox.Show("판매목록에 물품이 있어 닫을 수 없습니다.", "경고");
                 e.Cancel = true;
             }
+        }
+
+        private void cancel_Click(object sender, EventArgs e)
+        {
+            textBox2.Text = "";
         }
     }
 }

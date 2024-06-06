@@ -3,6 +3,7 @@ using System.Data;
 using Oracle.ManagedDataAccess.Client;
 using System.Windows.Forms;
 using TP.control;
+using System.Collections.Generic;
 
 
 namespace TP
@@ -35,13 +36,14 @@ namespace TP
             // 사용자가 "예"를 선택한 경우
             if (result == DialogResult.Yes)
             {
-                int testquantity = 1;
-                // 등록 작업 실행
-                changeLog(testquantity);
-                //재고 테이블에 수량 추가
+
+                bool success = true; // 재고 등록 성공 여부를 추적하는 변수
+                List<string> registeredItems = new List<string>(); // 성공적으로 등록된 재고 항목을 추적하는 리스트
+
+                // 재고 테이블에 수량 추가
                 for (int i = 0; i < addInvenTable.Rows.Count; i++)
                 {
-                    if (Convert.ToBoolean(addInvenTable.Rows[i].Cells["chk"].Value)) //체크된 데이터 선택 부분
+                    if (Convert.ToBoolean(addInvenTable.Rows[i].Cells["chk"].Value)) // 체크된 데이터 선택 부분
                     {
                         try
                         {
@@ -71,12 +73,15 @@ namespace TP
 
                             OracleParameter[] stock =
                             {
-                            new OracleParameter("제품번호", addInvenTable.Rows[i].Cells["발주제품"].Value.ToString()),
-                            new OracleParameter("제품명", addInvenTable.Rows[i].Cells["제품명"].Value.ToString()),
-                            new OracleParameter("재고량", Convert.ToInt32(addInvenTable.Rows[i].Cells["수량"].Value)),
-                            new OracleParameter("가격",  Convert.ToInt32(addInvenTable.Rows[i].Cells["단가"].Value)*1.1),
-                        };
+                                new OracleParameter("제품번호", addInvenTable.Rows[i].Cells["발주제품"].Value.ToString()),
+                                new OracleParameter("제품명", addInvenTable.Rows[i].Cells["제품명"].Value.ToString()),
+                                new OracleParameter("재고량", Convert.ToInt32(addInvenTable.Rows[i].Cells["수량"].Value)),
+                                new OracleParameter("가격",  Convert.ToInt32(addInvenTable.Rows[i].Cells["단가"].Value)*1.1),
+                            };
                             inquiryInvenController.SetStock(sqltxt, stock);
+
+                            // 성공적으로 등록된 항목을 리스트에 추가
+                            registeredItems.Add($"{addInvenTable.Rows[i].Cells["제품명"].Value.ToString()} : {addInvenTable.Rows[i].Cells["수량"].Value.ToString()}");
 
                             OrderController.SetOrder("DELETE 발주");
                             Properties.Settings.Default.date = DateTime.Now.ToString("yyyy-MM-dd");
@@ -84,25 +89,19 @@ namespace TP
                         catch (OracleException ex)
                         {
                             MessageBox.Show(ex.Message);
+                            success = false; // 예외 발생 시 성공 여부를 false로 설정
                         }
                     }
                 }
+
+                // 전체 작업이 성공적으로 완료된 경우 확인 메시지를 표시
+                if (success)
+                {
+                    string message = "재고가 성공적으로 등록되었습니다.\n\n등록된 항목:\n" + string.Join("\n", registeredItems);
+                    MessageBox.Show(message, "확인", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             // 사용자가 "아니오"를 선택한 경우는 아무 작업도 수행하지 않습니다.
-            
-        }
-
-        // 등록 작업을 실행하는 메서드
-        private void changeLog(int n)
-        {
-            // 등록된 물품 정보
-            string productCode = "001"; // 예시로 상품 코드를 하드코딩하여 사용
-            string productName = "상품1"; // 예시로 상품명을 하드코딩하여 사용
-            int quantity = 10; // 예시로 등록된 개수를 하드코딩하여 사용
-
-            // 등록된 물품 정보와 개수 변동 사항을 메시지 박스에 표시
-            string message = $"상품이 등록되었습니다.\n\n상품 코드: {productCode}\n상품명: {productName}\n등록된 개수: {quantity}개";
-            MessageBox.Show(message, "등록 완료", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void dataview()

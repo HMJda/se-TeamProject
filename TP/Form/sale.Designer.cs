@@ -40,6 +40,7 @@
             this.button5 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.priceTextBox = new System.Windows.Forms.TextBox();
+            this.cancel_Button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // productCordTextBox
@@ -47,7 +48,7 @@
             this.productCordTextBox.Font = new System.Drawing.Font("굴림", 12F);
             this.productCordTextBox.Location = new System.Drawing.Point(53, 275);
             this.productCordTextBox.Name = "productCordTextBox";
-            this.productCordTextBox.Size = new System.Drawing.Size(311, 30);
+            this.productCordTextBox.Size = new System.Drawing.Size(311, 26);
             this.productCordTextBox.TabIndex = 0;
             // 
             // totalAmountLabel
@@ -56,7 +57,7 @@
             this.totalAmountLabel.Location = new System.Drawing.Point(416, 104);
             this.totalAmountLabel.Name = "totalAmountLabel";
             this.totalAmountLabel.ReadOnly = true;
-            this.totalAmountLabel.Size = new System.Drawing.Size(99, 30);
+            this.totalAmountLabel.Size = new System.Drawing.Size(99, 26);
             this.totalAmountLabel.TabIndex = 1;
             this.totalAmountLabel.Text = "받을 금액";
             // 
@@ -159,10 +160,21 @@
             this.priceTextBox.Size = new System.Drawing.Size(86, 26);
             this.priceTextBox.TabIndex = 20;
             // 
+            // cancel_Button
+            // 
+            this.cancel_Button.Location = new System.Drawing.Point(416, 172);
+            this.cancel_Button.Name = "cancel_Button";
+            this.cancel_Button.Size = new System.Drawing.Size(191, 60);
+            this.cancel_Button.TabIndex = 21;
+            this.cancel_Button.Text = "판매 목록 삭제";
+            this.cancel_Button.UseVisualStyleBackColor = true;
+            this.cancel_Button.Click += new System.EventHandler(this.cancel_Click);
+            // 
             // sale
             // 
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(638, 451);
+            this.Controls.Add(this.cancel_Button);
             this.Controls.Add(this.priceTextBox);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button14);
@@ -211,5 +223,6 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox priceTextBox;
+        private System.Windows.Forms.Button cancel_Button;
     }
 }
