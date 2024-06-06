@@ -24,6 +24,7 @@ namespace TP
             {
                 // 영수증 번호가 없는 경우 해당 날짜에 있는 모든 정보를 불러옴
                 DataTable dataTable = refundController.GetReceipt(selectedDate);
+                ReceiptDataGridView.AllowUserToAddRows = false; //빈레코드 표시x
                 if (dataTable != null && dataTable.Rows.Count > 0)
                 {
                     ReceiptDataGridView.DataSource = dataTable;
