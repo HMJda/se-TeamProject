@@ -43,10 +43,10 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(584, 11);
+            this.button1.Location = new System.Drawing.Point(667, 14);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(240, 130);
+            this.button1.Size = new System.Drawing.Size(274, 162);
             this.button1.TabIndex = 0;
             this.button1.Text = "발주";
             this.button1.UseVisualStyleBackColor = true;
@@ -54,10 +54,10 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(830, 11);
+            this.button2.Location = new System.Drawing.Point(949, 14);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(240, 130);
+            this.button2.Size = new System.Drawing.Size(274, 162);
             this.button2.TabIndex = 1;
             this.button2.Text = "반품";
             this.button2.UseVisualStyleBackColor = true;
@@ -65,10 +65,10 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(830, 145);
+            this.button3.Location = new System.Drawing.Point(949, 263);
             this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(240, 64);
+            this.button3.Size = new System.Drawing.Size(274, 80);
             this.button3.TabIndex = 2;
             this.button3.Text = "재고";
             this.button3.UseVisualStyleBackColor = true;
@@ -76,10 +76,10 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(25, 325);
+            this.button4.Location = new System.Drawing.Point(29, 406);
             this.button4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(227, 100);
+            this.button4.Size = new System.Drawing.Size(259, 125);
             this.button4.TabIndex = 3;
             this.button4.Text = "설정";
             this.button4.UseVisualStyleBackColor = true;
@@ -87,10 +87,10 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(12, 11);
+            this.button5.Location = new System.Drawing.Point(14, 14);
             this.button5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(240, 130);
+            this.button5.Size = new System.Drawing.Size(274, 162);
             this.button5.TabIndex = 4;
             this.button5.Text = "판매";
             this.button5.UseVisualStyleBackColor = true;
@@ -98,10 +98,10 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(258, 11);
+            this.button6.Location = new System.Drawing.Point(295, 14);
             this.button6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(240, 130);
+            this.button6.Size = new System.Drawing.Size(274, 162);
             this.button6.TabIndex = 5;
             this.button6.Text = "영수증 조회";
             this.button6.UseVisualStyleBackColor = true;
@@ -109,10 +109,10 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(258, 325);
+            this.button7.Location = new System.Drawing.Point(295, 406);
             this.button7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(219, 100);
+            this.button7.Size = new System.Drawing.Size(250, 125);
             this.button7.TabIndex = 6;
             this.button7.Text = "마감";
             this.button7.UseVisualStyleBackColor = true;
@@ -120,10 +120,10 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(12, 145);
+            this.button8.Location = new System.Drawing.Point(14, 181);
             this.button8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(240, 130);
+            this.button8.Size = new System.Drawing.Size(274, 162);
             this.button8.TabIndex = 7;
             this.button8.Text = "이익률 조회";
             this.button8.UseVisualStyleBackColor = true;
@@ -131,10 +131,10 @@
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(258, 145);
+            this.button9.Location = new System.Drawing.Point(295, 181);
             this.button9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(240, 130);
+            this.button9.Size = new System.Drawing.Size(274, 162);
             this.button9.TabIndex = 8;
             this.button9.Text = "판매실적 조회";
             this.button9.UseVisualStyleBackColor = true;
@@ -142,10 +142,10 @@
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(584, 145);
+            this.button10.Location = new System.Drawing.Point(667, 181);
             this.button10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(240, 130);
+            this.button10.Size = new System.Drawing.Size(274, 162);
             this.button10.TabIndex = 9;
             this.button10.Text = "물품상세 조회";
             this.button10.UseVisualStyleBackColor = true;
@@ -153,9 +153,10 @@
             // 
             // Inven
             // 
-            this.Inven.Location = new System.Drawing.Point(830, 214);
+            this.Inven.Location = new System.Drawing.Point(949, 182);
+            this.Inven.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Inven.Name = "Inven";
-            this.Inven.Size = new System.Drawing.Size(240, 61);
+            this.Inven.Size = new System.Drawing.Size(274, 76);
             this.Inven.TabIndex = 10;
             this.Inven.Text = "재고 등록";
             this.Inven.UseVisualStyleBackColor = true;
@@ -163,10 +164,10 @@
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1087, 436);
+            this.ClientSize = new System.Drawing.Size(1242, 545);
             this.Controls.Add(this.Inven);
             this.Controls.Add(this.button10);
             this.Controls.Add(this.button9);

@@ -35,22 +35,22 @@
             ((System.ComponentModel.ISupportInitialize)(this.addInvenTable)).BeginInit();
             this.SuspendLayout();
             // 
-            // addStock
+            // addInvenLabel
             // 
             this.addInvenLabel.AutoSize = true;
             this.addInvenLabel.Font = new System.Drawing.Font("굴림", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.addInvenLabel.Location = new System.Drawing.Point(12, 9);
-            this.addInvenLabel.Name = "addStock";
-            this.addInvenLabel.Size = new System.Drawing.Size(91, 18);
+            this.addInvenLabel.Location = new System.Drawing.Point(14, 11);
+            this.addInvenLabel.Name = "addInvenLabel";
+            this.addInvenLabel.Size = new System.Drawing.Size(110, 22);
             this.addInvenLabel.TabIndex = 11;
             this.addInvenLabel.Text = "재고 등록";
             // 
             // quitButton
             // 
-            this.quitButton.Location = new System.Drawing.Point(861, 114);
+            this.quitButton.Location = new System.Drawing.Point(984, 142);
             this.quitButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.quitButton.Name = "quitButton";
-            this.quitButton.Size = new System.Drawing.Size(85, 42);
+            this.quitButton.Size = new System.Drawing.Size(97, 52);
             this.quitButton.TabIndex = 14;
             this.quitButton.Text = "종료";
             this.quitButton.UseVisualStyleBackColor = true;
@@ -58,33 +58,41 @@
             // 
             // addButton
             // 
-            this.addButton.Location = new System.Drawing.Point(861, 30);
+            this.addButton.Location = new System.Drawing.Point(984, 38);
+            this.addButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(85, 40);
+            this.addButton.Size = new System.Drawing.Size(97, 50);
             this.addButton.TabIndex = 15;
             this.addButton.Text = "등록";
             this.addButton.UseVisualStyleBackColor = true;
             this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
-            // addStockTable
+            // addInvenTable
             // 
+            this.addInvenTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.addInvenTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.addInvenTable.Location = new System.Drawing.Point(12, 30);
-            this.addInvenTable.Name = "addStockTable";
+            this.addInvenTable.Location = new System.Drawing.Point(14, 38);
+            this.addInvenTable.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.addInvenTable.MultiSelect = false;
+            this.addInvenTable.Name = "addInvenTable";
+            this.addInvenTable.RowHeadersVisible = false;
+            this.addInvenTable.RowHeadersWidth = 51;
             this.addInvenTable.RowTemplate.Height = 23;
-            this.addInvenTable.Size = new System.Drawing.Size(843, 501);
+            this.addInvenTable.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.addInvenTable.Size = new System.Drawing.Size(963, 626);
             this.addInvenTable.TabIndex = 16;
             // 
-            // AddInven
+            // AddInvenUI
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(957, 623);
+            this.ClientSize = new System.Drawing.Size(1094, 779);
             this.Controls.Add(this.addInvenTable);
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.quitButton);
             this.Controls.Add(this.addInvenLabel);
-            this.Name = "AddInven";
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.Name = "AddInvenUI";
             this.Text = "AddInven";
             ((System.ComponentModel.ISupportInitialize)(this.addInvenTable)).EndInit();
             this.ResumeLayout(false);

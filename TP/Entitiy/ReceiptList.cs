@@ -43,8 +43,8 @@ namespace TP.Entitiy
 
         public DataTable GetReceipts()
         {
-            DBController dBController = new DBController();
-            return dBController.GetDB("select * from 영수증");
+            ReceiptTable = dBcontroller.GetDB("select * from 영수증");
+            return ReceiptTable;
         }
 
         public DataTable GetReceipt(string sqltxt)
@@ -109,13 +109,11 @@ namespace TP.Entitiy
 
         public void SetReceipt(string sqltxt)
         {
-            using (OracleConnection conn = new OracleConnection(DB_Server_Info))
-            {
-                conn.Open();
-                OracleCommand cmd = new OracleCommand(sqltxt, conn);
-                cmd.ExecuteNonQuery();
-            }
             dBcontroller.SetDB(sqltxt);
+        }
+        public void SetReceipt(string sqltxt, OracleParameter[] parameters)
+        {
+            dBcontroller.ExecuteNonQuery(sqltxt, parameters);
         }
     }
 }

@@ -8,20 +8,20 @@ using TP.control;
 
 namespace TP
 {
-    public partial class Stock : Form
+    public partial class InvenUI : Form
     {
         private string categori = null;
         private string label = "제품명";
         private int selectsusses = 0; //검색 성공 
-        private StockController stockController;
+        private InquiryInvenController inquiryInvenController;
         private ProductInfoController productInfoController;
 
-        public Stock()
+        public InvenUI()
         {
             InitializeComponent();
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList; //콤보 박스 읽기 전용
             comboBox1.Text = label;
-            stockController = new StockController();
+            inquiryInvenController = new InquiryInvenController();
             productInfoController = new ProductInfoController();
 
             comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -61,7 +61,7 @@ namespace TP
 
         private void dataview()
         {
-            DataTable dt = stockController.GetStock();
+            DataTable dt = inquiryInvenController.GetStock();
             if (!string.IsNullOrEmpty(categori)) // Check if categori is not empty or null
             {
                 dt.DefaultView.RowFilter = $"카테고리 ='{categori}'";

@@ -4,26 +4,26 @@ using TP.Entitiy;
 
 namespace TP
 {
-    internal class StockController
+    internal class InquiryInvenController
     {
-        private StockEntity StockEntitiy;
+        private InvenEntity invenEntity;
 
-        public StockController()
+        public InquiryInvenController()
         {
-            StockEntitiy = new StockEntity();
+            invenEntity = new InvenEntity();
         }
 
         public DataTable GetStock()
         {
-            return StockEntitiy.GetStock();
+            return invenEntity.GetStock();
         }
         public void SetStock(string sqltxt)
         {
-            StockEntitiy.SetStock(sqltxt);
+            invenEntity.SetStock(sqltxt);
         }
         public void SetStock(string sqltxt, OracleParameter[] parameters)
         {
-            StockEntitiy.SetStock(sqltxt, parameters);
+            invenEntity.SetStock(sqltxt, parameters);
         }
     }
 }

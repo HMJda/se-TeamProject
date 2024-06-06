@@ -1,6 +1,6 @@
 ﻿namespace TP
 {
-    partial class Stock
+    partial class InvenUI
     {
         /// <summary>
         /// Required designer variable.

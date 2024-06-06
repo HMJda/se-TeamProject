@@ -8,6 +8,7 @@ public class SaleController
     private ReceiptList receiptList;
     private DBController dbController;
     private DataTable ReceiptTable;
+
     public SaleController()
     {
         receiptList = new ReceiptList();

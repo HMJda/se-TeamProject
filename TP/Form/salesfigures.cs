@@ -7,14 +7,14 @@ namespace TP
 {
     public partial class salesfigures : Form
     {
-        private salesfiguresController sfcontroller;
+        private SalesInfoController sfcontroller;
         private string setdate;
         private int type;
 
         public salesfigures()
         {
             InitializeComponent();
-            sfcontroller = new salesfiguresController();
+            sfcontroller = new SalesInfoController();
             // 년도 설정
             DateTime today = DateTime.Today;
             int thisYear = today.Year;
@@ -68,6 +68,7 @@ namespace TP
                 label2.Visible = false;
                 label3.Visible = false;
                 label4.Visible = true;
+                textBox1.Visible = true;
                 dateTimePicker1.Visible = true;
                 type = 1;
                 setdate = dateTimePicker1.Value.ToString("yyyy-MM-dd");
