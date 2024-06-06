@@ -15,7 +15,7 @@ namespace TP.Entitiy
         private string sqltxt = "select * from 영수증";
         private string dbServerInfo = "Data Source = localhost; User ID = DEU; Password = 1234;";
 
-        public ReceiptList(string dbServerInfo)
+        public ReceiptList()
         {
             DB_Server_Info = dbServerInfo;
             dBcontroller = new DBController();

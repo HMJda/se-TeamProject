@@ -21,7 +21,7 @@ namespace TP.control
         {
             this.dateTimePicker = dateTimePicker;
             this.receiptNumberTextBox = receiptNumberTextBox;
-            receiptList = new ReceiptList(dbServerInfo);
+            receiptList = new ReceiptList();
         }
 
         private DateTime GetDate()
