@@ -14,6 +14,8 @@ namespace TP
         {
             InitializeComponent();
             refundController = new RefundController(dateTime, receiptNumberTextBox);
+            ReceiptDataGridView.AllowUserToAddRows = false; //빈레코드 표시x
+            receiptDetailGridView.AllowUserToAddRows = false; //빈레코드 표시x
         }
 
         private void searchButton_Click(object sender, EventArgs e)
