@@ -14,6 +14,7 @@ namespace TP.Entitiy
         private DBController dBcontroller;
         private DataTable ReceiptTable;
         private string sqltxt = "select * from 영수증";
+        private string dbServerInfo = "Data Source = localhost; User ID = DEU; Password = 1234;";
 
         public ReceiptList(string dbServerInfo)
         {
@@ -36,26 +37,14 @@ namespace TP.Entitiy
             }
         }
 
-        public DataTable GetReceipt()
-        {
-            ReceiptTable = dBcontroller.GetDB(sqltxt);
-            return ReceiptTable;
-        }
-
-        public DataTable GetReceipts()
-        {
-            ReceiptTable = dBcontroller.GetDB("select * from 영수증");
-            return ReceiptTable;
-        }
-
         public DataTable GetReceipt(string sqltxt)
         {
             return dBcontroller.GetDB(sqltxt);
         }
 
-        public DataTable GetReceipt(DateTime selectedDate, string receiptNumber) // 수정된 메서드
+        public DataTable GetReceipt(DateTime selectedDate, string receiptNumber)
         {
-            string sqltxt = $"SELECT * FROM 영수증 WHERE 거래일자 = TO_DATE('{selectedDate:yyyy-MM-dd}', 'YYYY-MM-DD') AND 영수증번호 = '{receiptNumber}'";
+            string sqltxt = $"SELECT * FROM 영수증 WHERE TO_CHAR(거래시간, 'YYYY-MM-DD') ='{selectedDate}' AND 영수증번호 = '{receiptNumber}'";
             return dBcontroller.GetDB(sqltxt);
         }
 
@@ -63,48 +52,6 @@ namespace TP.Entitiy
         {
             string sqltxt = $"SELECT * FROM 영수증상세 WHERE 영수증번호 = '{receiptNo}'";
             return dBcontroller.GetDB(sqltxt);
-        }
-
-        public bool IsReceiptExists(string receiptNumber) // 수정된 메서드
-        {
-            using (OracleDataReader receiptReader = ReadReceipts())
-            {
-                while (receiptReader.Read())
-                {
-                    string db_receiptNumber = receiptReader["영수증번호"].ToString();
-                    if (db_receiptNumber == receiptNumber)
-                    {
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }
-
-        public Dictionary<string, string> GetReceiptInfo(string receiptNumber)
-        {
-            using (OracleDataReader receiptReader = ReadReceipts())
-            {
-                while (receiptReader.Read())
-                {
-                    string db_receiptNumber = receiptReader["영수증번호"].ToString();
-                    if (db_receiptNumber == receiptNumber)
-                    {
-                        string transactionTime = receiptReader["거래시간"].ToString();
-                        string transactionType = receiptReader["거래형태"].ToString();
-                        string totalPrice = receiptReader["총가격"].ToString();
-
-                        return new Dictionary<string, string>
-                        {
-                            { "영수증번호", receiptNumber },
-                            { "거래시간", transactionTime },
-                            { "거래형태", transactionType },
-                            { "총가격", totalPrice }
-                        };
-                    }
-                }
-                return null;
-            }
         }
 
         public void SaveRefundedReceipt(string receiptNo)
@@ -118,6 +65,7 @@ namespace TP.Entitiy
         {
             dBcontroller.SetDB(sqltxt);
         }
+
         public void SetReceipt(string sqltxt, OracleParameter[] parameters)
         {
             dBcontroller.ExecuteNonQuery(sqltxt, parameters);

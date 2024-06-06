@@ -9,28 +9,49 @@ namespace TP
     public partial class receipt : Form
     {
         private RefundController refundController;
-        private string dbServerInfo = "Data Source = localhost; " +
-            "User ID = DEU; Password = 1234;";
 
         public receipt()
         {
             InitializeComponent();
-            refundController = new RefundController(dbServerInfo, dateTime, receiptNumberTextBox);
+            refundController = new RefundController(dateTime, receiptNumberTextBox);
         }
 
         private void searchButton_Click(object sender, EventArgs e)
         {
-            DataTable dataTable = refundController.GetReceipt();
+            DateTime selectedDate = dateTime.Value.Date; // 선택된 날짜를 가져옴
 
-            if (dataTable != null && dataTable.Rows.Count > 0)
+            if (string.IsNullOrEmpty(receiptNumberTextBox.Text.Trim()))
             {
-                ReceiptDataGridView.DataSource = dataTable;
+                // 영수증 번호가 없는 경우 해당 날짜에 있는 모든 정보를 불러옴
+                DataTable dataTable = refundController.GetReceipt(selectedDate);
+                if (dataTable != null && dataTable.Rows.Count > 0)
+                {
+                    ReceiptDataGridView.DataSource = dataTable;
+                }
+                else
+                {
+                    MessageBox.Show("해당 날짜에 영수증이 없습니다.");
+                }
+            }
+            else
+            {
+                string receiptNumber = receiptNumberTextBox.Text.Trim(); // 영수증 번호를 가져옴
+
+                DataTable dataTable = refundController.GetReceipt(selectedDate, receiptNumber);
+                if (dataTable != null && dataTable.Rows.Count > 0)
+                {
+                    ReceiptDataGridView.DataSource = dataTable;
+                }
+                else
+                {
+                    MessageBox.Show("해당 번호의 영수증을 찾을 수 없습니다.");
+                }
             }
         }
 
         private void RefundButton_Click_1(object sender, EventArgs e)
         {
-            if (receiptDetailGridView.DataSource == null || receiptDetailGridView.Rows.Count == 0)
+            if (ReceiptDataGridView.SelectedRows.Count == 0)
             {
                 MessageBox.Show("환불할 영수증을 선택하세요.");
                 return;
@@ -39,7 +60,7 @@ namespace TP
             DialogResult result = MessageBox.Show("환불 처리를 하시겠습니까?", "환불", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
-                string receiptNo = receiptDetailGridView.Rows[0].Cells["ReceiptNo"].Value.ToString();
+                string receiptNo = ReceiptDataGridView.SelectedRows[0].Cells["ReceiptNo"].Value.ToString();
                 bool isRefunded = refundController.ProcessRefund(receiptNo);
 
                 if (isRefunded)
@@ -48,16 +69,16 @@ namespace TP
                 }
                 else
                 {
-                    this.Close();
+                    MessageBox.Show("환불 처리 중 오류가 발생했습니다.");
                 }
             }
         }
 
-        private void ReceiptDataGridView_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        private void ReceiptDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
-                string receiptNo = receiptDetailGridView.Rows[e.RowIndex].Cells["ReceiptNo"].Value.ToString();
+                string receiptNo = ReceiptDataGridView.Rows[e.RowIndex].Cells["ReceiptNo"].Value.ToString();
                 DataTable dataTable = refundController.GetReceiptDetails(receiptNo);
 
                 if (dataTable != null && dataTable.Rows.Count > 0)
