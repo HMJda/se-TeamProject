@@ -32,7 +32,7 @@ namespace TP.control
         private string GetReceiptNumber()
         {
             string receiptNumber = receiptNumberTextBox.Text;
-            if (receiptNumber.Length <= 10)
+            if (receiptNumber.Length <= 20)
             {
                 return receiptNumber;
             }

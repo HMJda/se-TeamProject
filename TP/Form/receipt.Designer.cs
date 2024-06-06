@@ -31,10 +31,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.receiptDetailGridView = new System.Windows.Forms.DataGridView();
             this.ReceiptDataGridView = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateTime = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
             this.receiptNumberTextBox = new System.Windows.Forms.TextBox();
@@ -51,7 +47,7 @@
             this.label4.Font = new System.Drawing.Font("굴림", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label4.Location = new System.Drawing.Point(13, 13);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(138, 24);
+            this.label4.Size = new System.Drawing.Size(173, 30);
             this.label4.TabIndex = 0;
             this.label4.Text = "영수증 조회";
             // 
@@ -60,6 +56,7 @@
             this.receiptDetailGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.receiptDetailGridView.Location = new System.Drawing.Point(12, 51);
             this.receiptDetailGridView.Name = "receiptDetailGridView";
+            this.receiptDetailGridView.RowHeadersWidth = 51;
             this.receiptDetailGridView.RowTemplate.Height = 23;
             this.receiptDetailGridView.Size = new System.Drawing.Size(377, 419);
             this.receiptDetailGridView.TabIndex = 1;
@@ -68,44 +65,20 @@
             // 
             this.ReceiptDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ReceiptDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ReceiptDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column3,
-            this.Column4});
             this.ReceiptDataGridView.Location = new System.Drawing.Point(426, 51);
             this.ReceiptDataGridView.Name = "ReceiptDataGridView";
             this.ReceiptDataGridView.RowHeadersVisible = false;
+            this.ReceiptDataGridView.RowHeadersWidth = 51;
             this.ReceiptDataGridView.RowTemplate.Height = 23;
             this.ReceiptDataGridView.Size = new System.Drawing.Size(420, 477);
             this.ReceiptDataGridView.TabIndex = 2;
             this.ReceiptDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ReceiptDataGridView_CellContentClick);
             // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "No";
-            this.Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "거래시간";
-            this.Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "거래 형태";
-            this.Column3.Name = "Column3";
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "금 액";
-            this.Column4.Name = "Column4";
-            // 
             // dateTime
             // 
             this.dateTime.Location = new System.Drawing.Point(426, 15);
             this.dateTime.Name = "dateTime";
-            this.dateTime.Size = new System.Drawing.Size(169, 21);
+            this.dateTime.Size = new System.Drawing.Size(169, 25);
             this.dateTime.TabIndex = 3;
             // 
             // label5
@@ -113,7 +86,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(601, 21);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(69, 12);
+            this.label5.Size = new System.Drawing.Size(87, 15);
             this.label5.TabIndex = 4;
             this.label5.Text = "영수증 번호";
             // 
@@ -121,7 +94,7 @@
             // 
             this.receiptNumberTextBox.Location = new System.Drawing.Point(676, 15);
             this.receiptNumberTextBox.Name = "receiptNumberTextBox";
-            this.receiptNumberTextBox.Size = new System.Drawing.Size(89, 21);
+            this.receiptNumberTextBox.Size = new System.Drawing.Size(89, 25);
             this.receiptNumberTextBox.TabIndex = 5;
             // 
             // searchButton
@@ -197,10 +170,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox receiptNumberTextBox;
         private System.Windows.Forms.Button searchButton;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.Button RefundButton;
         private System.Windows.Forms.Button button6;
     }
