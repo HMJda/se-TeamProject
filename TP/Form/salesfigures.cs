@@ -68,6 +68,7 @@ namespace TP
                 label2.Visible = false;
                 label3.Visible = false;
                 label4.Visible = true;
+                textBox1.Visible = true;
                 dateTimePicker1.Visible = true;
                 type = 1;
                 setdate = dateTimePicker1.Value.ToString("yyyy-MM-dd");

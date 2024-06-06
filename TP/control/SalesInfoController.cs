@@ -37,7 +37,9 @@ namespace TP.control
             if (type == 1)
             { //일일판매실적
                 sqltxt = $@"
-                    select 시간,결제금액,반품금액,객수,판매금액 from 거래내역 WHERE TRUNC(거래시간) = TO_DATE('{date}')";
+                        SELECT 시간, 결제금액, 반품금액, 객수, 판매금액
+                        FROM 거래내역
+                        WHERE 거래일 = TO_DATE('{date}', 'YYYY-MM-DD')";
                 //MessageBox.Show(sqltxt);
                 return receiptList.GetReceipt(sqltxt);
             }

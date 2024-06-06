@@ -160,6 +160,7 @@ namespace TP
 
         private void rateofreturn_Click(object sender, EventArgs e)
         {
+            /* 미구현
             // 메인 폼을 숨깁니다.
             this.Hide();
 
@@ -171,7 +172,7 @@ namespace TP
 
                 // 이익률조회 폼이 닫히면 메인 폼을 다시 표시합니다.
                 this.Show();
-            }
+            }*/
         }
 
         private void addInven_Click(object sender, EventArgs e)
