@@ -36,7 +36,7 @@
             this.receiptNumberTextBox = new System.Windows.Forms.TextBox();
             this.searchButton = new System.Windows.Forms.Button();
             this.RefundButton = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.showReceipt = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.receiptDetailGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ReceiptDataGridView)).BeginInit();
             this.SuspendLayout();
@@ -120,19 +120,20 @@
             this.RefundButton.UseVisualStyleBackColor = true;
             this.RefundButton.Click += new System.EventHandler(this.RefundButton_Click_1);
             // 
-            // button6
+            // showReceipt
             // 
-            this.button6.Location = new System.Drawing.Point(285, 487);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(104, 41);
-            this.button6.TabIndex = 8;
-            this.button6.Text = "영수증 출력";
-            this.button6.UseVisualStyleBackColor = true;
+            this.showReceipt.Location = new System.Drawing.Point(253, 487);
+            this.showReceipt.Name = "showReceipt";
+            this.showReceipt.Size = new System.Drawing.Size(136, 41);
+            this.showReceipt.TabIndex = 8;
+            this.showReceipt.Text = "영수증출력";
+            this.showReceipt.UseVisualStyleBackColor = true;
+            this.showReceipt.Click += new System.EventHandler(this.button4_Click);
             // 
             // receipt
             // 
             this.ClientSize = new System.Drawing.Size(860, 540);
-            this.Controls.Add(this.button6);
+            this.Controls.Add(this.showReceipt);
             this.Controls.Add(this.RefundButton);
             this.Controls.Add(this.searchButton);
             this.Controls.Add(this.receiptNumberTextBox);
@@ -174,6 +175,6 @@
         private System.Windows.Forms.TextBox receiptNumberTextBox;
         private System.Windows.Forms.Button searchButton;
         private System.Windows.Forms.Button RefundButton;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button showReceipt;
     }
 }

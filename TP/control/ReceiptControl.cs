@@ -12,53 +12,22 @@ namespace TP.control
         {
             receiptList = new ReceiptList();
         }
-
-        public DataTable GetReceipt(DateTime date, int receiptNumber)
+        public DataTable GetReceipt(DateTime selectedDate, string receiptNumber = null)
         {
-            string sqltxt;
-            if (receiptNumber == 0)
+            if (string.IsNullOrEmpty(receiptNumber))
             {
-                sqltxt = $"SELECT * FROM 영수증 WHERE 거래시간 = TO_DATE('{date:yyyy-MM-dd}', 'YYYY-MM-DD')";
+                string sqltxt = $"SELECT * FROM 영수증 WHERE TO_CHAR(거래시간, 'YYYY-MM-DD') ='{selectedDate.ToString("yyyy-MM-dd")}'";
+                return receiptList.GetReceipt(sqltxt);
             }
             else
             {
-                sqltxt = $"SELECT * FROM 영수증 WHERE 영수증번호 = {receiptNumber} AND 거래시간 = TO_DATE('{date:yyyy-MM-dd}', 'YYYY-MM-DD')";
-            }
-            return receiptList.GetReceipt(sqltxt);
-        }
-
-        public DataTable GetReceiptDetails(int receiptNo)
-        {
-            string sqltxt = $"SELECT * FROM 영수증상세 WHERE 영수증번호 = {receiptNo}";
-            return receiptList.GetReceipt(sqltxt);
-        }
-
-        public bool ProcessRefund(int receiptNo, string paymentMethod)
-        {
-            string sqltxt = $"SELECT PaymentMethod FROM 영수증 WHERE No = {receiptNo}";
-            DataTable dt = receiptList.GetReceipt(sqltxt);
-            if (dt.Rows.Count > 0 && dt.Rows[0]["PaymentMethod"].ToString() == paymentMethod)
-            {
-                UpdateInventory(receiptNo);
-                UpdateReceiptList(receiptNo);
-                return true;
-            }
-            else
-            {
-                return false;
+                string sqltxt = $"SELECT * FROM 영수증 WHERE TO_CHAR(거래시간, 'YYYY-MM-DD') ='{selectedDate.ToString("yyyy-MM-dd")}' AND 영수증번호 = '{receiptNumber}'";
+                return receiptList.GetReceipt(sqltxt);
             }
         }
-
-        private void UpdateInventory(int receiptNo)
+        public DataTable GetReceiptDetails(string receiptNo)
         {
-            string sqltxt = $"UPDATE Inventory SET Quantity = Quantity + (SELECT Quantity FROM 영수증상세 WHERE 영수증번호 = {receiptNo}) WHERE ProductId = (SELECT ProductId FROM 영수증상세 WHERE 영수증번호 = {receiptNo})";
-            receiptList.SetReceipt(sqltxt);
-        }
-
-        private void UpdateReceiptList(int receiptNo)
-        {
-            string sqltxt = $"UPDATE 영수증 SET IsRefunded = 1 WHERE No = {receiptNo}";
-            receiptList.SetReceipt(sqltxt);
+            return receiptList.GetReceiptDetails(receiptNo);
         }
     }
 }

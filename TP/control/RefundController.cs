@@ -21,43 +21,9 @@ namespace TP.control
         {
             this.dateTimePicker = dateTimePicker;
             this.receiptNumberTextBox = receiptNumberTextBox;
-            receiptList = new ReceiptList(dbServerInfo);
+            receiptList = new ReceiptList();
         }
 
-        private DateTime GetDate()
-        {
-            return dateTimePicker.Value;
-        }
-
-        private string GetReceiptNumber()
-        {
-            string receiptNumber = receiptNumberTextBox.Text;
-            if (receiptNumber.Length <= 20)
-            {
-                return receiptNumber;
-            }
-            MessageBox.Show("잘못된 영수증 번호입니다.");
-            return null;
-        }
-
-        public DataTable GetReceipt(DateTime selectedDate, string receiptNumber = null)
-        {
-            if (string.IsNullOrEmpty(receiptNumber))
-            {
-                string sqltxt = $"SELECT * FROM 영수증 WHERE TO_CHAR(거래시간, 'YYYY-MM-DD') ='{selectedDate.ToString("yyyy-MM-dd")}'";
-                return receiptList.GetReceipt(sqltxt);
-            }
-            else
-            {
-                string sqltxt = $"SELECT * FROM 영수증 WHERE TO_CHAR(거래시간, 'YYYY-MM-DD') ='{selectedDate.ToString("yyyy-MM-dd")}' AND 영수증번호 = '{receiptNumber}'";
-                return receiptList.GetReceipt(sqltxt);
-            }
-        }
-
-        public DataTable GetReceiptDetails(string receiptNo)
-        {
-            return receiptList.GetReceiptDetails(receiptNo);
-        }
 
         public bool ProcessRefund(string receiptNo)
         {
