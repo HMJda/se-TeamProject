@@ -55,7 +55,7 @@ namespace TP
         }
 
         private void radioButton_CheckedChanged(object sender, EventArgs e)
-        {
+        {   
             if (radioButton1.Checked == true) //일일판매실적 
             {
                 monthcomboBox.Visible = false;
