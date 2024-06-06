@@ -63,7 +63,7 @@ namespace TP
             this.Hide();
 
             // 판매 폼을 생성하고 표시합니다
-            using (Form form = new Stock())
+            using (Form form = new InvenUI())
             {
                 // ShowDialog()를 사용해 판매 폼을 모달로 표시합니다.
                 form.ShowDialog();
