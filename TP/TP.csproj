@@ -87,6 +87,7 @@
     <Compile Include="control\OrderReturnController.cs" />
     <Compile Include="control\ProductInfoController.cs" />
     <Compile Include="control\ReceiptControl.cs" />
+    <Compile Include="control\RefundController.cs" />
     <Compile Include="control\SaleController.cs" />
     <Compile Include="control\salesfiguresController.cs" />
     <Compile Include="control\DBController.cs" />
