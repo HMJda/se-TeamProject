@@ -15,7 +15,7 @@ namespace TP
         private bool saveSuccess = false; //저장 성공
         private bool selectsusses = false; //검색 성공 
 
-        private StockController stockcontroller;
+        private InquiryInvenController stockcontroller;
         private ProductInfoController productInfoController;
         private OrderReturnController orderController;
         private LoginController loginController;
@@ -24,7 +24,7 @@ namespace TP
         public Order()
         {
             InitializeComponent();
-            stockcontroller = new StockController();
+            stockcontroller = new InquiryInvenController();
             productInfoController = new ProductInfoController();
             orderController = new OrderReturnController();
             loginController = new LoginController();

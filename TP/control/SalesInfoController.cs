@@ -3,11 +3,11 @@ using TP.Entitiy;
 
 namespace TP.control
 {
-    internal class salesfiguresController
+    internal class SalesInfoController
     {
         private ReceiptList receiptList;
 
-        public salesfiguresController()
+        public SalesInfoController()
         {
             receiptList = new ReceiptList();
         }

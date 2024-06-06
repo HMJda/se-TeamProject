@@ -10,14 +10,14 @@ namespace TP
     public partial class AddInvenUI : Form
     {
         private OrderReturnController OrderController;
-        private StockController stockcontroller;
+        private InquiryInvenController inquiryInvenController;
         private DataTable dt;
 
         public AddInvenUI()
         {
             InitializeComponent();
             OrderController = new OrderReturnController();
-            stockcontroller = new StockController();
+            inquiryInvenController = new InquiryInvenController();
             dataview();
         }
 
@@ -76,7 +76,7 @@ namespace TP
                             new OracleParameter("재고량", Convert.ToInt32(addInvenTable.Rows[i].Cells["수량"].Value)),
                             new OracleParameter("가격",  Convert.ToInt32(addInvenTable.Rows[i].Cells["단가"].Value)*1.1),
                         };
-                            stockcontroller.SetStock(sqltxt, stock);
+                            inquiryInvenController.SetStock(sqltxt, stock);
 
                             OrderController.SetOrder("DELETE 발주");
                             Properties.Settings.Default.date = DateTime.Now.ToString("yyyy-MM-dd");

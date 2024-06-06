@@ -7,14 +7,14 @@ namespace TP
 {
     public partial class salesfigures : Form
     {
-        private salesfiguresController sfcontroller;
+        private SalesInfoController sfcontroller;
         private string setdate;
         private int type;
 
         public salesfigures()
         {
             InitializeComponent();
-            sfcontroller = new salesfiguresController();
+            sfcontroller = new SalesInfoController();
             // 년도 설정
             DateTime today = DateTime.Today;
             int thisYear = today.Year;

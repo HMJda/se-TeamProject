@@ -8,13 +8,13 @@ namespace TP
 
     public partial class sale : Form
     {
-        private StockController stockController;
+        private InquiryInvenController stockController;
         private SaleController saleController;
         private DataTable dt;
         public sale()
         {
             InitializeComponent();
-            stockController = new StockController();
+            stockController = new InquiryInvenController();
             saleController = new SaleController();
         }
         private void cordButton_Click(object sender, EventArgs e)

@@ -89,14 +89,13 @@
     <Compile Include="control\ReceiptControl.cs" />
     <Compile Include="control\RefundController.cs" />
     <Compile Include="control\SaleController.cs" />
-    <Compile Include="control\salesfiguresController.cs" />
+    <Compile Include="control\SalesInfoController.cs" />
     <Compile Include="control\DBController.cs" />
-    <Compile Include="Entitiy\InvenEntity.cs" />
     <Compile Include="Entitiy\OrderEntity.cs" />
     <Compile Include="Entitiy\ProductInfoEntity.cs" />
     <Compile Include="Entitiy\ReceiptList.cs" />
     <Compile Include="Entitiy\ReturnEntity.cs" />
-    <Compile Include="Entitiy\StockEntity.cs" />
+    <Compile Include="Entitiy\InvenEntity.cs" />
     <Compile Include="Form\AddInvenUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -154,11 +153,11 @@
     <Compile Include="Form\setting.Designer.cs">
       <DependentUpon>setting.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form\Stock.cs">
+    <Compile Include="Form\InvenUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\Stock.Designer.cs">
-      <DependentUpon>Stock.cs</DependentUpon>
+    <Compile Include="Form\InvenUI.Designer.cs">
+      <DependentUpon>InvenUI.cs</DependentUpon>
     </Compile>
     <Compile Include="Form\rateofreturn.cs">
       <SubType>Form</SubType>
@@ -172,7 +171,7 @@
     <Compile Include="Form\salesfigures.Designer.cs">
       <DependentUpon>salesfigures.cs</DependentUpon>
     </Compile>
-    <Compile Include="control\StockController.cs" />
+    <Compile Include="control\InquiryInvenController.cs" />
     <Compile Include="Entitiy\UserEntity.cs" />
     <EmbeddedResource Include="Form\AddInvenUI.resx">
       <DependentUpon>AddInvenUI.cs</DependentUpon>
@@ -216,8 +215,8 @@
     <EmbeddedResource Include="Form\setting.resx">
       <DependentUpon>setting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\Stock.resx">
-      <DependentUpon>Stock.cs</DependentUpon>
+    <EmbeddedResource Include="Form\InvenUI.resx">
+      <DependentUpon>InvenUI.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="db\Oracle.DataAccess.Common.Configuration.Section.xsd">
       <SubType>Designer</SubType>

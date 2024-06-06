@@ -10,7 +10,7 @@ namespace TP
     {
         DataTable currentYearData = new DataTable();
         DataTable lastYearData = new DataTable();
-        salesfiguresController salesfiguresController = new salesfiguresController();
+        SalesInfoController salesfiguresController = new SalesInfoController();
         DateTime today = DateTime.Today;
 
         public rateofreturn()
