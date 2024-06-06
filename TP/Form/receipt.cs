@@ -14,12 +14,14 @@ namespace TP
         {
             InitializeComponent();
             refundController = new RefundController(dateTime, receiptNumberTextBox);
+            ReceiptDataGridView.AllowUserToAddRows = false; //빈레코드 표시x
+            receiptDetailGridView.AllowUserToAddRows = false; //빈레코드 표시x
         }
 
         private void searchButton_Click(object sender, EventArgs e)
         {
             DateTime selectedDate = dateTime.Value.Date; // 선택된 날짜를 가져옴
-            ReceiptDataGridView.AllowUserToAddRows = false; //빈레코드 표시x
+            
             if (string.IsNullOrEmpty(receiptNumberTextBox.Text.Trim()))
             {
                 // 영수증 번호가 없는 경우 해당 날짜에 있는 모든 정보를 불러옴
