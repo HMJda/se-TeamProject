@@ -47,7 +47,7 @@
             this.label4.Font = new System.Drawing.Font("굴림", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label4.Location = new System.Drawing.Point(13, 13);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(138, 24);
+            this.label4.Size = new System.Drawing.Size(173, 30);
             this.label4.TabIndex = 0;
             this.label4.Text = "영수증 조회";
             // 
@@ -60,14 +60,14 @@
             this.receiptDetailGridView.RowHeadersVisible = false;
             this.receiptDetailGridView.RowHeadersWidth = 51;
             this.receiptDetailGridView.RowTemplate.Height = 23;
-            this.receiptDetailGridView.Size = new System.Drawing.Size(377, 419);
+            this.receiptDetailGridView.Size = new System.Drawing.Size(493, 419);
             this.receiptDetailGridView.TabIndex = 1;
             // 
             // ReceiptDataGridView
             // 
             this.ReceiptDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ReceiptDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ReceiptDataGridView.Location = new System.Drawing.Point(426, 51);
+            this.ReceiptDataGridView.Location = new System.Drawing.Point(525, 51);
             this.ReceiptDataGridView.Name = "ReceiptDataGridView";
             this.ReceiptDataGridView.ReadOnly = true;
             this.ReceiptDataGridView.RowHeadersVisible = false;
@@ -79,30 +79,30 @@
             // 
             // dateTime
             // 
-            this.dateTime.Location = new System.Drawing.Point(426, 15);
+            this.dateTime.Location = new System.Drawing.Point(525, 18);
             this.dateTime.Name = "dateTime";
-            this.dateTime.Size = new System.Drawing.Size(169, 21);
+            this.dateTime.Size = new System.Drawing.Size(168, 25);
             this.dateTime.TabIndex = 3;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(601, 21);
+            this.label5.Location = new System.Drawing.Point(699, 22);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(69, 12);
+            this.label5.Size = new System.Drawing.Size(87, 15);
             this.label5.TabIndex = 4;
             this.label5.Text = "영수증 번호";
             // 
             // receiptNumberTextBox
             // 
-            this.receiptNumberTextBox.Location = new System.Drawing.Point(676, 15);
+            this.receiptNumberTextBox.Location = new System.Drawing.Point(775, 18);
             this.receiptNumberTextBox.Name = "receiptNumberTextBox";
-            this.receiptNumberTextBox.Size = new System.Drawing.Size(89, 21);
+            this.receiptNumberTextBox.Size = new System.Drawing.Size(89, 25);
             this.receiptNumberTextBox.TabIndex = 5;
             // 
             // searchButton
             // 
-            this.searchButton.Location = new System.Drawing.Point(771, 13);
+            this.searchButton.Location = new System.Drawing.Point(870, 18);
             this.searchButton.Name = "searchButton";
             this.searchButton.Size = new System.Drawing.Size(75, 23);
             this.searchButton.TabIndex = 6;
@@ -112,7 +112,7 @@
             // 
             // RefundButton
             // 
-            this.RefundButton.Location = new System.Drawing.Point(17, 487);
+            this.RefundButton.Location = new System.Drawing.Point(12, 487);
             this.RefundButton.Name = "RefundButton";
             this.RefundButton.Size = new System.Drawing.Size(84, 41);
             this.RefundButton.TabIndex = 7;
@@ -122,7 +122,7 @@
             // 
             // showReceipt
             // 
-            this.showReceipt.Location = new System.Drawing.Point(253, 487);
+            this.showReceipt.Location = new System.Drawing.Point(369, 487);
             this.showReceipt.Name = "showReceipt";
             this.showReceipt.Size = new System.Drawing.Size(136, 41);
             this.showReceipt.TabIndex = 8;
@@ -132,7 +132,7 @@
             // 
             // receipt
             // 
-            this.ClientSize = new System.Drawing.Size(860, 540);
+            this.ClientSize = new System.Drawing.Size(959, 540);
             this.Controls.Add(this.showReceipt);
             this.Controls.Add(this.RefundButton);
             this.Controls.Add(this.searchButton);
