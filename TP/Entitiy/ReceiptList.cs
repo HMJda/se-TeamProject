@@ -26,7 +26,7 @@ namespace TP.Entitiy
 
         public DataTable GetReceiptDetails(string receiptNo)
         {
-            // 영수증 상세 정보를 가져오는 쿼리 수정
+            // 영수증 상세 정보를 가져오는 쿼리
             string sqltxt = $"SELECT * FROM 영수증상세 WHERE 영수증번호 = '{receiptNo}'";
             receiptTable = dBcontroller.GetDB(sqltxt);
             return receiptTable;
