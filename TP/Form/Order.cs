@@ -70,7 +70,7 @@ namespace TP
             {
                 dataGridView1.Columns.Clear();
                 dt = productInfoController.GetProduct();
-                if (!string.IsNullOrEmpty(categori)) // Check if categori is not empty or null
+                if (!string.IsNullOrEmpty(categori)) // 카테고리가 비어있는지 확인
                 {
                     dt.DefaultView.RowFilter = $"카테고리 ='{categori}'";
                 }
@@ -164,13 +164,13 @@ namespace TP
                 }
                 else
                 {
-                    dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.White;
+                    dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.White;//선택된 데이터 하얀색으로 보임으로 보임
                 }
 
             }
             if (saveSuccess == true)
             {
-                MessageBox.Show("저장되었습니다.");
+                MessageBox.Show("저장되었습니다."); //저장 완료시 
             }
 
         }
