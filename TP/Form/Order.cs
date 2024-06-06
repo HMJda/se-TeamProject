@@ -36,7 +36,7 @@ namespace TP
             dataview();
         }
 
-        private void LoadCategories()
+        private void LoadCategories()// 카테고리 불러오기
         {
             try
             {
@@ -58,13 +58,13 @@ namespace TP
             }
         }
 
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e) //combobox2의 인덱스가 변경될 경우 
         {
             categori = comboBox2.SelectedItem.ToString() == "전체" ? null : comboBox2.SelectedItem.ToString();
             dataview();
         }
 
-        private void dataview()
+        private void dataview() //데이터 갱신
         {
             try
             {
