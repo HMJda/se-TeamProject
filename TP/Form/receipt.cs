@@ -78,7 +78,7 @@ namespace TP
         {
             if (e.RowIndex >= 0)
             {
-                string receiptNo = ReceiptDataGridView.Rows[e.RowIndex].Cells["ReceiptNo"].Value.ToString();
+                string receiptNo = ReceiptDataGridView.Rows[e.RowIndex].Cells["영수증번호"].Value.ToString();
                 DataTable dataTable = refundController.GetReceiptDetails(receiptNo);
 
                 if (dataTable != null && dataTable.Rows.Count > 0)
