@@ -25,12 +25,12 @@ namespace TP.control
         }
 
 
-        public bool ProcessRefund(string receiptNo)
+        public bool ProcessRefund(string receiptNo, int totalPrice)
         {
             try
             {
                 UpdateInventory(receiptNo);
-                SaveRefundedReceipt(receiptNo);
+                SaveRefundedReceipt(receiptNo, totalPrice);
                 return true;
             }
             catch (Exception ex)
@@ -43,13 +43,15 @@ namespace TP.control
         private void UpdateInventory(string receiptNo)
         {
             // 재고 업데이트 쿼리 수정
-            string sqltxt = $"UPDATE 재고 SET 수량 = 수량 + (SELECT 수량 FROM 영수증상세 WHERE 영수증번호 = '{receiptNo}') WHERE 제품번호 = (SELECT 제품번호 FROM 영수증상세 WHERE 영수증번호 = '{receiptNo}')";
+            string sqltxt = $"UPDATE 재고 SET 수량 = 수량 + (SELECT 수량 FROM 영수증상세 WHERE 영수증번호 = '{receiptNo}') " +
+                $"WHERE 제품번호 = (SELECT 제품번호 FROM 영수증상세 WHERE 영수증번호 = '{receiptNo}')";
             receiptList.SetReceipt(sqltxt);
         }
 
-        private void SaveRefundedReceipt(string receiptNo)
+        private void SaveRefundedReceipt(string receiptNo, int totalPrice)
         {
-            string sqltxt = $"INSERT INTO RefundedReceipts (영수증번호, RefundDate) VALUES ('{receiptNo}', CURRENT_TIMESTAMP)";
+            string sqltxt = $"INSERT INTO 영수증 (영수증번호, 거래시간, 거래형태, 총가격) VALUES" +
+                $" ('{receiptNo}', CURRENT_TIMESTAMP,'환불',{totalPrice})";
             receiptList.SetReceipt(sqltxt);
         }
     }
