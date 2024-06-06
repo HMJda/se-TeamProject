@@ -59,7 +59,7 @@ namespace TP
             dataview();
         }
 
-        private void dataview()
+        private void dataview() //데이터 갱신
         {
             DataTable dt = inquiryInvenController.GetStock();
             if (!string.IsNullOrEmpty(categori)) // Check if categori is not empty or null

@@ -39,7 +39,7 @@ namespace TP
             dataview();
         }
 
-        private void LoadCategories()
+        private void LoadCategories() // 카테고리 불러오기
         {
             try
             {
@@ -61,13 +61,13 @@ namespace TP
             }
         }
 
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e) //combobox2 선택된 인덱스 변경시 동작 
         {
             categori = comboBox2.SelectedItem.ToString() == "전체" ? null : comboBox2.SelectedItem.ToString();
             dataview();
         }
 
-        private void dataview()
+        private void dataview() //데이터 불러오는 부분 
         {
             try
             {
@@ -109,7 +109,7 @@ namespace TP
         }
 
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e) 
         {
             //검색부분
             selectsusses = false;
@@ -144,7 +144,7 @@ namespace TP
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e) //반품 버튼 클릭
         {
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
@@ -228,7 +228,7 @@ namespace TP
                 button2.PerformClick();
             }
         }
-        private void button3_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e) //닫기 버튼 
         {
             this.Close();
         }
