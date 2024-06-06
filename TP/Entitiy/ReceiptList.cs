@@ -55,7 +55,7 @@ namespace TP.Entitiy
 
         public DataTable GetReceipt(DateTime selectedDate, string receiptNumber) // 수정된 메서드
         {
-            string sqltxt = $"SELECT * FROM 영수증 WHERE 거래일자 = TO_DATE('{selectedDate:yyyy-MM-dd}', 'YYYY-MM-DD') AND 영수증번호 = '{receiptNumber}'";
+            string sqltxt = $"SELECT * FROM 영수증 WHERE TRUNC(거래시간) = TO_DATE('{selectedDate}', 'YYYY-MM-DD') AND 영수증번호 = '{receiptNumber}'";
             return dBcontroller.GetDB(sqltxt);
         }
 

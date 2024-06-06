@@ -31,7 +31,7 @@ namespace TP.control
         private string GetReceiptNumber()
         {
             string receiptNumber = receiptNumberTextBox.Text;
-            if (receiptNumber.Length <= 10)
+            if (receiptNumber.Length <= 20)
             {
                 return receiptNumber;
             }
@@ -45,7 +45,8 @@ namespace TP.control
             string receiptNumber = GetReceiptNumber();
             if (receiptNumber != null)
             {
-                return receiptList.GetReceipt(selectedDate, receiptNumber);
+                string sqltxt = $@"SELECT * FROM 영수증 WHERE TRUNC(거래시간) = TO_DATE('{selectedDate}', 'YYYY-MM-DD')";
+                return receiptList.GetReceipt(sqltxt);
             }
             else
             {
