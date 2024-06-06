@@ -21,7 +21,7 @@ namespace TP.control
         public RefundController(string dbServerInfo, DateTimePicker dateTimePicker, TextBox receiptNumberTextBox)
         {
             this.dateTimePicker = dateTimePicker;
-            this.receiptNumberTextBox = receiptNumberTextBox; // 텍스트 상자에 대한 참조 저장
+            this.receiptNumberTextBox = receiptNumberTextBox;
             receiptList = new ReceiptList(dbServerInfo);
             selectedDate = GetDate();
             selectedReceiptNumber = GetReceiptNumber();
@@ -35,14 +35,11 @@ namespace TP.control
 
         private int GetReceiptNumber()
         {
-            // 사용자가 입력한 영수증 번호를 텍스트 상자에서 가져오는 로직
             int receiptNumber;
             if (!int.TryParse(receiptNumberTextBox.Text, out receiptNumber))
             {
-                // 사용자가 올바른 숫자를 입력하지 않은 경우 처리
                 MessageBox.Show("잘못된 영수증 번호입니다.");
             }
-            // 10자리 이상의 숫자를 입력한 경우 처리
             if (receiptNumber.ToString().Length > 10)
             {
                 MessageBox.Show("잘못된 영수증 번호입니다.");
@@ -64,17 +61,15 @@ namespace TP.control
             return receiptList.GetReceipts();
         }
 
-        public DataTable GetReceiptDetails(int receiptNo)
+        public DataTable GetReceiptDetails(string receiptNo)
         {
-            string sqltxt = $"SELECT * FROM ReceiptDetails WHERE ReceiptNo = {receiptNo}";
-            return receiptList.GetReceipts();
+            return receiptList.GetReceiptDetails(receiptNo);
         }
 
         public bool ProcessRefund(int receiptNo)
         {
             try
             {
-                // 환불 처리 로직
                 UpdateInventory(receiptNo);
                 SaveRefundedReceipt(receiptNo);
                 return true;
@@ -88,7 +83,7 @@ namespace TP.control
 
         private void UpdateInventory(int receiptNo)
         {
-            string sqltxt = $"UPDATE 재고 SET Quantity = Quantity + (SELECT Quantity FROM ReceiptDetails WHERE ReceiptNo = {receiptNo}) WHERE ProductId = (SELECT ProductId FROM ReceiptDetails WHERE ReceiptNo = {receiptNo})";
+            string sqltxt = $"UPDATE 재고 SET Quantity = Quantity + (SELECT Quantity FROM 영수증상세 WHERE 영수증번호 = {receiptNo}) WHERE ProductId = (SELECT ProductId FROM 영수증상세 WHERE 영수증번호 = {receiptNo})";
             receiptList.SetReceipt(sqltxt);
         }
 

@@ -15,17 +15,17 @@ namespace TP.Entitiy
         private DataTable ReceiptTable;
         private string sqltxt = "select * from 영수증";
 
-        // 생성자를 통해 DB 연결 정보를 주입받도록 변경
         public ReceiptList(string dbServerInfo)
         {
             DB_Server_Info = dbServerInfo;
         }
+
         public ReceiptList()
         {
             dBcontroller = new DBController();
         }
 
-        public OracleDataReader ReadReceipts() // 읽기만 하는 용도
+        public OracleDataReader ReadReceipts()
         {
             using (OracleConnection conn = new OracleConnection(DB_Server_Info))
             {
@@ -33,18 +33,29 @@ namespace TP.Entitiy
                 OracleCommand cmd = new OracleCommand(sqltxt, conn);
                 return cmd.ExecuteReader();
             }
-        
         }
+
         public DataTable GetReceipt()
         {
             ReceiptTable = dBcontroller.GetDB(sqltxt);
             return ReceiptTable;
         }
 
-        public DataTable GetReceipts() // 영수증 정보 모두 받는 용도
+        public DataTable GetReceipts()
         {
             DBController dBController = new DBController();
             return dBController.GetDB("select * from 영수증");
+        }
+
+        public DataTable GetReceipt(string sqltxt)
+        {
+            return dBcontroller.GetDB(sqltxt);
+        }
+
+        public DataTable GetReceiptDetails(string receiptNo)
+        {
+            string sqltxt = $"SELECT * FROM 영수증상세 WHERE 영수증번호 = '{receiptNo}'";
+            return dBcontroller.GetDB(sqltxt);
         }
 
         public bool IsReceiptExists(int receiptNumber)
@@ -72,12 +83,10 @@ namespace TP.Entitiy
                     int db_receiptNumber = Convert.ToInt32(receiptReader["영수증번호"]);
                     if (db_receiptNumber == receiptNumber)
                     {
-                        // 필드 데이터 읽기
                         string transactionTime = receiptReader["거래시간"].ToString();
                         string transactionType = receiptReader["거래형태"].ToString();
                         string totalPrice = receiptReader["총가격"].ToString();
 
-                        // 영수증 정보를 딕셔너리에 저장
                         return new Dictionary<string, string>
                         {
                             { "영수증번호", receiptNumber.ToString() },
@@ -87,7 +96,7 @@ namespace TP.Entitiy
                         };
                     }
                 }
-                return null; // 매칭되는 영수증이 없을 경우 null 반환
+                return null;
             }
         }
 
@@ -96,12 +105,6 @@ namespace TP.Entitiy
             string sqltxt = $"INSERT INTO RefundedReceipts (ReceiptNo, RefundDate) VALUES ({receiptNo}, CURRENT_TIMESTAMP)";
             DBController dBController = new DBController();
             dBController.SetDB(sqltxt);
-        }
-        public DataTable GetReceipt(string sqltxt)
-        {
-
-            ReceiptTable = dBcontroller.GetDB(sqltxt);
-            return ReceiptTable;
         }
 
         public void SetReceipt(string sqltxt)
