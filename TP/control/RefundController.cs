@@ -76,7 +76,8 @@ namespace TP.control
 
         private void UpdateInventory(string receiptNo)
         {
-            string sqltxt = $"UPDATE 재고 SET Quantity = Quantity + (SELECT 수량 FROM 영수증상세 WHERE 영수증번호 = '{receiptNo}') WHERE ProductId = (SELECT ProductId FROM 영수증상세 WHERE 영수증번호 = '{receiptNo}')";
+            // 재고 업데이트 쿼리 수정
+            string sqltxt = $"UPDATE 재고 SET 수량 = 수량 + (SELECT 수량 FROM 영수증상세 WHERE 영수증번호 = '{receiptNo}') WHERE 제품번호 = (SELECT 제품번호 FROM 영수증상세 WHERE 영수증번호 = '{receiptNo}')";
             receiptList.SetReceipt(sqltxt);
         }
 
