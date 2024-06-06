@@ -63,26 +63,17 @@ namespace TP
                 return;
             }
 
-            foreach (DataGridViewRow row in ReceiptDataGridView.SelectedRows)
-            {
-                Console.WriteLine($"Selected row index: {row.Index}, 영수증번호: {row.Cells["영수증번호"].Value}");
-            }
-
             // DataGridView에서 선택된 행의 "영수증번호" 셀의 값을 가져옴
             string receiptNo = ReceiptDataGridView.SelectedRows[0].Cells["영수증번호"].Value.ToString();
-
+            int totalPrice = Convert.ToInt32(ReceiptDataGridView.SelectedRows[0].Cells["총가격"].Value);
             DialogResult result = MessageBox.Show("환불 처리를 하시겠습니까?", "환불", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
-                bool isRefunded = refundController.ProcessRefund(receiptNo);
+                bool isRefunded = refundController.ProcessRefund(receiptNo, totalPrice);
 
                 if (isRefunded)
                 {
                     MessageBox.Show("환불 처리가 완료되었습니다.");
-                }
-                else
-                {
-                    MessageBox.Show("환불 처리 중 오류가 발생했습니다.");
                 }
             }
         }
