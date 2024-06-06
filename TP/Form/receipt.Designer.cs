@@ -36,7 +36,7 @@
             this.receiptNumberTextBox = new System.Windows.Forms.TextBox();
             this.searchButton = new System.Windows.Forms.Button();
             this.RefundButton = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.showReceiptButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.receiptDetailGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ReceiptDataGridView)).BeginInit();
             this.SuspendLayout();
@@ -47,7 +47,7 @@
             this.label4.Font = new System.Drawing.Font("굴림", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label4.Location = new System.Drawing.Point(13, 13);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(173, 30);
+            this.label4.Size = new System.Drawing.Size(138, 24);
             this.label4.TabIndex = 0;
             this.label4.Text = "영수증 조회";
             // 
@@ -81,7 +81,7 @@
             // 
             this.dateTime.Location = new System.Drawing.Point(426, 15);
             this.dateTime.Name = "dateTime";
-            this.dateTime.Size = new System.Drawing.Size(169, 25);
+            this.dateTime.Size = new System.Drawing.Size(169, 21);
             this.dateTime.TabIndex = 3;
             // 
             // label5
@@ -89,7 +89,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(601, 21);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(87, 15);
+            this.label5.Size = new System.Drawing.Size(69, 12);
             this.label5.TabIndex = 4;
             this.label5.Text = "영수증 번호";
             // 
@@ -97,7 +97,7 @@
             // 
             this.receiptNumberTextBox.Location = new System.Drawing.Point(676, 15);
             this.receiptNumberTextBox.Name = "receiptNumberTextBox";
-            this.receiptNumberTextBox.Size = new System.Drawing.Size(89, 25);
+            this.receiptNumberTextBox.Size = new System.Drawing.Size(89, 21);
             this.receiptNumberTextBox.TabIndex = 5;
             // 
             // searchButton
@@ -120,19 +120,13 @@
             this.RefundButton.UseVisualStyleBackColor = true;
             this.RefundButton.Click += new System.EventHandler(this.RefundButton_Click_1);
             // 
-            // button6
+            // showReceiptButton
             // 
-            this.button6.Location = new System.Drawing.Point(285, 487);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(104, 41);
-            this.button6.TabIndex = 8;
-            this.button6.Text = "영수증 출력";
-            this.button6.UseVisualStyleBackColor = true;
             // 
             // receipt
             // 
             this.ClientSize = new System.Drawing.Size(860, 540);
-            this.Controls.Add(this.button6);
+            this.Controls.Add(this.showReceiptButton);
             this.Controls.Add(this.RefundButton);
             this.Controls.Add(this.searchButton);
             this.Controls.Add(this.receiptNumberTextBox);
@@ -174,6 +168,6 @@
         private System.Windows.Forms.TextBox receiptNumberTextBox;
         private System.Windows.Forms.Button searchButton;
         private System.Windows.Forms.Button RefundButton;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button showReceiptButton;
     }
 }
