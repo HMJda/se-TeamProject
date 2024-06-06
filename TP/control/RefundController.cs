@@ -15,8 +15,9 @@ namespace TP.control
         private ReceiptList receiptList;
         private DateTimePicker dateTimePicker;
         private TextBox receiptNumberTextBox;
+        private string dbServerInfo = "Data Source = localhost; User ID = DEU; Password = 1234;";
 
-        public RefundController(string dbServerInfo, DateTimePicker dateTimePicker, TextBox receiptNumberTextBox)
+        public RefundController(DateTimePicker dateTimePicker, TextBox receiptNumberTextBox)
         {
             this.dateTimePicker = dateTimePicker;
             this.receiptNumberTextBox = receiptNumberTextBox;
@@ -39,18 +40,17 @@ namespace TP.control
             return null;
         }
 
-        public DataTable GetReceipt()
+        public DataTable GetReceipt(DateTime selectedDate, string receiptNumber = null)
         {
-            DateTime selectedDate = GetDate();
-            string receiptNumber = GetReceiptNumber();
-            if (receiptNumber != null)
+            if (string.IsNullOrEmpty(receiptNumber))
             {
-                string sqltxt = $@"SELECT * FROM 영수증 WHERE TRUNC(거래시간) = TO_DATE('{selectedDate}', 'YYYY-MM-DD')";
+                string sqltxt = $"SELECT * FROM 영수증 WHERE TO_CHAR(거래시간, 'YYYY-MM-DD') ='{selectedDate.ToString("yyyy-MM-dd")}'";
                 return receiptList.GetReceipt(sqltxt);
             }
             else
             {
-                return null;
+                string sqltxt = $"SELECT * FROM 영수증 WHERE TO_CHAR(거래시간, 'YYYY-MM-DD') ='{selectedDate.ToString("yyyy-MM-dd")}' AND 영수증번호 = '{receiptNumber}'";
+                return receiptList.GetReceipt(sqltxt);
             }
         }
 

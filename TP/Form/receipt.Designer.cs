@@ -72,7 +72,7 @@
             this.ReceiptDataGridView.RowTemplate.Height = 23;
             this.ReceiptDataGridView.Size = new System.Drawing.Size(420, 477);
             this.ReceiptDataGridView.TabIndex = 2;
-            this.ReceiptDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ReceiptDataGridView_CellContentClick_1);
+            this.ReceiptDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ReceiptDataGridView_CellContentClick);
             // 
             // dateTime
             // 
