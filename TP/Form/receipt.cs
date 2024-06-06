@@ -80,7 +80,7 @@ namespace TP
 
         private void ReceiptDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            if (e.RowIndex >= 0 && ReceiptDataGridView.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
             {
                 string receiptNo = ReceiptDataGridView.Rows[e.RowIndex].Cells["영수증번호"].Value.ToString();
                 DataTable dataTable = receiptControl.GetReceiptDetails(receiptNo);
@@ -89,8 +89,13 @@ namespace TP
                 {
                     receiptDetailGridView.DataSource = dataTable;
                 }
+                else
+                {
+                    MessageBox.Show("영수증 상세 내역을 불러오지 못했습니다.");
+                }
             }
         }
+
 
         private void showReceipt_Click(object sender, EventArgs e)
         {
