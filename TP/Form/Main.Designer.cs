@@ -38,6 +38,7 @@
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
+            this.Inven = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -67,7 +68,7 @@
             this.button3.Location = new System.Drawing.Point(830, 145);
             this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(240, 130);
+            this.button3.Size = new System.Drawing.Size(240, 64);
             this.button3.TabIndex = 2;
             this.button3.Text = "재고";
             this.button3.UseVisualStyleBackColor = true;
@@ -150,12 +151,23 @@
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.productinformation_Click);
             // 
+            // Inven
+            // 
+            this.Inven.Location = new System.Drawing.Point(830, 214);
+            this.Inven.Name = "Inven";
+            this.Inven.Size = new System.Drawing.Size(240, 61);
+            this.Inven.TabIndex = 10;
+            this.Inven.Text = "재고 등록";
+            this.Inven.UseVisualStyleBackColor = true;
+            this.Inven.Click += new System.EventHandler(this.addInven_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1087, 436);
+            this.Controls.Add(this.Inven);
             this.Controls.Add(this.button10);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.button8);
@@ -187,5 +199,6 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button Inven;
     }
 }

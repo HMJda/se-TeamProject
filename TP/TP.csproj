@@ -83,17 +83,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="control\AddInven.cs" />
     <Compile Include="control\OrderReturnController.cs" />
     <Compile Include="control\ProductInfoController.cs" />
     <Compile Include="control\ReceiptControl.cs" />
     <Compile Include="control\SaleController.cs" />
     <Compile Include="control\salesfiguresController.cs" />
     <Compile Include="control\DBController.cs" />
+    <Compile Include="Entitiy\InvenEntity.cs" />
     <Compile Include="Entitiy\OrderEntity.cs" />
     <Compile Include="Entitiy\ProductInfoEntity.cs" />
     <Compile Include="Entitiy\ReceiptList.cs" />
     <Compile Include="Entitiy\ReturnEntity.cs" />
     <Compile Include="Entitiy\StockEntity.cs" />
+    <Compile Include="Form\AddInvenUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\AddInvenUI.designer.cs">
+      <DependentUpon>AddInvenUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form\Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,6 +173,9 @@
     </Compile>
     <Compile Include="control\StockController.cs" />
     <Compile Include="Entitiy\UserEntity.cs" />
+    <EmbeddedResource Include="Form\AddInvenUI.resx">
+      <DependentUpon>AddInvenUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>

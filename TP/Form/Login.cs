@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TP
@@ -69,10 +63,10 @@ namespace TP
 
         private void Login_Click(object sender, EventArgs e)
         {
-           
+
             id = textBox1.Text;
             pw = textBox2.Text;
-            
+
             if (id == IdPlaceholder || pw == PwPlaceholder)
             {
                 MessageBox.Show("ID 또는 Password를 입력하세요.");
@@ -97,7 +91,7 @@ namespace TP
                 else
                 {
                     MessageBox.Show("잘못된 아이디 또는 비밀번호 입니다.", "로그인 실패");
-                }      
+                }
             }
         }
 

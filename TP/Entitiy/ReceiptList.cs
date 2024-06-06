@@ -1,37 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Oracle.ManagedDataAccess.Client;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TP.control;
 
 namespace TP.Entitiy
 {
     internal class ReceiptList
     {
-        private DBController dBcontroller;
+        private DBController dbController;
         private DataTable ReceiptTable;
         private string sqltxt = "select * from 영수증";
 
         public ReceiptList()
         {
-            dBcontroller = new DBController();
+            dbController = new DBController();
+            ReceiptTable = new DataTable();
         }
-
         public DataTable GetReceipt()
         {
-            ReceiptTable = dBcontroller.GetDB(sqltxt);
+            ReceiptTable = dbController.GetDB(sqltxt);
             return ReceiptTable;
         }
         public DataTable GetReceipt(string sqltxt)
         {
-            ReceiptTable = dBcontroller.GetDB(sqltxt);
+            ReceiptTable = dbController.GetDB(sqltxt);
             return ReceiptTable;
         }
         public void SetReceipt(string sqltxt)
         {
-            dBcontroller.SetDB(sqltxt);
+            dbController.SetDB(sqltxt);
+        }
+        public void SetReceipt(string sqltxt, OracleParameter[] parameters)
+        {
+            dbController.ExecuteNonQuery(sqltxt, parameters);
         }
     }
 }

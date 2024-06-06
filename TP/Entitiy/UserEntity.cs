@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Oracle.ManagedDataAccess.Client;
 using System.Collections.Generic;
 using System.Data;
-using Oracle.ManagedDataAccess.Client;
 using TP.control;
 
 namespace TP
@@ -16,7 +15,7 @@ namespace TP
         private DataTable userTable;
 
         public OracleDataReader ReadUsers() //읽기만 하는 용도 
-        {   
+        {
             OracleConnection conn = new OracleConnection(DB_Server_Info); //db 연결
             conn.Open();
             OracleCommand cmd = new OracleCommand(sqltxt, conn);

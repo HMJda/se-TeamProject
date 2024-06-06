@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Oracle.ManagedDataAccess.Client;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TP.control;
-using Oracle.ManagedDataAccess;
-using Oracle.ManagedDataAccess.Client;
 
 namespace TP.Entitiy
 {

@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Oracle.ManagedDataAccess;
-using Oracle.ManagedDataAccess.Client;
-using TP.Entity;
+﻿using Oracle.ManagedDataAccess.Client;
 using System.Data;
 using TP.Entitiy;
+using TP.Entity;
 
 namespace TP.control
 {

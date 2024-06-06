@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using TP.control;
@@ -18,13 +12,13 @@ namespace TP
         DataTable lastYearData = new DataTable();
         salesfiguresController salesfiguresController = new salesfiguresController();
         DateTime today = DateTime.Today;
-        
+
         public rateofreturn()
         {
             InitializeComponent();
             int thisYear = today.Year;
             currentYearData = salesfiguresController.getMargin(thisYear);
-            lastYearData = salesfiguresController.getMargin(thisYear-1);
+            lastYearData = salesfiguresController.getMargin(thisYear - 1);
             chart1.ChartAreas.Add(new ChartArea());
 
             Series currentYearSeries = new Series("이번 년도");
