@@ -13,8 +13,6 @@ namespace TP.control
     internal class RefundController
     {
         private ReceiptList receiptList;
-        private DateTime selectedDate;
-        private int selectedReceiptNumber;
         private DateTimePicker dateTimePicker;
         private TextBox receiptNumberTextBox;
 
@@ -23,42 +21,36 @@ namespace TP.control
             this.dateTimePicker = dateTimePicker;
             this.receiptNumberTextBox = receiptNumberTextBox;
             receiptList = new ReceiptList(dbServerInfo);
-            selectedDate = GetDate();
-            selectedReceiptNumber = GetReceiptNumber();
         }
 
         private DateTime GetDate()
         {
-            DateTime selectedDate = dateTimePicker.Value;
-            return selectedDate;
+            return dateTimePicker.Value;
         }
 
-        private int GetReceiptNumber()
+        private string GetReceiptNumber()
         {
-            int receiptNumber;
-            if (!int.TryParse(receiptNumberTextBox.Text, out receiptNumber))
+            string receiptNumber = receiptNumberTextBox.Text;
+            if (receiptNumber.Length <= 10)
             {
-                MessageBox.Show("잘못된 영수증 번호입니다.");
+                return receiptNumber;
             }
-            if (receiptNumber.ToString().Length > 10)
-            {
-                MessageBox.Show("잘못된 영수증 번호입니다.");
-            }
-            return receiptNumber;
+            MessageBox.Show("잘못된 영수증 번호입니다.");
+            return null;
         }
 
         public DataTable GetReceipt()
         {
-            string sqltxt;
-            if (selectedReceiptNumber == 0)
+            DateTime selectedDate = GetDate();
+            string receiptNumber = GetReceiptNumber();
+            if (receiptNumber != null)
             {
-                sqltxt = $"SELECT * FROM 영수증 WHERE Date = TO_DATE('{selectedDate:yyyy-MM-dd}', 'YYYY-MM-DD')";
+                return receiptList.GetReceipt(selectedDate, receiptNumber);
             }
             else
             {
-                sqltxt = $"SELECT * FROM 영수증 WHERE No = {selectedReceiptNumber} AND Date = TO_DATE('{selectedDate:yyyy-MM-dd}', 'YYYY-MM-DD')";
+                return null;
             }
-            return receiptList.GetReceipts();
         }
 
         public DataTable GetReceiptDetails(string receiptNo)
@@ -66,7 +58,7 @@ namespace TP.control
             return receiptList.GetReceiptDetails(receiptNo);
         }
 
-        public bool ProcessRefund(int receiptNo)
+        public bool ProcessRefund(string receiptNo)
         {
             try
             {
@@ -81,15 +73,15 @@ namespace TP.control
             }
         }
 
-        private void UpdateInventory(int receiptNo)
+        private void UpdateInventory(string receiptNo)
         {
-            string sqltxt = $"UPDATE 재고 SET Quantity = Quantity + (SELECT Quantity FROM 영수증상세 WHERE 영수증번호 = {receiptNo}) WHERE ProductId = (SELECT ProductId FROM 영수증상세 WHERE 영수증번호 = {receiptNo})";
+            string sqltxt = $"UPDATE 재고 SET Quantity = Quantity + (SELECT 수량 FROM 영수증상세 WHERE 영수증번호 = '{receiptNo}') WHERE ProductId = (SELECT ProductId FROM 영수증상세 WHERE 영수증번호 = '{receiptNo}')";
             receiptList.SetReceipt(sqltxt);
         }
 
-        private void SaveRefundedReceipt(int receiptNo)
+        private void SaveRefundedReceipt(string receiptNo)
         {
-            string sqltxt = $"INSERT INTO RefundedReceipts (ReceiptNo, RefundDate) VALUES ({receiptNo}, CURRENT_TIMESTAMP)";
+            string sqltxt = $"INSERT INTO RefundedReceipts (ReceiptNo, RefundDate) VALUES ('{receiptNo}', CURRENT_TIMESTAMP)";
             receiptList.SetReceipt(sqltxt);
         }
     }

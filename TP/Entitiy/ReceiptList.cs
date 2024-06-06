@@ -18,6 +18,7 @@ namespace TP.Entitiy
         public ReceiptList(string dbServerInfo)
         {
             DB_Server_Info = dbServerInfo;
+            dBcontroller = new DBController();
         }
 
         public ReceiptList()
@@ -52,19 +53,25 @@ namespace TP.Entitiy
             return dBcontroller.GetDB(sqltxt);
         }
 
+        public DataTable GetReceipt(DateTime selectedDate, string receiptNumber) // 수정된 메서드
+        {
+            string sqltxt = $"SELECT * FROM 영수증 WHERE 거래일자 = TO_DATE('{selectedDate:yyyy-MM-dd}', 'YYYY-MM-DD') AND 영수증번호 = '{receiptNumber}'";
+            return dBcontroller.GetDB(sqltxt);
+        }
+
         public DataTable GetReceiptDetails(string receiptNo)
         {
             string sqltxt = $"SELECT * FROM 영수증상세 WHERE 영수증번호 = '{receiptNo}'";
             return dBcontroller.GetDB(sqltxt);
         }
 
-        public bool IsReceiptExists(int receiptNumber)
+        public bool IsReceiptExists(string receiptNumber) // 수정된 메서드
         {
             using (OracleDataReader receiptReader = ReadReceipts())
             {
                 while (receiptReader.Read())
                 {
-                    int db_receiptNumber = Convert.ToInt32(receiptReader["영수증번호"]);
+                    string db_receiptNumber = receiptReader["영수증번호"].ToString();
                     if (db_receiptNumber == receiptNumber)
                     {
                         return true;
@@ -74,13 +81,13 @@ namespace TP.Entitiy
             }
         }
 
-        public Dictionary<string, string> GetReceiptInfo(int receiptNumber)
+        public Dictionary<string, string> GetReceiptInfo(string receiptNumber)
         {
             using (OracleDataReader receiptReader = ReadReceipts())
             {
                 while (receiptReader.Read())
                 {
-                    int db_receiptNumber = Convert.ToInt32(receiptReader["영수증번호"]);
+                    string db_receiptNumber = receiptReader["영수증번호"].ToString();
                     if (db_receiptNumber == receiptNumber)
                     {
                         string transactionTime = receiptReader["거래시간"].ToString();
@@ -89,7 +96,7 @@ namespace TP.Entitiy
 
                         return new Dictionary<string, string>
                         {
-                            { "영수증번호", receiptNumber.ToString() },
+                            { "영수증번호", receiptNumber },
                             { "거래시간", transactionTime },
                             { "거래형태", transactionType },
                             { "총가격", totalPrice }
@@ -100,9 +107,9 @@ namespace TP.Entitiy
             }
         }
 
-        public void SaveRefundedReceipt(int receiptNo)
+        public void SaveRefundedReceipt(string receiptNo)
         {
-            string sqltxt = $"INSERT INTO RefundedReceipts (ReceiptNo, RefundDate) VALUES ({receiptNo}, CURRENT_TIMESTAMP)";
+            string sqltxt = $"INSERT INTO RefundedReceipts (ReceiptNo, RefundDate) VALUES ('{receiptNo}', CURRENT_TIMESTAMP)";
             DBController dBController = new DBController();
             dBController.SetDB(sqltxt);
         }

@@ -11,6 +11,7 @@ namespace TP
         private RefundController refundController;
         private string dbServerInfo = "Data Source = localhost; " +
             "User ID = DEU; Password = 1234;";
+
         public receipt()
         {
             InitializeComponent();
@@ -38,7 +39,7 @@ namespace TP
             DialogResult result = MessageBox.Show("환불 처리를 하시겠습니까?", "환불", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
-                int receiptNo = Convert.ToInt32(receiptDetailGridView.Rows[0].Cells["ReceiptNo"].Value);
+                string receiptNo = receiptDetailGridView.Rows[0].Cells["ReceiptNo"].Value.ToString();
                 bool isRefunded = refundController.ProcessRefund(receiptNo);
 
                 if (isRefunded)
@@ -56,7 +57,7 @@ namespace TP
         {
             if (e.RowIndex >= 0)
             {
-                string receiptNo = ReceiptDataGridView.Rows[e.RowIndex].Cells["영수증번호"].Value.ToString();
+                string receiptNo = receiptDetailGridView.Rows[e.RowIndex].Cells["ReceiptNo"].Value.ToString();
                 DataTable dataTable = refundController.GetReceiptDetails(receiptNo);
 
                 if (dataTable != null && dataTable.Rows.Count > 0)
