@@ -128,6 +128,7 @@
             this.showReceipt.TabIndex = 8;
             this.showReceipt.Text = "영수증출력";
             this.showReceipt.UseVisualStyleBackColor = true;
+            this.showReceipt.Click += new System.EventHandler(this.showReceipt_Click);
             // 
             // receipt
             // 
