@@ -57,15 +57,10 @@ namespace TP
 
         private void RefundButton_Click_1(object sender, EventArgs e)
         {
-            if (ReceiptDataGridView.SelectedRows.Count == 0)
+            if (ReceiptDataGridView.CurrentCell == null && ReceiptDataGridView.CurrentCell.Selected)
             {
                 MessageBox.Show("환불할 영수증을 선택하세요.");
                 return;
-            }
-
-            foreach (DataGridViewRow row in ReceiptDataGridView.SelectedRows)
-            {
-                Console.WriteLine($"Selected row index: {row.Index}, 영수증번호: {row.Cells["영수증번호"].Value}");
             }
 
             // DataGridView에서 선택된 행의 "영수증번호" 셀의 값을 가져옴
