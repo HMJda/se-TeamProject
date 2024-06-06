@@ -32,13 +32,13 @@ namespace TP
             if(position == "점장")
             {
                 this.Hide();
-                // 판매 폼을 생성하고 표시합니다
+                // 발주 폼을 생성하고 표시합니다
                 using (Form form = new Order())
                 {
-                    // ShowDialog()를 사용해 판매 폼을 모달로 표시합니다.
+                    // ShowDialog()를 사용해 발주 폼을 모달로 표시합니다.
                     form.ShowDialog();
 
-                    // 판매 폼이 닫히면 메인 폼을 다시 표시합니다.
+                    // 발주 폼이 닫히면 메인 폼을 다시 표시합니다.
                     this.Show();
                 }
             }
@@ -53,13 +53,13 @@ namespace TP
             // 메인 폼을 숨깁니다.
             this.Hide();
 
-            // 판매 폼을 생성하고 표시합니다
+            // 반품 폼을 생성하고 표시합니다
             using (Form form = new Return())
             {
-                // ShowDialog()를 사용해 판매 폼을 모달로 표시합니다.
+                // ShowDialog()를 사용해 반품 폼을 모달로 표시합니다.
                 form.ShowDialog();
 
-                // 판매 폼이 닫히면 메인 폼을 다시 표시합니다.
+                // 반품 폼이 닫히면 메인 폼을 다시 표시합니다.
                 this.Show();
             }
         }
@@ -69,13 +69,13 @@ namespace TP
             // 메인 폼을 숨깁니다.
             this.Hide();
 
-            // 판매 폼을 생성하고 표시합니다
+            // 재고 폼을 생성하고 표시합니다
             using (Form form = new Stock())
             {
-                // ShowDialog()를 사용해 판매 폼을 모달로 표시합니다.
+                // ShowDialog()를 사용해 재고 폼을 모달로 표시합니다.
                 form.ShowDialog();
 
-                // 판매 폼이 닫히면 메인 폼을 다시 표시합니다.
+                // 재고 폼이 닫히면 메인 폼을 다시 표시합니다.
                 this.Show();
             }
         }
@@ -117,13 +117,13 @@ namespace TP
             // 메인 폼을 숨깁니다.
             this.Hide();
 
-            // 판매 폼을 생성하고 표시합니다
+            // 영수증 조회 폼을 생성하고 표시합니다
             using (Form form = new receipt())
             {
-                // ShowDialog()를 사용해 판매 폼을 모달로 표시합니다.
+                // ShowDialog()를 사용해 영수증 조회 폼을 모달로 표시합니다.
                 form.ShowDialog();
 
-                // 판매 폼이 닫히면 메인 폼을 다시 표시합니다.
+                // 영수증 조회 폼이 닫히면 메인 폼을 다시 표시합니다.
                 this.Show();
             }
         }
@@ -133,13 +133,13 @@ namespace TP
             // 메인 폼을 숨깁니다.
             this.Hide();
 
-            // 판매 폼을 생성하고 표시합니다
+            // 물품상세조회 폼을 생성하고 표시합니다
             using (Form form = new productinformation())
             {
-                // ShowDialog()를 사용해 판매 폼을 모달로 표시합니다.
+                // ShowDialog()를 사용해 물품상세조회 폼을 모달로 표시합니다.
                 form.ShowDialog();
 
-                // 판매 폼이 닫히면 메인 폼을 다시 표시합니다.
+                // 물품상세조회 폼이 닫히면 메인 폼을 다시 표시합니다.
                 this.Show();
             }
         }
@@ -149,13 +149,13 @@ namespace TP
             // 메인 폼을 숨깁니다.
             this.Hide();
 
-            // 판매 폼을 생성하고 표시합니다
+            // 판매실적조회 폼을 생성하고 표시합니다
             using (Form form = new salesfigures())
             {
-                // ShowDialog()를 사용해 판매 폼을 모달로 표시합니다.
+                // ShowDialog()를 사용해 판매실적조회 폼을 모달로 표시합니다.
                 form.ShowDialog();
 
-                // 판매 폼이 닫히면 메인 폼을 다시 표시합니다.
+                // 판매실적조회 폼이 닫히면 메인 폼을 다시 표시합니다.
                 this.Show();
             }
         }
@@ -170,13 +170,13 @@ namespace TP
             // 메인 폼을 숨깁니다.
             this.Hide();
 
-            // 판매 폼을 생성하고 표시합니다
+            // 이익률조회 폼을 생성하고 표시합니다
             using (Form form = new rateofreturn())
             {
-                // ShowDialog()를 사용해 판매 폼을 모달로 표시합니다.
+                // ShowDialog()를 사용해 이익률조회 폼을 모달로 표시합니다.
                 form.ShowDialog();
 
-                // 판매 폼이 닫히면 메인 폼을 다시 표시합니다.
+                // 이익률조회 폼이 닫히면 메인 폼을 다시 표시합니다.
                 this.Show();
             }
         }
