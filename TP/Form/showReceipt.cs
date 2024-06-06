@@ -43,8 +43,8 @@ namespace TP
             // 
             // receiptDetailGridView
             // 
-            this.receiptDetailGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.receiptDetailGridView.AllowUserToAddRows = false;
+            this.receiptDetailGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.receiptDetailGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.receiptDetailGridView.Location = new System.Drawing.Point(36, 123);
             this.receiptDetailGridView.Name = "receiptDetailGridView";
@@ -61,6 +61,7 @@ namespace TP
             this.Controls.Add(this.receiptDetailGridView);
             this.Controls.Add(this.label1);
             this.Name = "showReceipt";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             ((System.ComponentModel.ISupportInitialize)(this.receiptDetailGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

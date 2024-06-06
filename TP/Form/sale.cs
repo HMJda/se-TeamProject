@@ -22,7 +22,7 @@ namespace TP
             string productCode = productCordTextBox.Text.Trim();
             dt = inquiryInvenController.GetStock();
             DataRow[] foundRows = dt.Select($"제품번호 = '{productCode}'");
-
+            productCordTextBox.Text = "";
             if (foundRows.Length == 0)
             {
                 MessageBox.Show("제품이 존재하지 않습니다.", "제품 등록 실패");
@@ -427,6 +427,7 @@ namespace TP
         private void cancel_Click(object sender, EventArgs e)
         {
             textBox2.Text = "";
+            UpdateTotalPrice();
         }
     }
 }
